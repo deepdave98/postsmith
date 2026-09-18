@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run *)",
+      "Bash(uv sync *)",
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)",
+      "Bash(pdftoppm *)",
+      "Bash(sips *)",
+      "Bash(pbcopy *)",
+      "Bash(mkdir *)",
+      "Agent",
+      "WebSearch",
+      "WebFetch",
+      "Edit(drafts/**)",
+      "Write(drafts/**)",
+      "Edit(corpus/**)",
+      "Edit(style/**)",
+      "Edit(evals/health/**)",
+      "Edit(memory/**)"
+    ],
+    "deny": [
+      "Read(corpus/heldout/**)",
+      "Read(corpus/ratings.jsonl)",
+      "Read(evals/calibration.jsonl)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Bash|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard_paths.py --deny 'corpus/heldout/**' corpus/ratings.jsonl evals/calibration.jsonl 'drafts/*/tier2/*.key.json' 'drafts/*/final/blind.key.json' 'drafts/eval_*/**/*.key.json'"
+          }
+        ]
+      }
+    ]
+  }
+}
