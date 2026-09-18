@@ -1,0 +1,4 @@
+{
+  "note": "Placeholder. The oracle set is every post under corpus/heldout/ (>= 4 per platform), judged with persona_fit and claims expected N/A. Promotion needs >= 90% of them passing; two failures on one dimension block it. health_run.py fills `posts` with {post_id, platform, verdict, failing_dimensions, rubric_version, profile_version} rows on each run. Empty until a real corpus is ingested.",
+  "posts": []
+}

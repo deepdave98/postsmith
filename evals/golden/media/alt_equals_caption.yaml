@@ -1,0 +1,58 @@
+# Golden media brief: schema-valid, must pass media_check.py, must FAIL the media judge's restatement test
+# (alt_text is the caption verbatim; the visual only restates the caption, it does no work of its own).
+# Caption this brief accompanies (also in expected.json):
+#   Our forecast accuracy went to 94% the quarter we made the close-date field read-only.
+schema: postsmith.media/1
+post_id: golden-alt-equals-caption
+platform: linkedin
+decision: image
+decision_reason: "M3: whiteboard explainer of the forecast change"
+delete_test: "Without it readers would have to imagine the whiteboard."
+carousel_suggested: false
+genre: whiteboard_explainer
+humor_or_hook_device: "none; the image states the result"
+visual_concept: >
+  A whiteboard in a meeting room with the sentence from the post written on it in marker: forecast accuracy went to
+  94% when the close-date field became read-only. An arrow points from the words read-only to the number 94%.
+subject: "a white melamine whiteboard with black and red dry-erase marker writing"
+setting: "small glass-walled meeting room, flat overhead office lighting, a laptop closed on the table below"
+composition:
+  framing: "medium shot, whiteboard fills the frame"
+  angle: "straight-on"
+  focal_point: "the 94% figure"
+  negative_space: "blank whiteboard around the writing"
+style:
+  medium: "photorealistic phone photo"
+  palette: "white, black marker, one red accent"
+  era_or_reference: "taken after a sales meeting"
+  finish: "slight glare on the board"
+on_image_text:
+  lines:
+    - "Forecast accuracy: 94%"
+    - "Close date: read-only"
+  placement: "two lines centred on the board, arrow between them"
+  typography_intent: "handwritten marker capitals"
+must_show:
+  - "a red arrow from read-only to 94%"
+  - "a marker resting on the tray"
+keep_out_as_positive:
+  - "the board holds only the two lines and the arrow"
+  - "the room is free of logos and people"
+aspect_ratio: "4:5"
+target_pixels: "1080x1350"
+resolution_tier: 2K
+tool:
+  primary: nano_banana_pro
+  reason: "two lines of exact text"
+  fallback: gpt_image
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: "Our forecast accuracy went to 94% the quarter we made the close-date field read-only."
+factual_claims_in_visual:
+  - "forecast accuracy 94%"
+risk_notes: "none"

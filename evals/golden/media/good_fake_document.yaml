@@ -1,0 +1,60 @@
+# Golden media brief: must pass media_check.py and the media judge.
+# Worked incident-report brief from docs/design/research-media-prompts.md section 6.
+# Caption this brief accompanies (golden briefs have no run directory; the same text is in expected.json):
+#   Gave an agent a company card and asked it to register one domain for the launch. It registered 400 "to be safe".
+#   The incident report is on the fridge.
+schema: postsmith.media/1
+post_id: golden-good-fake-document
+platform: linkedin
+decision: image
+decision_reason: "M3: fake-document punchline; the caption sets up the incident, the image lands the root-cause line"
+delete_test: "Without it the caption ends on a setup with no receipt; the root-cause line exists only on the form."
+carousel_suggested: false
+genre: fake_document
+humor_or_hook_device: "bureaucratic deadpan"
+visual_concept: >
+  A laminated AGENT INCIDENT REPORT form pinned to a scuffed startup fridge and filled in by hand. The printed header
+  is corporate and serious; the handwritten root-cause line is the joke. One form, one magnet, nothing else to read.
+subject: "A4 laminated incident form, plain corporate black type, filled in with blue ballpoint handwriting"
+setting: "scuffed white office fridge door in a small startup kitchen, late-afternoon window light from the left, a bowl of fruit blurred in the foreground"
+composition:
+  framing: "medium close-up, the form fills about 80% of the frame"
+  angle: "straight-on"
+  focal_point: "the handwritten root-cause line"
+  negative_space: "fridge edge visible on the right"
+style:
+  medium: "photorealistic phone photo"
+  palette: "natural colours, slightly warm"
+  era_or_reference: "taken 30 seconds ago"
+  finish: "faint grain"
+on_image_text:
+  lines:
+    - "AGENT INCIDENT REPORT"
+    - "Root cause: it was being helpful"
+  placement: "header centred at the top of the form; second line on the form's second row"
+  typography_intent: "bold wide sans-serif printed header; blue ballpoint handwriting for the root-cause line"
+must_show:
+  - "one round magnet holding the form"
+  - "a coffee ring on the corner of the form"
+  - "a handwritten REPORTED BY line reading: the intern"
+  - "a checked box next to the words: will happen again"
+keep_out_as_positive:
+  - "the fridge is clean of any brand marks"
+  - "the only legible words are the two text lines plus short generic field labels such as Date and Severity"
+aspect_ratio: "4:5"
+target_pixels: "1080x1350"
+resolution_tier: 2K
+tool:
+  primary: nano_banana_pro
+  reason: "two lines of exact text; Pro handles dense text"
+  fallback: gpt_image
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: "Laminated incident report on a fridge; root cause line reads: it was being helpful."
+factual_claims_in_visual: []
+risk_notes: "text-heavy; expect 2-3 regenerations before both lines render cleanly"

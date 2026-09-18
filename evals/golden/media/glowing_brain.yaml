@@ -1,0 +1,54 @@
+# Golden media brief: schema-valid, must pass media_check.py, must FAIL the media judge's slop screen.
+# Generic "futuristic AI brain with glowing circuits" imagery is the reference negative in
+# docs/design/research-media-prompts.md section 7.
+# Caption this brief accompanies (also in expected.json):
+#   Our eval suite has 1,140 test cases and 50 of them catch every regression we ship. The other 1,090 check
+#   that the model still does what it did in April.
+schema: postsmith.media/1
+post_id: golden-glowing-brain
+platform: linkedin
+decision: image
+decision_reason: "M3: image is the default lift on LinkedIn"
+delete_test: "The post would look less visual in the feed without an image."
+carousel_suggested: false
+genre: photoreal_scene
+humor_or_hook_device: "futuristic awe"
+visual_concept: >
+  A futuristic AI brain made of glowing blue circuits floats above an open laptop, streams of data and binary code
+  swirling around it, with a soft purple-to-blue gradient background suggesting intelligence and innovation.
+subject: "a translucent human brain made of glowing blue circuit traces, hovering above a laptop keyboard"
+setting: "dark abstract space with a purple-to-blue gradient glow and floating particles of light"
+composition:
+  framing: "medium shot, brain centred above the laptop"
+  angle: "slightly low angle looking up at the brain"
+  focal_point: "the glowing brain"
+  negative_space: "gradient background around the subject"
+style:
+  medium: "3D render, cinematic lighting"
+  palette: "electric blue, violet, white highlights"
+  era_or_reference: "tech keynote key visual"
+  finish: "glossy, lens flare"
+must_show:
+  - "glowing circuit traces forming the brain"
+  - "streams of binary digits orbiting the brain"
+  - "a laptop with a softly lit keyboard"
+keep_out_as_positive:
+  - "the background stays an abstract gradient"
+  - "the laptop is a generic unbranded device"
+aspect_ratio: "4:5"
+target_pixels: "1080x1350"
+resolution_tier: 2K
+tool:
+  primary: gpt_image
+  reason: "photoreal 3D key visual"
+  fallback: nano_banana_2
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: "A glowing blue circuit-board brain floats above a laptop against a purple gradient."
+factual_claims_in_visual: []
+risk_notes: "none"

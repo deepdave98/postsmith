@@ -1,0 +1,6 @@
+# Golden media brief: must FAIL media_check.py.
+# decision is image but visual_concept, aspect_ratio, tool.primary, delete_test and decision_reason are all missing.
+schema: postsmith.media/1
+post_id: golden-empty-brief
+platform: linkedin
+decision: image
