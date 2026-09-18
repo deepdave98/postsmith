@@ -3,6 +3,7 @@ name = "postsmith"
 version = "0.1.0"
 description = "Claude Code skills project: learns a voice from reference posts and writes original LinkedIn/X posts"
 requires-python = ">=3.12"
+license = "MIT"
 dependencies = [
   "pyyaml>=6.0",
   "pillow>=10.0",
