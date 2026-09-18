@@ -1,0 +1,63 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "level_and_move": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "platform_register": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

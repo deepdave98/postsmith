@@ -1,0 +1,98 @@
+{
+  "schema": "postsmith.scores/2",
+  "run": "RUN",
+  "cid": "CID",
+  "round": 1,
+  "platform": "PLAT",
+  "rubric_version": "v1",
+  "rubric_sha": "x",
+  "profile_version": 3,
+  "lexicon_version": 2,
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "tier0": {
+    "P1_length": {
+      "class": "hard",
+      "pass": true
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true
+    }
+  },
+  "tier1": {
+    "clarity": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "judge": "judge-reader",
+      "class": "advisory",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": []
+    }
+  },
+  "tier2": {
+    "ran": false,
+    "lineup": null,
+    "paraphrase": null,
+    "pairwise": null,
+    "claims": null,
+    "media": null
+  },
+  "judge_io": {
+    "rejected": [],
+    "na_by_rejection": [],
+    "holds": []
+  },
+  "verdict": {
+    "status": "hold",
+    "hard_fails": [],
+    "soft_fails": [],
+    "flags": [],
+    "unscored": [],
+    "advisory": {
+      "reply_worthiness": 4
+    },
+    "waived": [],
+    "needs_confirmation": [],
+    "waiting_on": [
+      "jury:humor"
+    ],
+    "tier2_tested": false,
+    "na_by_rejection": []
+  },
+  "jury_requests": [
+    {
+      "dimension": "humor",
+      "reason": "threshold-1",
+      "met": false
+    }
+  ],
+  "stop": null
+}

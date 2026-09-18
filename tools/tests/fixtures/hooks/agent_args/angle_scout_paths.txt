@@ -1,0 +1,1 @@
+--deny corpus/heldout corpus/ratings.jsonl evals memory/performance.jsonl 'drafts/*'

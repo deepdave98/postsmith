@@ -1,0 +1,39 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "persona",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "dimensions": {
+    "persona_fit": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "claims": {
+      "na": false,
+      "threshold": null,
+      "pre_step": "one claim",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": [],
+      "claims": [
+        {
+          "text": "ran 3 agents in prod for 6 weeks",
+          "status": "user_provided",
+          "source": "persona.can_claim#1"
+        }
+      ]
+    }
+  }
+}

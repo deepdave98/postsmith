@@ -1,0 +1,1 @@
+{"session_id": "sess-1", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Bash", "tool_input": {"command": "cat corpus/heldout/x.md | head -20", "description": "Peek at a heldout post"}}

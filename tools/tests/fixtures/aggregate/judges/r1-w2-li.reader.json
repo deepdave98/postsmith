@@ -1,0 +1,78 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "The strategy deck was theatre; the three agents in prod were the strategy.",
+      "evidence": [
+        {
+          "quote": "We killed our AI strategy last week.",
+          "why": "thesis recoverable from line 1"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap 'AI strategy' for 'cloud strategy': the domain line no longer works",
+      "evidence": [
+        {
+          "quote": "One of them registered a domain in staging on Thursday",
+          "why": "a first-hand detail only this author could know"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan_announcement",
+      "evidence": [
+        {
+          "quote": "We killed our AI strategy last week.\n\nNobody noticed.",
+          "why": "deadpan announcement, gap opened above the fold"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "The deck is still in the shared drive",
+          "why": "no named target, self-directed"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "reply_worthiness": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "a platform lead: 'ours was 22 pages'",
+      "evidence": [
+        {
+          "quote": "The rest was a PDF.",
+          "why": "a platform lead would reply with their own deck count"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    }
+  }
+}

@@ -1,0 +1,588 @@
+{
+  "schema": "postsmith.scores/2",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r2-w2-li",
+  "round": 2,
+  "platform": "linkedin",
+  "rubric_version": "v1",
+  "rubric_sha": "c11e7dabf61b0c2f0a5c6ba91825a0b51b477f40c9e53ba1fbf85520a08f857d",
+  "profile_version": null,
+  "lexicon_version": 0,
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "text_path": "drafts/2026-09-17_agents-buying-domains/round1/candidates/r1-w2-li.txt",
+  "tier0": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 541,
+      "limit": 3000
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "preview": "We killed our AI strategy last week.\n\nNobody noticed.",
+      "cut_at": 140
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 104,
+      "min_words": 8
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "t1": [],
+      "t2": [],
+      "claude": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P15_burstiness": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P16_broetry": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "evidence": [],
+      "max_shared_ngram": 4,
+      "lcs_chars": 22,
+      "hits": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "soft",
+      "pass": true,
+      "evidence": [],
+      "score": 0.81,
+      "scope": "author:lara-acosta",
+      "out": [
+        {
+          "feature": "sent_words.cv",
+          "value": 0.31,
+          "envelope": [
+            0.48,
+            0.9
+          ]
+        }
+      ]
+    }
+  },
+  "tier0_envelope": {
+    "scope": "author:lara-acosta",
+    "score": 0.81,
+    "out": [
+      {
+        "feature": "sent_words.cv",
+        "value": 0.31,
+        "envelope": [
+          0.48,
+          0.9
+        ]
+      }
+    ]
+  },
+  "tier0_advisory": {
+    "fk_grade": 6.1,
+    "li_length_band": "short",
+    "first_line_words": 6,
+    "question_opener": false,
+    "reading_time_s": 27
+  },
+  "tier1": {
+    "clarity": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "We killed our AI strategy last week.",
+          "why": "thesis recoverable from line 1",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "The strategy deck was theatre; the three agents in prod were the strategy.",
+      "violations": []
+    },
+    "substance": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "One of them registered a domain in staging on Thursday",
+          "why": "a first-hand detail only this author could know",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "swap 'AI strategy' for 'cloud strategy': the domain line no longer works",
+      "violations": []
+    },
+    "hook": {
+      "judge": "judge-reader",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "We killed our AI strategy last week.\n\nNobody noticed.",
+          "why": "deadpan announcement, gap opened above the fold",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "deadpan_announcement",
+      "violations": []
+    },
+    "regret_risk": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "The deck is still in the shared drive",
+          "why": "no named target, self-directed",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "reply_worthiness": {
+      "judge": "judge-reader",
+      "class": "advisory",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "The rest was a PDF.",
+          "why": "a platform lead would reply with their own deck count",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "a platform lead: 'ours was 22 pages'",
+      "violations": []
+    },
+    "register_match_self": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": null,
+      "na": true,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "na",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "level_and_move": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Last Tuesday I archived the board.",
+          "why": "corporate register applied to a trivial act, as assigned",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "not_ai": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 2,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Turns out the strategy was the three agents. The rest was a PDF.",
+          "why": "a summarising last line restates the thesis",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": "Add a longer closing line that lands the joke.",
+      "jury": null,
+      "result": "fail",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": [
+        "summary_line"
+      ]
+    },
+    "platform_register": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "The deck is still in the shared drive if anyone wants a 14-page description of things that never shipped.",
+          "why": "room to set up, no lesson paragraph, no CTA",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "humor": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "which is the most initiative anything on that board ever showed.",
+          "why": "anti-climax: the setup promises drama, the payoff is a staging domain",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "anti_climax; setup: killed strategy; break: nobody noticed",
+      "violations": []
+    },
+    "uniqueness": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "One of them registered a domain in staging on Thursday",
+          "why": "not on the obvious-takes list; the receipt is specific",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "1. AI strategy is dead 2. agents > decks 3. ...",
+      "violations": []
+    },
+    "emotion": {
+      "judge": "judge-comedy",
+      "class": "advisory",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Nobody noticed.",
+          "why": "OHHH beat lands on the second line",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "persona_fit": {
+      "judge": "judge-persona",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "The three agents we actually run in prod kept running.",
+          "why": "matches persona.can_claim#4",
+          "match": "exact",
+          "ratio": 1.0
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "",
+      "violations": []
+    },
+    "claims": {
+      "judge": "judge-persona",
+      "class": "special",
+      "threshold": null,
+      "score": null,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "claims": [
+        {
+          "text": "we run three agents in prod",
+          "status": "user_provided",
+          "source": "persona.can_claim#4"
+        },
+        {
+          "text": "one agent registered a domain in staging",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        },
+        {
+          "text": "41 AI initiatives on the board",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        }
+      ]
+    }
+  },
+  "tier2": {
+    "ran": false,
+    "lineup": null,
+    "paraphrase": null,
+    "pairwise": null,
+    "claims": [
+      {
+        "text": "we run three agents in prod",
+        "status": "user_provided",
+        "source": "persona.can_claim#4"
+      },
+      {
+        "text": "one agent registered a domain in staging",
+        "status": "user_provided",
+        "source": "brief.user_detail"
+      },
+      {
+        "text": "41 AI initiatives on the board",
+        "status": "user_provided",
+        "source": "brief.user_detail"
+      }
+    ],
+    "media": null
+  },
+  "judge_io": {
+    "rejected": [],
+    "na_by_rejection": [],
+    "holds": []
+  },
+  "verdict": {
+    "status": "fail",
+    "hard_fails": [],
+    "soft_fails": [
+      "not_ai"
+    ],
+    "flags": [],
+    "unscored": [],
+    "advisory": {
+      "reply_worthiness": 4,
+      "emotion": 4,
+      "tier0": []
+    },
+    "waived": [],
+    "needs_confirmation": [],
+    "waiting_on": [],
+    "tier2_tested": false,
+    "na_by_rejection": []
+  },
+  "jury_requests": [],
+  "stop": {
+    "reason": "oscillation",
+    "detail": "not_ai failed in rounds 1 and 2 with contradictory fixes: 'Cut the last line so the post ends on the shared-drive joke.' vs 'Add a longer closing line that lands the joke.'",
+    "drop": false,
+    "all": [
+      {
+        "reason": "oscillation",
+        "detail": "not_ai failed in rounds 1 and 2 with contradictory fixes: 'Cut the last line so the post ends on the shared-drive joke.' vs 'Add a longer closing line that lands the joke.'"
+      }
+    ]
+  },
+  "counters": {
+    "regression_events": [],
+    "overlap_streak": {
+      "O1_ngram": 0,
+      "O5_published": 0
+    }
+  },
+  "disagreements": [
+    {
+      "kind": "oscillation",
+      "dimension_or_check": null,
+      "detail": "not_ai failed in rounds 1 and 2 with contradictory fixes: 'Cut the last line so the post ends on the shared-drive joke.' vs 'Add a longer closing line that lands the joke.'"
+    }
+  ],
+  "generated_at": "2026-09-17T09:41:00Z"
+}

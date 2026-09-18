@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "fails": [],
+  "warnings": [
+    "person: capitalized name-like pair in prompt gpt_image: 'Date Severity' (confirm it is not a real person)"
+  ],
+  "decision": "image",
+  "tool": "nano_banana",
+  "platform": "linkedin",
+  "n_fails": 0,
+  "n_warnings": 1,
+  "genre": "fake_document",
+  "prompts": [
+    "gpt_image",
+    "nano_banana"
+  ]
+}

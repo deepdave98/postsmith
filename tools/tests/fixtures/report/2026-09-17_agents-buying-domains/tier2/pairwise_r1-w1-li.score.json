@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "schema": "postsmith.pairwise_score/1",
+  "mode": "reference",
+  "cid": "r1-w1-li",
+  "run": "2026-09-17_agents-buying-domains",
+  "reference_id": "vale_102",
+  "archetype_fallback": false,
+  "advisory": true,
+  "wins": 1,
+  "ties": 1,
+  "losses": 0,
+  "voice": {
+    "wins": 2,
+    "ties": 0,
+    "losses": 0
+  },
+  "per_lens": {
+    "reader": {
+      "better": "win",
+      "voice": "win",
+      "orders": {
+        "12": "win",
+        "21": "win"
+      },
+      "voice_orders": {
+        "12": "win",
+        "21": "win"
+      }
+    },
+    "voice": {
+      "better": "tie",
+      "voice": "win",
+      "orders": {
+        "12": "win",
+        "21": "loss"
+      },
+      "voice_orders": {
+        "12": "win",
+        "21": "win"
+      }
+    }
+  },
+  "paraphrase": null,
+  "pass": true,
+  "missing": [],
+  "invalid": [],
+  "rule": "advisory ranking: per lens, both orders agree -> win/loss, disagree -> tie; pass unless 0 wins and 0 ties across lenses"
+}

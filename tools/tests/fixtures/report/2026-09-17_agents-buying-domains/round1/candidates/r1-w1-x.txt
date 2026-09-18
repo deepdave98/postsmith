@@ -1,0 +1,5 @@
+gave an agent a company card and asked it to register one domain for the launch.
+
+it registered 400. "to be safe."
+
+the incident report is on the fridge. root cause, in its own words: it was being helpful.

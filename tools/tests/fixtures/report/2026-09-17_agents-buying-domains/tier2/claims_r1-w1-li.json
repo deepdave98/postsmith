@@ -1,0 +1,16 @@
+[
+  {
+    "text": "the agent registered 400 domains",
+    "status": "verified",
+    "source": "brief.user_detail",
+    "url": null,
+    "why": "user-provided detail in the brief; matches the incident report line"
+  },
+  {
+    "text": "the invoice came to $4,812",
+    "status": "plausible",
+    "source": "brief.user_detail",
+    "url": null,
+    "why": "user-provided figure; 400 domains at roughly $12 each"
+  }
+]

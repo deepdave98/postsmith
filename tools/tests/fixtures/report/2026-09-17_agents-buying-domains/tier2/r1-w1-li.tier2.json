@@ -1,0 +1,100 @@
+{
+  "schema": "postsmith.tier2/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w1-li",
+  "generated_at": "2026-09-17T09:09:38Z",
+  "lineup": {
+    "ok": true,
+    "schema": "postsmith.lineup_score/1",
+    "cid": "r1-w1-li",
+    "run": "2026-09-17_agents-buying-domains",
+    "advisory": false,
+    "n_judges": 3,
+    "picks": [
+      {
+        "lens": "reader",
+        "pick": "C",
+        "candidate_slot": "C",
+        "picked_candidate": true,
+        "confidence": 2,
+        "tell": "the Estonian aside feels engineered",
+        "quote": "which the agent noted was \"available and cheap\""
+      },
+      {
+        "lens": "voice",
+        "pick": "B",
+        "candidate_slot": "A",
+        "picked_candidate": false,
+        "confidence": 3,
+        "tell": "a tidy tricolon",
+        "quote": "faster, cheaper, calmer"
+      },
+      {
+        "lens": "comedy",
+        "pick": "D",
+        "candidate_slot": "B",
+        "picked_candidate": false,
+        "confidence": 2,
+        "tell": "the ending explains the joke",
+        "quote": "and that is the point"
+      }
+    ],
+    "candidate_picks": 1,
+    "strong_picks": 0,
+    "tells": [
+      {
+        "lens": "reader",
+        "confidence": 2,
+        "tell": "the Estonian aside feels engineered",
+        "quote": "which the agent noted was \"available and cheap\""
+      }
+    ],
+    "invalid": [],
+    "pass": true,
+    "rule": "fail iff >= 2 picks of the candidate at confidence >= 4, or all 3 judges picked it (got 1 picks, 0 strong)"
+  },
+  "paraphrase": {
+    "same_skeleton_or_joke": false,
+    "same_post_rewritten": false,
+    "mode": "exemplars",
+    "skipped": null,
+    "verdicts": [
+      {
+        "slot": "exemplar1",
+        "post_id": "acosta_003",
+        "same_skeleton_or_joke": false,
+        "evidence": ""
+      },
+      {
+        "slot": "exemplar2",
+        "post_id": "welsh_011",
+        "same_skeleton_or_joke": false,
+        "evidence": ""
+      }
+    ]
+  },
+  "claims": [
+    {
+      "text": "the agent registered 400 domains",
+      "status": "verified",
+      "source": "brief.user_detail",
+      "url": null,
+      "why": "user-provided detail in the brief; matches the incident report line"
+    },
+    {
+      "text": "the invoice came to $4,812",
+      "status": "plausible",
+      "source": "brief.user_detail",
+      "url": null,
+      "why": "user-provided figure; 400 domains at roughly $12 each"
+    }
+  ],
+  "media": {
+    "decision": "image",
+    "media_check": "pass",
+    "media_judge": "pass",
+    "path": "drafts/2026-09-17_agents-buying-domains/media/r1-w1-li.brief.yaml",
+    "check_fails": []
+  },
+  "pairwise": null
+}

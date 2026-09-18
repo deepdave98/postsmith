@@ -1,0 +1,207 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w2-li",
+  "round": 1,
+  "platform": "linkedin",
+  "writer": "post-writer-2",
+  "lens": "lara-acosta",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "text_path": "drafts/2026-09-17_agents-buying-domains/round1/candidates/r1-w2-li.txt",
+  "chars": 541,
+  "x_len": null,
+  "fold_preview": "We killed our AI strategy last week.\n\nNobody noticed.\n\nSix weeks ago we had a 14-page deck, a steering committee and a Notion board with 41 ",
+  "checks": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 541,
+      "limit": 3000
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "preview": "We killed our AI strategy last week.\n\nNobody noticed.",
+      "cut_at": 140
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 104,
+      "min_words": 8
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "t1": [],
+      "t2": [],
+      "claude": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P15_burstiness": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P16_broetry": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "evidence": [],
+      "max_shared_ngram": 4,
+      "lcs_chars": 22,
+      "hits": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "soft",
+      "pass": true,
+      "evidence": [],
+      "score": 0.81,
+      "scope": "author:lara-acosta",
+      "out": [
+        {
+          "feature": "sent_words.cv",
+          "value": 0.31,
+          "envelope": [
+            0.48,
+            0.9
+          ]
+        }
+      ]
+    }
+  },
+  "advisory": {
+    "fk_grade": 6.1,
+    "li_length_band": "short",
+    "first_line_words": 6,
+    "question_opener": false,
+    "reading_time_s": 27
+  },
+  "envelope": {
+    "scope": "author:lara-acosta",
+    "score": 0.81,
+    "out": [
+      {
+        "feature": "sent_words.cv",
+        "value": 0.31,
+        "envelope": [
+          0.48,
+          0.9
+        ]
+      }
+    ]
+  },
+  "small_corpus_mode": true,
+  "as_golden": false,
+  "expected_na": [],
+  "modules": {},
+  "hard_fail": false,
+  "n_flags": 0
+}

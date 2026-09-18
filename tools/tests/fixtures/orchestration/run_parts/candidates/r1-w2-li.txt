@@ -1,0 +1,7 @@
+Three agents ran in prod for six weeks.
+
+One of them bought a domain.
+
+In staging.
+
+The invoice was $14.

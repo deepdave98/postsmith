@@ -1,0 +1,22 @@
+{
+  "schema": "postsmith.judge/1",
+  "lens": "voice",
+  "jury": true,
+  "dimensions": {
+    "humor": {
+      "score": 2,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "jury: humor",
+      "evidence": [
+        {
+          "quote": "Tuesday: registered it again with a hyphen, to be safe.",
+          "why": "the triple repeats the setup rather than breaking it"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

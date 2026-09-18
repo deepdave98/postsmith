@@ -1,0 +1,63 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "c1d1e65fe64c59b091dbed6307e3a832c4c79eea32784c922bf7426fe2b612ea",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples; register_match_self is na",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "level_and_move": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "move entry read",
+      "evidence": [
+        {
+          "quote": "this week it bought a fourth. to be safe.",
+          "why": "executes the assigned move at the corpus bar"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "holistic read against the anchors",
+      "evidence": [
+        {
+          "quote": "cites \"abundance of caution.\"",
+          "why": "sentence lengths vary, no summarising close"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "platform_register": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "platform read",
+      "evidence": [
+        {
+          "quote": "our agent has run 3 domains in prod",
+          "why": "reads as a peer talking, no lesson paragraph"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

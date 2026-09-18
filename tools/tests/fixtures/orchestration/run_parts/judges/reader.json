@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

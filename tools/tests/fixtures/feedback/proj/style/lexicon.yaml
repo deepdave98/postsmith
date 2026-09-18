@@ -1,0 +1,7 @@
+lexicon_version: 1
+updated: '2026-09-01'
+tiers:
+  t1: [{phrase: delve, note: t1, since: '2024'}]
+do_not_reuse: {}
+user_tells:
+- {phrase: 'the quiet part', added: '2026-09-02', source: 'rate:r1-w2-li'}

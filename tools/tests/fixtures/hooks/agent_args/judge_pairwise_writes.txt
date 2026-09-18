@@ -1,0 +1,1 @@
+--allow 'drafts/*/tier2/pairwise_*.verdicts/*' 'drafts/eval_*/**/pairwise_*.verdicts/*' --deny '*.key.json' '*.score.json' '*.prompt.md' '*.tier0.json' '*.merged.json' '*.tier2.json' '*.txt'

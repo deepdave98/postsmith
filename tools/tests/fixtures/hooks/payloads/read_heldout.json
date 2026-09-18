@@ -1,0 +1,1 @@
+{"session_id": "sess-1", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Read", "tool_input": {"file_path": "{PROJECT}/corpus/heldout/acosta_004.md"}}

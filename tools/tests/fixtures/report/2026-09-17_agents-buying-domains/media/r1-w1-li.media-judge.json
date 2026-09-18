@@ -1,0 +1,76 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "media",
+  "candidate_sha": "38b4fc0676d5081bd7d4087fb32195f6d1946296c86026c236a660dbcc1f602b",
+  "dimensions": {
+    "media": {
+      "score": 4,
+      "na": false,
+      "pass": true,
+      "threshold": 4,
+      "pre_step": "decision image, genre fake_document, tool nano_banana",
+      "evidence": [
+        {
+          "quote": "Item: one domain, to be safe",
+          "why": "the form carries the punch the caption sets up"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": [],
+      "sub_results": {
+        "alt_text_alone": {
+          "pass": true,
+          "evidence": [
+            {
+              "quote": "the item line reads: one domain, to be safe",
+              "why": "the alt text lands the joke by itself"
+            }
+          ]
+        },
+        "does_work": {
+          "pass": true,
+          "evidence": [
+            {
+              "quote": "AGENT PURCHASE ORDER",
+              "why": "the form is the receipt the caption withholds"
+            }
+          ]
+        },
+        "slop_screen": {
+          "pass": true,
+          "evidence": [
+            {
+              "quote": "scuffed white office fridge",
+              "why": "a specific object, not a gradient"
+            }
+          ]
+        },
+        "executable": {
+          "score": 4,
+          "evidence": [
+            {
+              "quote": "Render the text exactly as written, each once",
+              "why": "two short lines at 2K; one or two regenerations"
+            }
+          ]
+        },
+        "factual": {
+          "pass": true,
+          "evidence": [
+            {
+              "quote": "factual_claims_in_visual: []",
+              "why": "the visual asserts no number"
+            }
+          ]
+        },
+        "capture_direction": {
+          "score": null,
+          "na": true,
+          "evidence": []
+        }
+      }
+    }
+  }
+}

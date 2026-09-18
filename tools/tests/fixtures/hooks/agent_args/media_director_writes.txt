@@ -1,0 +1,1 @@
+--allow 'drafts/*/media/*' 'drafts/*/media/*/*' --deny 'drafts/*/media/*.media-judge.json' 'drafts/*/media/*.media-check.json' 'drafts/*/media/*.judge.prompt.md'

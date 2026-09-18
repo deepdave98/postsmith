@@ -1,0 +1,10 @@
+# Fixture config for the overlap tests (only the sections the overlap tools read).
+version: 1
+overlap:
+  ngram_flag: 6
+  ngram_fail: 8
+  lcs_fail_chars: 40
+  phrase_edit_distance: 2
+  skeleton_jaccard: 0.15
+  sibling_jaccard: 0.5
+  near_duplicate_jaccard: 0.8

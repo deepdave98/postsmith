@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "b8370701cf0582e6f8712c64b9d624ee337c3bc1710e9f8ba42307d324bb0fa2",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "a week of agent purchases as an escalating list",
+      "evidence": [
+        {
+          "quote": "Three things our agent did with the company card this week.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "evidence": [
+        {
+          "quote": "registered 398 more, including the Estonian word for launch",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan announcement",
+      "evidence": [
+        {
+          "quote": "Three things our agent did with the company card this week.",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "no bait, no dunk",
+      "evidence": [
+        {
+          "quote": "filed an incident report on itself",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 3,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "replier: a founder with an agent budget",
+      "evidence": [
+        {
+          "quote": "Monday: registered the launch domain.",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

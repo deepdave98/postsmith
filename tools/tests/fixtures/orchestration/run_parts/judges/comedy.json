@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "dimensions": {
+    "humor": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "uniqueness": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "emotion": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "...",
+      "evidence": [
+        {
+          "quote": "it was being helpful",
+          "why": "the punch lands last"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

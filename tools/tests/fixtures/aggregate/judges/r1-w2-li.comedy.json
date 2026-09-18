@@ -1,0 +1,50 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "humor": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "anti_climax; setup: killed strategy; break: nobody noticed",
+      "evidence": [
+        {
+          "quote": "which is the most initiative anything on that board ever showed.",
+          "why": "anti-climax: the setup promises drama, the payoff is a staging domain"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "uniqueness": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "1. AI strategy is dead 2. agents > decks 3. ...",
+      "evidence": [
+        {
+          "quote": "One of them registered a domain in staging on Thursday",
+          "why": "not on the obvious-takes list; the receipt is specific"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "emotion": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "Nobody noticed.",
+          "why": "OHHH beat lands on the second line"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    }
+  }
+}

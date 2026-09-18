@@ -1,0 +1,40 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "RUN",
+  "cid": "r1-w2-x",
+  "round": 1,
+  "platform": "x",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "text_path": "drafts/RUN/round1/candidates/r1-w2-x.txt",
+  "chars": 67,
+  "x_len": 67,
+  "fold_preview": "six weeks of agents in prod. one invoice: $14. one domain. staging.\n",
+  "checks": {
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "value": 67,
+      "limit": 280
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": false,
+      "evidence": [
+        {
+          "span": "Agree?",
+          "why": "engagement bait"
+        }
+      ]
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "hits": []
+    }
+  },
+  "advisory": {
+    "fk_grade": 5.0
+  },
+  "envelope": null,
+  "small_corpus_mode": true
+}

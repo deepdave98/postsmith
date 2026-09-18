@@ -1,0 +1,225 @@
+# postsmith rubric v1 thresholds (contracts.md §12).
+# Immutable once promoted: create v2 to change anything. Read via common.load_thresholds().
+#
+# Gate classes: hard (any fail rejects) · soft (fail rejects unless a jury median clears it, Tier 1 only;
+# Tier 0 soft fails must be fixed) · flag (must be addressed in a rewrite, cleared by a jury/pairwise
+# answer, or explicitly waived with `aggregate.py merge --waive <id>`) · advisory (reported, never gates).
+# `class` is the class BEFORE any base-rate downgrade. ai_tells.py applies the downgrade (hard -> flag,
+# soft -> advisory) only to ids with `base_rate_downgrade: true`, which mirrors config.postsmith.yaml
+# `base_rate_downgrade.applies_to`; the config list is the source of truth and aggregate.py never
+# re-applies the downgrade, it only reads the class recorded in the tier0 JSON.
+schema: postsmith.thresholds/1
+rubric_version: v1
+
+checks:
+  P0_schema:
+    class: hard
+    required_keys: [claims, angle_sheet, hook_type, ending, media_intent.decision]
+    note: writer output contract; skipped with --as-golden (golden/oracle items have no candidate front matter)
+  P1_length:
+    class: hard
+    note: LI <= platforms.linkedin.max_chars; X <= 280 as X counts (URL 23, emoji 2, CJK 2); long X only if persona opts in
+  P2_fold:
+    class: hard
+    class_when_not_mid_word: flag
+    note: hard if the fold cut lands mid-word, otherwise a flag (platform_check decides per hit)
+  P_min_words:
+    class: hard
+    min_words: 8
+    note: fewer than 8 words or empty = fail, so empty and injection-only items fail deterministically (critic fix 3)
+  P3_hashtags:
+    class: hard
+    base_rate_downgrade: false
+    note: persona policy (default 0, max 3 on LI; 0 on X); trailing hashtag block = hard on both
+  P4_links:
+    class: hard
+    by_platform: {x: hard, linkedin: advisory}
+    base_rate_downgrade: false
+    note: X body = 0 URLs; LI 0 or >= 2; "link in comments" phrase = hard
+  P5_markup:
+    class: hard
+    note: markdown, unicode bold fonts, placeholders, labels, citation artifacts
+  P6_emoji:
+    class: hard
+    base_rate_downgrade: true
+    note: persona/lens policy (default LI <= 3, X <= 1)
+  P7_bait:
+    class: hard
+    base_rate_downgrade: false
+  P8_opener:
+    class: hard
+    base_rate_downgrade: true
+    known_false_positive: true
+    note: subverted opener ("Hot take nobody asked for:") is a joke about the opener; jury may override
+  P9_residue:
+    class: hard
+    base_rate_downgrade: false
+  P10_contrast_flip:
+    class: hard
+    base_rate_downgrade: true
+    known_false_positive: true
+    note: belief-correcting contrast ("Not a success story. Just cheaper."); jury may override
+  P11_cluster:
+    class: hard
+    note: ">= 3 T1 hits, or >= 5 across tiers, or >= 2 Claude-tic hits; single hits reported only"
+  P12_closer:
+    class: hard
+    class_when_heuristic: flag
+    known_false_positive: true
+    note: regex closer = hard; aphoristic-restatement heuristic = flag for judge-reader; quoted mockery of a closer is the false positive
+  P13_specifics:
+    class: hard
+    base_rate_downgrade: false
+    note: "> 40 words with zero specifics"
+  P14_dashes:
+    class: soft
+    base_rate_downgrade: true
+    solo_fail: false
+    note: em/en dash density vs scope envelope; never the only reason a candidate fails
+  P15_burstiness:
+    class: soft
+  P16_broetry:
+    class: soft
+    base_rate_downgrade: true
+  P17_lists:
+    class: hard
+    escalation: {tricolon_1: soft, tricolon_2_plus: hard, emoji_bullets: hard, term_description_lists: hard}
+    base_rate_downgrade: true
+    known_false_positive: true
+    note: a deliberate escalating triple whose third item breaks the pattern (device rule_of_three_escalation) -> jury
+  P18_hedges:
+    class: soft
+    note: ">= 3 hedges"
+  P19_clickbait:
+    class: hard
+    by_platform: {x: hard, linkedin: soft}
+    base_rate_downgrade: false
+  P20_misc:
+    class: soft
+    note: each sub-pattern (hypophora, -ing riders, copula avoidance, "has a name:", meta-signposting, false range) is its own flag
+  O1_ngram:
+    class: hard
+    class_when_flag: flag
+    flag_ngram: 6
+    fail_ngram: 8
+    fail_lcs_chars: 40
+    persistent_drop_after_rewrites: 2
+    note: shared 6-gram with any corpus post = flag; 8-gram or LCS >= 40 chars = hard
+  O2_phrases:
+    class: hard
+    note: do-not-reuse phrase hit (edit distance <= 2)
+  O3_skeleton:
+    class: flag
+    cleared_by: [jury, pairwise_same_post_rewritten_false]
+    note: same archetype + hook type + ending as a corpus card AND word-3-gram Jaccard >= 0.15; jury or pairwise answers "same post rewritten?"
+  O4_sibling:
+    class: flag
+    action: drop_weaker
+    note: 3-gram Jaccard >= 0.5 with a sibling candidate; the orchestrator drops tier0.pick_weaker(a, b) and reruns tier0 on the survivor without that sibling, which clears the flag
+  O5_published:
+    class: hard
+    class_when_flag: flag
+    flag_ngram: 6
+    fail_ngram: 8
+    fail_lcs_chars: 40
+    persistent_drop_after_rewrites: 2
+    note: overlap with memory/published/; Deep must not repeat himself
+  E1_envelope:
+    class: soft
+    threshold: 0.70
+    note: weighted fraction of features inside the lens-scope envelope; register features against self when self n >= 5
+  A_advisory:
+    class: advisory
+    ids: [fk_grade, li_length_band, first_line_words, question_opener, reading_time_s]
+    note: population stats never gate
+
+# Judged dimensions (Tier 1 unless stated). class special = not a 1-5 score.
+dimensions:
+  clarity:            {lens: reader,  class: hard,     threshold: 4}
+  substance:          {lens: reader,  class: hard,     threshold: 4}
+  hook:               {lens: reader,  class: soft,     threshold: 4}
+  regret_risk:        {lens: reader,  class: hard,     threshold: 4, note: "5 = no trigger, 1 = clear trigger"}
+  reply_worthiness:   {lens: reader,  class: advisory, threshold: 3}
+  register_match_self: {lens: voice,  class: soft,     threshold: 4, na_when: {self_samples_lt: 5}}
+  level_and_move:     {lens: voice,   class: soft,     threshold: 3, na_when: {lens_free_writer: true}}
+  not_ai:             {lens: voice,   class: soft,     threshold: 4}
+  platform_register:  {lens: voice,   class: soft,     threshold: 4}
+  humor:              {lens: comedy,  class: soft,     threshold: 4, na_allowed: true}
+  uniqueness:         {lens: comedy,  class: soft,     threshold: 4}
+  emotion:            {lens: comedy,  class: advisory, threshold: 4}
+  persona_fit:        {lens: persona, class: hard,     threshold: 4, note: "3 = one claim needs_confirmation; a candidate failing only here goes to needs_your_call"}
+  claims:
+    lens: persona
+    class: special
+    statuses: [user_provided, brief, opinion, joke, needs_check, verified, plausible, unverifiable, wrong]
+    hard_fail_status: wrong
+    needs_confirmation_status: unverifiable
+    note: classification every round, verification at Tier 2; any wrong claim = hard fail; unverifiable about a named real entity = needs_confirmation
+  media:
+    lens: media
+    class: special
+    tier: 2
+    hard_sub_results: [alt_text_alone, does_work, slop_screen, factual]
+    soft_sub_results: {executable: 4, capture_direction: 4}
+    na_when: {media_decision: none}
+
+lenses:
+  reader:   [clarity, substance, hook, regret_risk, reply_worthiness]
+  voice:    [register_match_self, level_and_move, not_ai, platform_register]
+  comedy:   [humor, uniqueness, emotion]
+  persona:  [persona_fit, claims]
+  media:    [media]
+  lineup:   []
+  pairwise: []
+
+jury:
+  soft_trigger: threshold_minus_1        # soft dimension scores exactly threshold - 1
+  hard_trigger_score: 3                  # hard judged dimension scores exactly 3
+  hold_triggers_jury: true               # hard-gate na after the rerun -> hold -> jury of 3 fresh judges
+  o3_flag_triggers_jury: true
+  size: 3                                # capped; original judgment + 2 fresh, or 3 fresh for a hold
+  known_false_positive_checks: [P8_opener, P10_contrast_flip, P12_closer, P17_lists]
+  override_threshold: 4                  # jury median >= 4 on a Tier 0 check = "false positive, not a tell" -> check passes
+  rotation: {reader: [voice, comedy], voice: [comedy, reader], comedy: [reader, voice], persona: [voice, reader]}
+  split_logged_at: 2                     # max - min of the votes >= 2 -> disagreements entry
+
+rerun:
+  rotation: {reader: voice, voice: comedy, comedy: reader, persona: voice, media: media, lineup: lineup, pairwise: pairwise}
+  max_rejections_before_na: 2            # second rejection: soft -> na (counted as na_by_rejection), hard -> hold
+  max_na_by_rejection_before_needs_call: 2   # mirrors config.judges
+
+lineup:
+  judges: 3
+  fail_if_picks_at_confidence: {picks: 2, confidence: 4}
+  fail_if_all_pick: true
+  advisory_when_fillers_lt: 6
+  single_pick_at_confidence_enters_feedback: 4
+
+pairwise:
+  inconsistent_orders: tie
+  reference_mode: advisory
+  exemplars_mode: hard
+  fail_when: "0 wins and 0 ties on 'better post' across all calls"
+
+paraphrase:
+  any_judge_same_post_rewritten: fail
+  any_judge_same_skeleton_or_joke: fail
+
+evidence:
+  fuzzy_ratio_from: config.judges.evidence_fuzzy_ratio
+  normalization: [NFKC, fold_quotes_dashes_ellipsis, collapse_whitespace, casefold]
+
+stop:
+  oscillation:
+    consecutive_rounds: true
+    conflict_keywords: [[shorter, longer], [cut, add], [remove, keep], [more, less]]
+    explicit_field: contradicts
+    hard_gate_pass_then_fail: true
+  regression:
+    hard_gate_pass_then_fail_events: 2   # -> drop
+  overlap_persistent:
+    checks: [O1_ngram, O5_published]
+    rewrites: 2                          # flag present in the original and after two rewrites -> drop
+
+verdict_states: [pass, fail, hold, needs_your_call, passed_tier1_only]
+ranking_key: [hard_fails, soft_fails_plus_flags, -reply_worthiness, -sum_tier1_scores]

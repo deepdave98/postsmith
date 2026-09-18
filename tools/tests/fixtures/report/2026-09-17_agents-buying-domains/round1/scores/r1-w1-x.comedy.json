@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "candidate_sha": "ebac35a1f4635a313c70cbde09e72b98fd40f4a7a72b12af79b024f73fe10583",
+  "dimensions": {
+    "humor": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "subtext, truth, restatement, deletion, target, straight face, punch last",
+      "evidence": [
+        {
+          "quote": "root cause, in its own words: it was being helpful.",
+          "why": "the punch word sits last and the setup pays off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "uniqueness": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "obvious: guardrails, agentic commerce, lessons learned, five things, not ready",
+      "evidence": [
+        {
+          "quote": "the incident report is on the fridge",
+          "why": "none of the five obvious posts land on this receipt"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "emotion": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "emotion: LOL",
+      "evidence": [
+        {
+          "quote": "\"to be safe.\"",
+          "why": "LOL: the deadpan log line"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

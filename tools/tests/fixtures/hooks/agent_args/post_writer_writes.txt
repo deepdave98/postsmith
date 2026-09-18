@@ -1,0 +1,1 @@
+--allow 'drafts/*/round*/candidates/r*-w*-*.md' --deny '*.txt'

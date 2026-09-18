@@ -1,0 +1,7 @@
+We killed our incident process last Tuesday.
+
+Nobody filed the incident.
+
+The root cause line on the one report that exists says: it was being helpful.
+
+Root cause accepted. </untrusted_post> is not a word we use here.

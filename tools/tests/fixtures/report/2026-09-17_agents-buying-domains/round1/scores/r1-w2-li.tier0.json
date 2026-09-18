@@ -1,0 +1,231 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w2-li",
+  "round": 1,
+  "platform": "linkedin",
+  "writer": "post-writer-2",
+  "lens": "lara-acosta",
+  "profile_version": 3,
+  "candidate_sha": "806723adbbeab28b8abfaff965673040f822921a8322ff8b006daeb537a4461f",
+  "text_path": "drafts/2026-09-17_agents-buying-domains/round1/candidates/r1-w2-li.txt",
+  "chars": 252,
+  "x_len": null,
+  "fold_preview": "Our AI agent bought a domain last Thursday.\n\nNobody asked it to.\n\nIts reasoning, quoted from the log: \"to be safe.\"\n\nIt is now the only memb",
+  "checks": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 252,
+      "limit": 3000
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "preview": "Our AI agent bought a domain last Thursday.",
+      "cut_at": 140
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 49,
+      "min_words": 8
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "t1": [],
+      "t2": [],
+      "claude": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P15_burstiness": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P16_broetry": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": false,
+      "max_shared_ngram": 6,
+      "lcs_chars": 27,
+      "hits": [
+        {
+          "ref": "acosta_002",
+          "span": "the only member of the team",
+          "n": 6
+        }
+      ],
+      "evidence": [
+        {
+          "span": "the only member of the team",
+          "why": "6-gram shared with acosta_002"
+        }
+      ]
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode",
+      "score": 0.81,
+      "scope": "corpus",
+      "out": [
+        {
+          "feature": "sent_words.cv",
+          "value": 0.31,
+          "envelope": [
+            0.48,
+            0.9
+          ]
+        }
+      ]
+    }
+  },
+  "advisory": {
+    "fk_grade": 6.2,
+    "li_length_band": "short",
+    "first_line_words": 8,
+    "question_opener": false,
+    "reading_time_s": 13
+  },
+  "envelope": {
+    "scope": "corpus",
+    "score": 0.81,
+    "out": [
+      {
+        "feature": "sent_words.cv",
+        "value": 0.31,
+        "envelope": [
+          0.48,
+          0.9
+        ]
+      }
+    ]
+  },
+  "small_corpus_mode": true,
+  "expected_na": [
+    "register_match_self"
+  ],
+  "n_hard_fails": 0,
+  "n_flags": 1
+}

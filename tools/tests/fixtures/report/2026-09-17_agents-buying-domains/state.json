@@ -1,0 +1,39 @@
+{
+  "schema": "postsmith.state/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "topic": "agents buying domains to be safe",
+  "created_at": "2026-09-17T09:00:00Z",
+  "updated_at": "2026-09-17T09:09:40Z",
+  "flags": {
+    "quick": false,
+    "wide": false,
+    "no_media": false,
+    "platform": "both",
+    "lens": null,
+    "seed": 4171,
+    "writers": 3
+  },
+  "round": 2,
+  "stage": "deliver",
+  "history": [
+    {
+      "ts": "2026-09-17T09:00:00Z",
+      "round": 1,
+      "stage": "write",
+      "outputs": [],
+      "n_actions": 3
+    },
+    {
+      "ts": "2026-09-17T09:09:40Z",
+      "round": 2,
+      "stage": "deliver",
+      "outputs": [],
+      "n_actions": 3
+    }
+  ],
+  "actions": [],
+  "waiting_on": [],
+  "notes": [],
+  "candidates": {},
+  "requested_outputs": {}
+}

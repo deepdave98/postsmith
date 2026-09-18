@@ -1,0 +1,1 @@
+--allow 'drafts/*/media/*.media-judge.json' 'drafts/eval_*/**/media/*.media-judge.json' --deny '*.key.json' '*.score.json' '*.prompt.md' '*.tier0.json' '*.merged.json' '*.tier2.json' '*.txt'

@@ -1,0 +1,33 @@
+[
+ {
+  "author": "Sahil Bloom",
+  "platform": "linkedin",
+  "posted_at": "2026-03-02",
+  "text": "I tracked every meeting for 90 days.\n\n412 meetings. 61 had an agenda. 9 ended with a decision.\n\nThe 9 were all under 20 minutes.",
+  "media": [
+   {
+    "path_or_url": "bloom_chart.png",
+    "description": "bar chart, three bars"
+   }
+  ],
+  "engagement": {
+   "likes": 5400,
+   "comments": 210,
+   "reposts": 90
+  }
+ },
+ {
+  "author": "Paul Graham",
+  "url": "https://x.com/paulg/status/1",
+  "text": "the best founders reply to email in one line",
+  "media": []
+ },
+ {
+  "author": "Paul Graham",
+  "platform": "x",
+  "text": "la mejor idea llega cuando dejas de buscarla y empiezas a escribir el correo de disculpa",
+  "media": [
+   "https://pbs.example.com/img/1.jpg"
+  ]
+ }
+]

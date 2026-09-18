@@ -1,0 +1,67 @@
+2026-09-17T09:00:00Z init topic='agents buying domains to be safe' flags={"quick": false, "wide": false, "no_media": false, "platform": "both", "lens": null, "seed": 4171, "writers": 3} matrix_seed=4171
+2026-09-17T09:00:05Z call agent=angle-scout wall=41s est_tokens=6100
+2026-09-17T09:00:50Z call agent=post-writer-1 wall=92s est_tokens=14200
+2026-09-17T09:00:50Z call agent=post-writer-2 wall=88s est_tokens=13900
+2026-09-17T09:00:50Z call agent=post-writer-3 wall=97s est_tokens=15100
+2026-09-17T09:02:30Z call tool=tier0.py cid=r1-w1-li wall=2s
+2026-09-17T09:02:30Z call tool=tier0.py cid=r1-w2-li wall=2s
+2026-09-17T09:02:30Z call tool=tier0.py cid=r1-w3-li wall=2s
+2026-09-17T09:02:30Z call tool=tier0.py cid=r1-w1-x wall=1s
+2026-09-17T09:02:30Z call tool=tier0.py cid=r1-w2-x wall=1s
+2026-09-17T09:02:40Z call agent=judge-reader cid=r1-w1-li wall=44s est_tokens=5200
+2026-09-17T09:02:40Z call agent=judge-voice cid=r1-w1-li wall=51s est_tokens=6100
+2026-09-17T09:02:40Z call agent=judge-comedy cid=r1-w1-li wall=39s est_tokens=4900
+2026-09-17T09:02:40Z call agent=judge-persona cid=r1-w1-li wall=47s est_tokens=5600
+2026-09-17T09:02:40Z call agent=judge-reader cid=r1-w2-li wall=40s est_tokens=5000
+2026-09-17T09:02:40Z call agent=judge-voice cid=r1-w2-li wall=48s est_tokens=5900
+2026-09-17T09:02:40Z call agent=judge-comedy cid=r1-w2-li wall=37s est_tokens=4700
+2026-09-17T09:02:40Z call agent=judge-persona cid=r1-w2-li wall=45s est_tokens=5500
+2026-09-17T09:02:40Z call agent=judge-reader cid=r1-w3-li wall=42s est_tokens=5100
+2026-09-17T09:02:40Z call agent=judge-voice cid=r1-w3-li wall=50s est_tokens=6000
+2026-09-17T09:02:40Z call agent=judge-comedy cid=r1-w3-li wall=38s est_tokens=4800
+2026-09-17T09:02:40Z call agent=judge-persona cid=r1-w3-li wall=46s est_tokens=5500
+2026-09-17T09:02:40Z call agent=judge-reader cid=r1-w1-x wall=31s est_tokens=3900
+2026-09-17T09:02:40Z call agent=judge-voice cid=r1-w1-x wall=36s est_tokens=4400
+2026-09-17T09:02:40Z call agent=judge-comedy cid=r1-w1-x wall=30s est_tokens=3700
+2026-09-17T09:02:40Z call agent=judge-persona cid=r1-w1-x wall=35s est_tokens=4200
+2026-09-17T09:02:40Z call agent=judge-reader cid=r1-w2-x wall=32s est_tokens=3900
+2026-09-17T09:02:40Z call agent=judge-voice cid=r1-w2-x wall=35s est_tokens=4300
+2026-09-17T09:02:40Z call agent=judge-comedy cid=r1-w2-x wall=29s est_tokens=3600
+2026-09-17T09:02:40Z call agent=judge-persona cid=r1-w2-x wall=36s est_tokens=4300
+2026-09-17T09:03:40Z call tool=aggregate.py merge x5 wall=3s
+2026-09-17T09:03:45Z call agent=judge-voice cid=r1-w2-x jury=persona_fit wall=33s est_tokens=4100
+2026-09-17T09:03:45Z call agent=judge-reader cid=r1-w2-x jury=persona_fit wall=31s est_tokens=4000
+2026-09-17T09:04:20Z call tool=aggregate.py merge cid=r1-w2-x wall=1s
+2026-09-17T09:04:22Z call tool=aggregate.py feedback cid=r1-w3-li wall=1s
+2026-09-17T09:04:25Z call agent=post-writer-3 rewrite cid=r1-w3-li wall=81s est_tokens=12800
+2026-09-17T09:05:50Z call tool=tier0.py cid=r2-w3-li wall=2s
+2026-09-17T09:05:55Z call agent=judge-reader cid=r2-w3-li wall=41s est_tokens=5100
+2026-09-17T09:05:55Z call agent=judge-voice cid=r2-w3-li wall=49s est_tokens=6000
+2026-09-17T09:05:55Z call agent=judge-comedy cid=r2-w3-li wall=38s est_tokens=4800
+2026-09-17T09:05:55Z call agent=judge-persona cid=r2-w3-li wall=45s est_tokens=5500
+2026-09-17T09:06:50Z call tool=aggregate.py merge cid=r2-w3-li wall=1s
+2026-09-17T09:06:52Z call agent=judge-reader cid=r2-w3-li jury=humor wall=30s est_tokens=3900
+2026-09-17T09:06:52Z call agent=judge-voice cid=r2-w3-li jury=humor wall=32s est_tokens=4000
+2026-09-17T09:07:30Z call tool=aggregate.py merge cid=r2-w3-li wall=1s
+2026-09-17T09:07:32Z call tool=lineup.py build cid=r1-w1-li wall=1s
+2026-09-17T09:07:32Z call tool=lineup.py build cid=r1-w1-x wall=1s
+2026-09-17T09:07:32Z call tool=pairwise.py build cid=r1-w1-li wall=1s
+2026-09-17T09:07:32Z call tool=pairwise.py build cid=r1-w1-x wall=1s
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-li lens=reader wall=28s est_tokens=3400
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-li lens=voice wall=27s est_tokens=3400
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-li lens=comedy wall=26s est_tokens=3300
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-x lens=reader wall=22s est_tokens=2900
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-x lens=voice wall=23s est_tokens=2900
+2026-09-17T09:07:35Z call agent=judge-lineup cid=r1-w1-x lens=comedy wall=21s est_tokens=2800
+2026-09-17T09:07:35Z call agent=judge-pairwise cid=r1-w1-li slot=exemplar1 wall=25s est_tokens=3100
+2026-09-17T09:07:35Z call agent=judge-pairwise cid=r1-w1-li slot=exemplar2 wall=24s est_tokens=3100
+2026-09-17T09:07:35Z call agent=judge-pairwise cid=r1-w1-x slot=exemplar1 wall=20s est_tokens=2700
+2026-09-17T09:07:35Z call agent=judge-pairwise cid=r1-w1-x slot=exemplar2 wall=19s est_tokens=2700
+2026-09-17T09:07:35Z call agent=judge-persona verify cid=r1-w1-li wall=58s est_tokens=6900
+2026-09-17T09:07:35Z call agent=media-director cid=r1-w1-li wall=74s est_tokens=9800
+2026-09-17T09:08:55Z call tool=media_check.py cid=r1-w1-li wall=1s
+2026-09-17T09:08:57Z call agent=media-judge cid=r1-w1-li wall=36s est_tokens=4600
+2026-09-17T09:09:35Z call tool=lineup.py score x2 wall=1s
+2026-09-17T09:09:35Z call tool=pairwise.py score x2 wall=1s
+2026-09-17T09:09:38Z call tool=aggregate.py merge x2 (tier2) wall=2s
+2026-09-17T09:09:40Z stage deliver

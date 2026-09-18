@@ -1,0 +1,1 @@
+--allow 'drafts/learn_*/prompts/*' 'corpus/media/**' 'corpus/frames/**' 'style/taxonomies/**' '.claude/skills/learn/references/*' --deny 'corpus/posts/**' 'corpus/heldout/**' 'corpus/self/**' 'corpus/cards/**' 'corpus/features/**' corpus/ratings.jsonl evals memory 'drafts/*/round*'

@@ -1,0 +1,23 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "jury": true,
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "Nobody noticed.",
+          "why": "uneven rhythm: a two-word line after a long one"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    }
+  }
+}

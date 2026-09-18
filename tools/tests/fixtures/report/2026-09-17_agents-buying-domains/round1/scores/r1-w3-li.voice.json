@@ -1,0 +1,63 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "b8370701cf0582e6f8712c64b9d624ee337c3bc1710e9f8ba42307d324bb0fa2",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples; register_match_self is na",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "level_and_move": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "move entry read",
+      "evidence": [
+        {
+          "quote": "Monday: registered the launch domain. Fine.",
+          "why": "executes the assigned move at the corpus bar"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "score": 2,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "holistic read against the anchors",
+      "evidence": [
+        {
+          "quote": "Guardrails are not a feature. They are the product.",
+          "why": "a moralising closer that restates the thesis as a slogan"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": "cut the closing aphorism; end on the incident report",
+      "needs_confirmation": []
+    },
+    "platform_register": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "platform read",
+      "evidence": [
+        {
+          "quote": "Three things our agent did",
+          "why": "reads as a peer talking, no lesson paragraph"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "postsmith.feedback/1",
+  "cid": "r1-w3-li",
+  "round": 1,
+  "platform": "linkedin",
+  "verdict": "fail",
+  "stop": null,
+  "move": "escalating_triple_break",
+  "lens": "justin-welsh",
+  "tier0": [],
+  "envelope_out": [
+    {
+      "feature": "sent_words.cv",
+      "value": 0.31,
+      "envelope": [
+        0.48,
+        0.9
+      ]
+    }
+  ],
+  "tier1": [
+    {
+      "dimension": "not_ai",
+      "class": "soft",
+      "result": "fail",
+      "score": 2,
+      "threshold": 4,
+      "judge": "judge-voice",
+      "jury_median": null,
+      "evidence": [
+        {
+          "quote": "Guardrails are not a feature. They are the product.",
+          "why": "a moralising closer that restates the thesis as a slogan"
+        }
+      ],
+      "suggested_fix": "cut the closing aphorism; end on the incident report",
+      "violations": [],
+      "needs_confirmation": []
+    }
+  ],
+  "tier2": {},
+  "lineup_tells": [],
+  "unscored": [],
+  "flags": [],
+  "instruction": "Fix these, keep everything that passed; do not change the move or the claims unless uniqueness or persona_fit failed."
+}

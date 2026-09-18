@@ -1,0 +1,1 @@
+{"session_id": "sess-2", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Write", "tool_input": {"file_path": "{PROJECT}/drafts/run_a/round1/scores/r1-w1-li.reader.json", "content": "{\"schema\": \"postsmith.judge/1\"}"}}

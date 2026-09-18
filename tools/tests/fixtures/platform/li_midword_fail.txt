@@ -1,0 +1,3 @@
+I spent eleven months building an internal tool that three teammates used and the one thing I learned about scope is that nobody ever asks you to make anything smaller and nobody ever will
+
+So I started asking myself.

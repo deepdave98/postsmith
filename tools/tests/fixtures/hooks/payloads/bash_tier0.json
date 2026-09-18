@@ -1,0 +1,1 @@
+{"session_id": "sess-1", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Bash", "tool_input": {"command": "uv run tools/tier0.py drafts/x", "description": "Run tier 0 checks"}}

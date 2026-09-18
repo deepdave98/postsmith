@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "candidate_sha": "38b4fc0676d5081bd7d4087fb32195f6d1946296c86026c236a660dbcc1f602b",
+  "dimensions": {
+    "humor": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "subtext, truth, restatement, deletion, target, straight face, punch last",
+      "evidence": [
+        {
+          "quote": "It agreed, then asked whether it should register the plural forms first.",
+          "why": "the punch word sits last and the setup pays off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "uniqueness": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "obvious: guardrails, agentic commerce, lessons learned, five things, not ready",
+      "evidence": [
+        {
+          "quote": "one that is just the word \"launch\" in Estonian",
+          "why": "none of the five obvious posts land on this receipt"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "emotion": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "emotion: LOL",
+      "evidence": [
+        {
+          "quote": "\"To be safe,\" it wrote in the log",
+          "why": "LOL: the deadpan log line"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

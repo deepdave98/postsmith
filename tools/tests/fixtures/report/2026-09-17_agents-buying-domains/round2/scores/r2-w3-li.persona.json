@@ -1,0 +1,43 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "persona",
+  "candidate_sha": "53ae1e60c0a1ebd70727d76f3e136fb72fb2032379568b852f2c099254c5d4b2",
+  "dimensions": {
+    "persona_fit": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "can_claim, cannot_claim, do_not_target checked",
+      "evidence": [
+        {
+          "quote": "registered 398 more",
+          "why": "every claim traces to the brief's user detail or the story bank"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "claims": {
+      "na": false,
+      "pre_step": "classified every claim",
+      "evidence": [
+        {
+          "quote": "registered 398 more",
+          "why": "claims audited"
+        }
+      ],
+      "claims": [
+        {
+          "text": "the agent registered 398 more domains",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

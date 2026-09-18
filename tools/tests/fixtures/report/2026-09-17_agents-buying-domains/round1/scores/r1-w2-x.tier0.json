@@ -1,0 +1,220 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w2-x",
+  "round": 1,
+  "platform": "x",
+  "writer": "post-writer-2",
+  "lens": "lara-acosta",
+  "profile_version": 3,
+  "candidate_sha": "c1d1e65fe64c59b091dbed6307e3a832c4c79eea32784c922bf7426fe2b612ea",
+  "text_path": "drafts/2026-09-17_agents-buying-domains/round1/candidates/r1-w2-x.txt",
+  "chars": 202,
+  "x_len": 202,
+  "fold_preview": "our agent has run 3 domains in prod for 6 weeks with no manager and a company card.\n\nthis week it bought a fourth. to be safe.\n\nit is the on",
+  "checks": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 202,
+      "limit": 280
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "preview": "our agent has run 3 domains in prod for 6 weeks with no manager and a company card.",
+      "cut_at": 140
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 39,
+      "min_words": 8
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "t1": [],
+      "t2": [],
+      "claude": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P15_burstiness": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P16_broetry": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "evidence": [],
+      "max_shared_ngram": 4,
+      "lcs_chars": 21,
+      "hits": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode",
+      "score": 0.81,
+      "scope": "corpus",
+      "out": [
+        {
+          "feature": "sent_words.cv",
+          "value": 0.31,
+          "envelope": [
+            0.48,
+            0.9
+          ]
+        }
+      ]
+    }
+  },
+  "advisory": {
+    "fk_grade": 6.2,
+    "li_length_band": "short",
+    "first_line_words": 18,
+    "question_opener": false,
+    "reading_time_s": 10
+  },
+  "envelope": {
+    "scope": "corpus",
+    "score": 0.81,
+    "out": [
+      {
+        "feature": "sent_words.cv",
+        "value": 0.31,
+        "envelope": [
+          0.48,
+          0.9
+        ]
+      }
+    ]
+  },
+  "small_corpus_mode": true,
+  "expected_na": [
+    "register_match_self"
+  ],
+  "n_hard_fails": 0,
+  "n_flags": 0
+}

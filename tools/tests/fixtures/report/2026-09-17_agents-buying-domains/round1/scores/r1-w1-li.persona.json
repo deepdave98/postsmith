@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "persona",
+  "candidate_sha": "38b4fc0676d5081bd7d4087fb32195f6d1946296c86026c236a660dbcc1f602b",
+  "dimensions": {
+    "persona_fit": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "can_claim, cannot_claim, do_not_target checked",
+      "evidence": [
+        {
+          "quote": "The invoice came to $4,812.",
+          "why": "every claim traces to the brief's user detail or the story bank"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "claims": {
+      "na": false,
+      "pre_step": "classified every claim",
+      "evidence": [
+        {
+          "quote": "The invoice came to $4,812.",
+          "why": "claims audited"
+        }
+      ],
+      "claims": [
+        {
+          "text": "the agent registered 400 domains",
+          "status": "needs_check",
+          "source": "brief.user_detail"
+        },
+        {
+          "text": "the invoice came to $4,812",
+          "status": "needs_check",
+          "source": "brief.user_detail"
+        },
+        {
+          "text": "the Estonian word for launch was available and cheap",
+          "status": "joke",
+          "source": "joke"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

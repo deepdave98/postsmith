@@ -1,0 +1,61 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples exist; register cannot be judged",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "level_and_move": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "Last Tuesday I archived the board.",
+          "why": "corporate register applied to a trivial act, as assigned"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    },
+    "not_ai": {
+      "score": 3,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "Turns out the strategy was the three agents. The rest was a PDF.",
+          "why": "a summarising last line restates the thesis"
+        }
+      ],
+      "violations": [
+        "summary_line"
+      ],
+      "suggested_fix": "Cut the last line so the post ends on the shared-drive joke."
+    },
+    "platform_register": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "The deck is still in the shared drive if anyone wants a 14-page description of things that never shipped.",
+          "why": "room to set up, no lesson paragraph, no CTA"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    }
+  }
+}

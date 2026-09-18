@@ -1,0 +1,1 @@
+--allow 'drafts/*/round*/scores/*.reader.json' 'drafts/*/round*/scores/*.reader.rerun-*.json' 'drafts/*/round*/scores/*.jury.reader.*.json' 'drafts/eval_*/**/scores/*.reader.json' 'drafts/eval_*/**/scores/*.jury.reader.*.json' --deny '*.key.json' '*.score.json' '*.prompt.md' '*.tier0.json' '*.merged.json' '*.tier2.json' '*.txt'

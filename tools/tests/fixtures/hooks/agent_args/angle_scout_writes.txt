@@ -1,0 +1,1 @@
+--allow 'drafts/*/brief_inputs.json'

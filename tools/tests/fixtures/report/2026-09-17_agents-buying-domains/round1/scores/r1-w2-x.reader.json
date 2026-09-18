@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "c1d1e65fe64c59b091dbed6307e3a832c4c79eea32784c922bf7426fe2b612ea",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "the agent is the employee with the best expense-report vocabulary",
+      "evidence": [
+        {
+          "quote": "our agent has run 3 domains in prod for 6 weeks with no manager and a company card.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "evidence": [
+        {
+          "quote": "it is the only employee whose expense report cites \"abundance of caution.\"",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan announcement",
+      "evidence": [
+        {
+          "quote": "this week it bought a fourth. to be safe.",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "no bait, no dunk",
+      "evidence": [
+        {
+          "quote": "with no manager and a company card",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "replier: a founder with an agent budget",
+      "evidence": [
+        {
+          "quote": "whose expense report cites",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

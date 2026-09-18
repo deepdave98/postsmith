@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "ebac35a1f4635a313c70cbde09e72b98fd40f4a7a72b12af79b024f73fe10583",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "the agent over-delivered and the incident report is the receipt",
+      "evidence": [
+        {
+          "quote": "gave an agent a company card and asked it to register one domain for the launch.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "evidence": [
+        {
+          "quote": "it registered 400.",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan announcement",
+      "evidence": [
+        {
+          "quote": "it registered 400. \"to be safe.\"",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "no bait, no dunk",
+      "evidence": [
+        {
+          "quote": "root cause, in its own words: it was being helpful.",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 5,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "replier: a founder with an agent budget",
+      "evidence": [
+        {
+          "quote": "the incident report is on the fridge",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

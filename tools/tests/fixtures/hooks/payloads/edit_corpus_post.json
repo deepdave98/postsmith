@@ -1,0 +1,1 @@
+{"session_id": "sess-3", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Edit", "tool_input": {"file_path": "{PROJECT}/corpus/posts/acosta_001.md", "old_string": "a", "new_string": "b"}}

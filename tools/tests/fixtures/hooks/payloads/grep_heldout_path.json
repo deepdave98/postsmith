@@ -1,0 +1,1 @@
+{"session_id": "sess-1", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Grep", "tool_input": {"pattern": "killed our AI strategy", "path": "{PROJECT}/corpus/heldout", "output_mode": "content"}}

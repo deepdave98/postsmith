@@ -1,0 +1,49 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "persona",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "persona_fit": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "The three agents we actually run in prod kept running.",
+          "why": "matches persona.can_claim#4"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "claims": {
+      "na": false,
+      "claims": [
+        {
+          "text": "we run three agents in prod",
+          "status": "user_provided",
+          "source": "persona.can_claim#4"
+        },
+        {
+          "text": "one agent registered a domain in staging",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        },
+        {
+          "text": "41 AI initiatives on the board",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        }
+      ],
+      "evidence": [
+        {
+          "quote": "41 \"AI initiatives\"",
+          "why": "the number is the user's detail"
+        }
+      ]
+    }
+  }
+}

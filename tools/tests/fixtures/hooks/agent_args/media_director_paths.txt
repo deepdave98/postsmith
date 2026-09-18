@@ -1,0 +1,1 @@
+--deny 'corpus/heldout/**' 'corpus/ratings.jsonl' 'evals/**' 'memory/performance.jsonl' 'drafts/learn_*/**' 'drafts/*/brief_inputs.json' 'drafts/*/round*/scores/*' 'drafts/*/round*/feedback/*'

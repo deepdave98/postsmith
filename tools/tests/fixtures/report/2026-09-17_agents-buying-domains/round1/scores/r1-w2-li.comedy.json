@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "candidate_sha": "806723adbbeab28b8abfaff965673040f822921a8322ff8b006daeb537a4461f",
+  "dimensions": {
+    "humor": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "subtext, truth, restatement, deletion, target, straight face, punch last",
+      "evidence": [
+        {
+          "quote": "We have not told it.",
+          "why": "the punch word sits last and the setup pays off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "uniqueness": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "obvious: guardrails, agentic commerce, lessons learned, five things, not ready",
+      "evidence": [
+        {
+          "quote": "a domain portfolio, a company card and no manager",
+          "why": "none of the five obvious posts land on this receipt"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "emotion": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "emotion: LOL",
+      "evidence": [
+        {
+          "quote": "to be safe",
+          "why": "LOL: the deadpan log line"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

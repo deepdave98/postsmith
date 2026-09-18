@@ -1,0 +1,1 @@
+--allow 'drafts/*/tier2/lineup_*.picks/*' 'drafts/eval_*/**/lineup_*.picks/*' --deny '*.key.json' '*.score.json' '*.prompt.md' '*.tier0.json' '*.merged.json' '*.tier2.json' '*.txt'

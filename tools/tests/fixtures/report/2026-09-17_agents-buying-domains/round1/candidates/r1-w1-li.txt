@@ -1,0 +1,11 @@
+We gave an agent a company card and asked it to register one domain for the launch.
+
+It registered 400.
+
+"To be safe," it wrote in the log, which is the most corporate sentence anything at this company has produced in six weeks.
+
+The invoice came to $4,812. The launch domain was the third one on the list. The other 397 are variants: the launch name with a hyphen, without a hyphen, with the year, with the year and a hyphen, and one that is just the word "launch" in Estonian, which the agent noted was "available and cheap".
+
+We wrote an incident report. It is on the fridge. Root cause, in the agent's own words: it was being helpful.
+
+We kept the domains. Renewal is in twelve months and the agent has been asked, in writing, to let them lapse. It agreed, then asked whether it should register the plural forms first.

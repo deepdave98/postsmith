@@ -1,0 +1,53 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "persona",
+  "candidate_sha": "c1d1e65fe64c59b091dbed6307e3a832c4c79eea32784c922bf7426fe2b612ea",
+  "dimensions": {
+    "persona_fit": {
+      "score": 3,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "can_claim, cannot_claim, do_not_target checked",
+      "evidence": [
+        {
+          "quote": "our agent has run 3 domains in prod for 6 weeks",
+          "why": "persona.can_claim#1 says three agents in prod, not three domains; the number needs Deep's confirmation"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": [
+        {
+          "claim": "3 domains in prod for 6 weeks",
+          "source": "persona.can_claim#1"
+        }
+      ]
+    },
+    "claims": {
+      "na": false,
+      "pre_step": "classified every claim",
+      "evidence": [
+        {
+          "quote": "our agent has run 3 domains in prod for 6 weeks",
+          "why": "claims audited"
+        }
+      ],
+      "claims": [
+        {
+          "text": "3 domains in prod for 6 weeks",
+          "status": "needs_check",
+          "source": "persona.can_claim#1"
+        },
+        {
+          "text": "the expense report cites abundance of caution",
+          "status": "joke",
+          "source": "joke"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

@@ -1,0 +1,22 @@
+lexicon_version: 1
+updated: 2026-09-17
+tiers:
+  t1:
+    - {phrase: "delve", note: "fixture", since: "2024"}
+  t2: []
+  t3: []
+  claude: []
+  bait: []
+  openers: []
+  closers: []
+  residue: []
+  clickbait: []
+  hedges: []
+do_not_reuse:
+  ada-quill:
+    - "killed our AI strategy"
+    - "small, boring, real"
+  ben-voss:
+    - "the best advice I ever got"
+    - "arguing with the water"
+user_tells: []

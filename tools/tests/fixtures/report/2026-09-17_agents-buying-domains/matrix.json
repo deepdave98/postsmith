@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "seed": 4171,
+  "n": 3,
+  "run": "2026-09-17_agents-buying-domains",
+  "topic": "agents buying domains to be safe",
+  "assignments": [
+    {
+      "writer": 1,
+      "name": "post-writer-1",
+      "angle_family": "receipt",
+      "archetype": "announcement_with_twist",
+      "move": "corporate_register_for_trivial_event",
+      "device": "anti_climax",
+      "lens": null,
+      "seed": 4171,
+      "short_deadpan": false,
+      "rung": 0
+    },
+    {
+      "writer": 2,
+      "name": "post-writer-2",
+      "angle_family": "reveal",
+      "archetype": "one_liner",
+      "move": "deadpan_announcement",
+      "device": "deadpan",
+      "lens": "lara-acosta",
+      "seed": 4171,
+      "short_deadpan": true,
+      "rung": 0
+    },
+    {
+      "writer": 3,
+      "name": "post-writer-3",
+      "angle_family": "ridicule",
+      "archetype": "escalation_ladder",
+      "move": "escalating_triple_break",
+      "device": "incongruous_register",
+      "lens": "justin-welsh",
+      "seed": 4171,
+      "short_deadpan": false,
+      "rung": 1
+    }
+  ],
+  "excluded": {
+    "recent": [
+      "one_number_story",
+      "receipt_as_proof"
+    ],
+    "low_score": []
+  },
+  "preferred": [
+    "corporate_register_for_trivial_event"
+  ],
+  "rung_max": 1,
+  "notes": [
+    "rung 1 for writer 3: recency relaxed to the last run only"
+  ]
+}

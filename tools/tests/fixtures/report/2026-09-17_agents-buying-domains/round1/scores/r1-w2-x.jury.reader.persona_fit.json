@@ -1,0 +1,22 @@
+{
+  "schema": "postsmith.judge/1",
+  "lens": "reader",
+  "jury": true,
+  "dimensions": {
+    "persona_fit": {
+      "score": 3,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "jury: persona_fit",
+      "evidence": [
+        {
+          "quote": "3 domains in prod for 6 weeks",
+          "why": "a number the persona does not carry"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

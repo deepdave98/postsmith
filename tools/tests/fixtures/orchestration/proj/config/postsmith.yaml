@@ -1,0 +1,33 @@
+version: 1
+run:
+  writers_default: 3
+  writers_quick: 2
+  writers_wide: 5
+  max_rounds: 3
+  tier2_finalists_per_platform: 1
+  quick_rounds: 2
+judges:
+  jury_size: 3
+  evidence_fuzzy_ratio: 0.90
+corpus:
+  small_corpus_max_posts: 24
+  small_corpus_min_per_platform: 6
+  self_min_samples: 5
+  exemplars_count: 6
+platforms:
+  linkedin:
+    max_chars: 3000
+    fold_mobile_chars: 140
+    fold_desktop_chars: 210
+  x:
+    max_chars: 280
+    url_weight: 23
+    emoji_weight: 2
+    cjk_weight: 2
+calibration:
+  every_n_ratings: 20
+status_nags:
+  unrated_days: 2
+  metrics_missing_days: 3
+  lexicon_refresh_months: 6
+  self_target_samples: 8

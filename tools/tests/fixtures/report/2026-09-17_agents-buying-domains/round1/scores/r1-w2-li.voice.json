@@ -1,0 +1,63 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "806723adbbeab28b8abfaff965673040f822921a8322ff8b006daeb537a4461f",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples; register_match_self is na",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "level_and_move": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "move entry read",
+      "evidence": [
+        {
+          "quote": "Nobody asked it to.",
+          "why": "executes the assigned move at the corpus bar"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "holistic read against the anchors",
+      "evidence": [
+        {
+          "quote": "Renewal is in March. We have not told it.",
+          "why": "sentence lengths vary, no summarising close"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "platform_register": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "platform read",
+      "evidence": [
+        {
+          "quote": "Its reasoning, quoted from the log",
+          "why": "reads as a peer talking, no lesson paragraph"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

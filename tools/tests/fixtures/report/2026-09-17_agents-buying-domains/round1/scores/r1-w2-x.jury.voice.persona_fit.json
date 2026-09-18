@@ -1,0 +1,22 @@
+{
+  "schema": "postsmith.judge/1",
+  "lens": "voice",
+  "jury": true,
+  "dimensions": {
+    "persona_fit": {
+      "score": 3,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "jury: persona_fit",
+      "evidence": [
+        {
+          "quote": "our agent has run 3 domains in prod for 6 weeks",
+          "why": "the persona lists agents, not domains"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

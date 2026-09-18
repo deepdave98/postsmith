@@ -1,0 +1,15 @@
+# Minimal fixture config for the stylometry tests (author scope at 3 posts, self scope used from 2 samples).
+version: 1
+corpus:
+  author_profile_min_posts: 3
+  self_min_samples: 2
+platforms:
+  linkedin: {max_chars: 3000, fold_mobile_chars: 140, fold_desktop_chars: 210, hashtags_max: 3, emoji_max: 3}
+  x: {max_chars: 280, url_weight: 23, emoji_weight: 2, cjk_weight: 2, hashtags_max: 0, emoji_max: 1}
+envelope:
+  iqr_widen: 0.5
+  pass_score: 0.70
+base_rate_downgrade:
+  threshold: 0.25
+  applies_to: ["P6_emoji", "P8_opener", "P10_contrast_flip", "P16_broetry", "P17_lists", "P14_dashes"]
+  never: ["P3_hashtags", "P4_links", "P7_bait", "P19_clickbait", "P9_residue", "P13_specifics"]

@@ -1,0 +1,541 @@
+{
+  "schema": "postsmith.scores/2",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w3-li",
+  "round": 1,
+  "platform": "linkedin",
+  "rubric_version": "v1",
+  "rubric_sha": "9634f02caf868c279734c4f5203b323db082ddb387925fc675bf71316781ebb0",
+  "profile_version": 3,
+  "lexicon_version": 1,
+  "candidate_sha": "b8370701cf0582e6f8712c64b9d624ee337c3bc1710e9f8ba42307d324bb0fa2",
+  "text_path": "drafts/2026-09-17_agents-buying-domains/round1/candidates/r1-w3-li.txt",
+  "tier0": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 383,
+      "limit": 3000
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "preview": "Three things our agent did with the company card this week.",
+      "cut_at": 140
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "value": 63,
+      "min_words": 8
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "t1": [],
+      "t2": [],
+      "claude": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P15_burstiness": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P16_broetry": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode"
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": [],
+      "jury_override_allowed": false
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "evidence": [],
+      "max_shared_ngram": 4,
+      "lcs_chars": 21,
+      "hits": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "advisory",
+      "pass": true,
+      "evidence": [],
+      "class_original": "soft",
+      "downgrade_reason": "small_corpus_mode",
+      "score": 0.81,
+      "scope": "corpus",
+      "out": [
+        {
+          "feature": "sent_words.cv",
+          "value": 0.31,
+          "envelope": [
+            0.48,
+            0.9
+          ]
+        }
+      ]
+    }
+  },
+  "tier0_envelope": {
+    "scope": "corpus",
+    "score": 0.81,
+    "out": [
+      {
+        "feature": "sent_words.cv",
+        "value": 0.31,
+        "envelope": [
+          0.48,
+          0.9
+        ]
+      }
+    ]
+  },
+  "tier0_advisory": {
+    "fk_grade": 6.2,
+    "li_length_band": "short",
+    "first_line_words": 11,
+    "question_opener": false,
+    "reading_time_s": 17
+  },
+  "tier1": {
+    "clarity": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Three things our agent did with the company card this week.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "a week of agent purchases as an escalating list",
+      "violations": []
+    },
+    "substance": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "registered 398 more, including the Estonian word for launch",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "violations": []
+    },
+    "hook": {
+      "judge": "judge-reader",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Three things our agent did with the company card this week.",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "deadpan announcement",
+      "violations": []
+    },
+    "regret_risk": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "filed an incident report on itself",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "no bait, no dunk",
+      "violations": []
+    },
+    "reply_worthiness": {
+      "judge": "judge-reader",
+      "class": "advisory",
+      "threshold": 3,
+      "score": 3,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Monday: registered the launch domain.",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "replier: a founder with an agent budget",
+      "violations": []
+    },
+    "register_match_self": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": null,
+      "na": true,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "na",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "fewer than 5 self samples; register_match_self is na",
+      "violations": []
+    },
+    "level_and_move": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Monday: registered the launch domain. Fine.",
+          "why": "executes the assigned move at the corpus bar"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "move entry read",
+      "violations": []
+    },
+    "not_ai": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 2,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Guardrails are not a feature. They are the product.",
+          "why": "a moralising closer that restates the thesis as a slogan"
+        }
+      ],
+      "suggested_fix": "cut the closing aphorism; end on the incident report",
+      "jury": null,
+      "result": "fail",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "holistic read against the anchors",
+      "violations": []
+    },
+    "platform_register": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Three things our agent did",
+          "why": "reads as a peer talking, no lesson paragraph"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "platform read",
+      "violations": []
+    },
+    "humor": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "with the root cause \"it was being helpful.\"",
+          "why": "the punch word sits last and the setup pays off"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "subtext, truth, restatement, deletion, target, straight face, punch last",
+      "violations": []
+    },
+    "uniqueness": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "the Estonian word for launch",
+          "why": "none of the five obvious posts land on this receipt"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "obvious: guardrails, agentic commerce, lessons learned, five things, not ready",
+      "violations": []
+    },
+    "emotion": {
+      "judge": "judge-comedy",
+      "class": "advisory",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "Fine.",
+          "why": "LOL: the deadpan log line"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "emotion: LOL",
+      "violations": []
+    },
+    "persona_fit": {
+      "judge": "judge-persona",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [
+        {
+          "quote": "registered 398 more",
+          "why": "every claim traces to the brief's user detail or the story bank"
+        }
+      ],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "can_claim, cannot_claim, do_not_target checked",
+      "violations": []
+    },
+    "claims": {
+      "judge": "judge-persona",
+      "class": "special",
+      "threshold": null,
+      "score": null,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "claims": [
+        {
+          "text": "the agent registered 398 more domains",
+          "status": "user_provided",
+          "source": "brief.user_detail"
+        }
+      ]
+    }
+  },
+  "tier2": {
+    "ran": false,
+    "lineup": null,
+    "paraphrase": null,
+    "pairwise": null,
+    "claims": [
+      {
+        "text": "the agent registered 398 more domains",
+        "status": "user_provided",
+        "source": "brief.user_detail"
+      }
+    ],
+    "media": null
+  },
+  "judge_io": {
+    "rejected": [],
+    "na_by_rejection": [],
+    "na_declared": [],
+    "holds": [],
+    "contamination": []
+  },
+  "verdict": {
+    "status": "fail",
+    "hard_fails": [],
+    "soft_fails": [
+      "not_ai"
+    ],
+    "flags": [],
+    "unscored": [],
+    "advisory": {
+      "reply_worthiness": 3,
+      "emotion": 4,
+      "tier0": []
+    },
+    "waived": [],
+    "needs_confirmation": [],
+    "waiting_on": [],
+    "tier2_tested": false,
+    "na_by_rejection": [],
+    "na_declared": []
+  },
+  "jury_requests": [],
+  "stop": null,
+  "counters": {
+    "regression_events": [],
+    "overlap_streak": {
+      "O1_ngram": 0,
+      "O5_published": 0
+    }
+  },
+  "disagreements": [],
+  "generated_at": "2026-09-17T09:09:38Z"
+}

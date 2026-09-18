@@ -1,0 +1,72 @@
+{
+  "schema": "postsmith.tier2/1",
+  "run": "2026-09-17_agents-buying-domains",
+  "cid": "r1-w1-x",
+  "generated_at": "2026-09-17T09:09:38Z",
+  "lineup": {
+    "ok": true,
+    "schema": "postsmith.lineup_score/1",
+    "cid": "r1-w1-x",
+    "run": "2026-09-17_agents-buying-domains",
+    "advisory": false,
+    "n_judges": 3,
+    "picks": [
+      {
+        "lens": "reader",
+        "pick": "A",
+        "candidate_slot": "D",
+        "picked_candidate": false,
+        "confidence": 3,
+        "tell": "too neat",
+        "quote": "and honestly"
+      },
+      {
+        "lens": "voice",
+        "pick": "B",
+        "candidate_slot": "C",
+        "picked_candidate": false,
+        "confidence": 2,
+        "tell": "a list of three",
+        "quote": "fast, cheap, done"
+      },
+      {
+        "lens": "comedy",
+        "pick": "A",
+        "candidate_slot": "B",
+        "picked_candidate": false,
+        "confidence": 4,
+        "tell": "explains the joke",
+        "quote": "which is funny because"
+      }
+    ],
+    "candidate_picks": 0,
+    "strong_picks": 0,
+    "tells": [],
+    "invalid": [],
+    "pass": true,
+    "rule": "fail iff >= 2 picks of the candidate at confidence >= 4, or all 3 judges picked it (got 0 picks, 0 strong)"
+  },
+  "paraphrase": {
+    "same_skeleton_or_joke": false,
+    "same_post_rewritten": false,
+    "mode": "exemplars",
+    "skipped": null,
+    "verdicts": [
+      {
+        "slot": "exemplar1",
+        "post_id": "acosta_003",
+        "same_skeleton_or_joke": false,
+        "evidence": ""
+      },
+      {
+        "slot": "exemplar2",
+        "post_id": "welsh_011",
+        "same_skeleton_or_joke": false,
+        "evidence": ""
+      }
+    ]
+  },
+  "claims": null,
+  "media": null,
+  "pairwise": null
+}

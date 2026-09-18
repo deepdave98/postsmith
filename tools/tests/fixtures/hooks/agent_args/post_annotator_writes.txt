@@ -1,0 +1,1 @@
+--allow 'corpus/cards/*' 'corpus/heldout/cards/*' --deny 'corpus/cards/_reviews/*' 'corpus/heldout/cards/_reviews/*'

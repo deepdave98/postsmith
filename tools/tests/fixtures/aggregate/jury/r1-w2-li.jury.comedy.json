@@ -1,0 +1,23 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "comedy",
+  "jury": true,
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dimensions": {
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "",
+      "evidence": [
+        {
+          "quote": "The rest was a PDF.",
+          "why": "the last line is a punch word, not a summary"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null
+    }
+  }
+}

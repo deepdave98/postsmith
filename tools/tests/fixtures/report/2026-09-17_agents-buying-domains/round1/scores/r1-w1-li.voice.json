@@ -1,0 +1,58 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "voice",
+  "candidate_sha": "38b4fc0676d5081bd7d4087fb32195f6d1946296c86026c236a660dbcc1f602b",
+  "dimensions": {
+    "register_match_self": {
+      "score": null,
+      "na": true,
+      "threshold": 4,
+      "pre_step": "fewer than 5 self samples; register_match_self is na",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "level_and_move": {
+      "score": null,
+      "na": true,
+      "threshold": 3,
+      "pre_step": "lens: none; level_and_move is na",
+      "evidence": [],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "not_ai": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "holistic read against the anchors",
+      "evidence": [
+        {
+          "quote": "which is the most corporate sentence anything at this company has produced in six weeks",
+          "why": "sentence lengths vary, no summarising close"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "platform_register": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "platform read",
+      "evidence": [
+        {
+          "quote": "We kept the domains.",
+          "why": "reads as a peer talking, no lesson paragraph"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "38b4fc0676d5081bd7d4087fb32195f6d1946296c86026c236a660dbcc1f602b",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "An agent given a card over-delivers with corporate diligence; the incident report is the product.",
+      "evidence": [
+        {
+          "quote": "We gave an agent a company card and asked it to register one domain for the launch.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "evidence": [
+        {
+          "quote": "The invoice came to $4,812.",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan announcement",
+      "evidence": [
+        {
+          "quote": "It registered 400.",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "no bait, no dunk",
+      "evidence": [
+        {
+          "quote": "Root cause, in the agent's own words: it was being helpful.",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 4,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "replier: a founder with an agent budget",
+      "evidence": [
+        {
+          "quote": "then asked whether it should register the plural forms first",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

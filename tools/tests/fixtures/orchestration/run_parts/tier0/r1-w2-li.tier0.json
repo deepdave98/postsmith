@@ -1,0 +1,34 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "RUN",
+  "cid": "r1-w2-li",
+  "round": 1,
+  "platform": "linkedin",
+  "candidate_sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "text_path": "drafts/RUN/round1/candidates/r1-w2-li.txt",
+  "chars": 104,
+  "x_len": null,
+  "fold_preview": "Three agents ran in prod for six weeks.\n\nOne of them bought a domain.\n\nIn staging.\n\nThe invoice was $14.\n",
+  "checks": {
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "value": 104,
+      "limit": 3000
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true
+    },
+    "O1_ngram": {
+      "class": "flag",
+      "pass": true,
+      "hits": []
+    }
+  },
+  "advisory": {
+    "fk_grade": 5.0
+  },
+  "envelope": null,
+  "small_corpus_mode": true
+}

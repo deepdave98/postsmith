@@ -1,0 +1,51 @@
+schema: postsmith.media/1
+post_id: r1-w1-li
+platform: linkedin
+decision: image
+decision_reason: 'M3: fake-document punchline; the caption sets up the purchase, the form lands the item line. M5: lens attaches media in 71% of train posts.'
+delete_test: Without it the caption ends on a setup and the reader never sees the receipt.
+carousel_suggested: false
+genre: fake_document
+humor_or_hook_device: bureaucratic deadpan
+visual_concept: A laminated purchase-order form pinned to a startup fridge, filled in by hand; the item line is the joke.
+subject: A4 laminated form, plain corporate black type, blue ballpoint handwriting
+setting: scuffed white office fridge in a small startup kitchen, late-afternoon window light from the left
+composition:
+  framing: medium close-up
+  angle: straight-on
+  focal_point: the handwritten item line
+  negative_space: fridge edge visible on the right
+style:
+  medium: photorealistic phone photo
+  palette: natural, slightly warm
+  era_or_reference: taken thirty seconds ago
+  finish: faint grain
+on_image_text:
+  lines:
+  - AGENT PURCHASE ORDER
+  - 'Item: one domain, to be safe'
+  placement: header centred top; second line on the form's first row
+  typography_intent: bold wide sans header; blue handwriting
+must_show:
+- one round magnet
+- a coffee ring on the corner
+keep_out_as_positive:
+- the fridge is clean of brand marks
+- the only legible words are the two lines plus short generic field labels
+aspect_ratio: '4:5'
+target_pixels: 1080x1350
+resolution_tier: 2K
+tool:
+  primary: nano_banana
+  reason: two lines of exact text; Nano Banana Pro at 2K
+  fallback: gpt_image
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: 'Laminated purchase order on a fridge; the item line reads: one domain, to be safe.'
+factual_claims_in_visual: []
+risk_notes: text-heavy; expect two or three regenerations

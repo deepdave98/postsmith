@@ -1,0 +1,22 @@
+{
+  "schema": "postsmith.judge/1",
+  "lens": "reader",
+  "jury": true,
+  "dimensions": {
+    "humor": {
+      "score": 3,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "jury: humor",
+      "evidence": [
+        {
+          "quote": "The agent has asked for a replacement.",
+          "why": "the button is a mild callback, not a turn"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

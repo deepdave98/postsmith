@@ -1,0 +1,1 @@
+{"session_id": "sess-3", "hook_event_name": "PreToolUse", "cwd": "{PROJECT}", "tool_name": "Write", "tool_input": {"file_path": "{PROJECT}/drafts/run_a/round1/candidates/r1-w1-li.md", "content": "---\nschema: postsmith.candidate/1\n---\nhello\n"}}

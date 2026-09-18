@@ -1,0 +1,4 @@
+Create a photorealistic fake-document image for a LinkedIn post. Output 4:5 (1080x1350) at 2K.
+A laminated A4 purchase-order form, printed in plain black corporate type and filled in with blue ballpoint handwriting, is pinned by a single round magnet to a scuffed white office fridge in a small startup kitchen. Soft late-afternoon window light comes from the left; a coffee ring stains one corner. Straight-on medium close-up on a phone camera, the form filling most of the frame, natural colour, faint grain.
+Render the text exactly as written, each once: "AGENT PURCHASE ORDER" as a bold, wide sans-serif header centred at the top of the form; "Item: one domain, to be safe" as blue handwriting on the first row. Keep the type large and every letter crisp; the remaining field labels are short generic words like Date and Severity.
+Keep the fridge clean of any brand marks; the only legible words are the ones above.

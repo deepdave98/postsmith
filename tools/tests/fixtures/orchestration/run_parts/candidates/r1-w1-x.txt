@@ -1,0 +1,1 @@
+the agent registered three domains in staging. to be safe. root cause: it was being helpful.

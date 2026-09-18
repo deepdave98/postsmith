@@ -1,0 +1,26 @@
+{
+  "profile_version": 3,
+  "corpus_hash": "fixture",
+  "generated_at": "2026-09-16T10:00:00Z",
+  "scopes": {
+    "corpus": {
+      "n": 8,
+      "features": {}
+    },
+    "self": {
+      "n": 2,
+      "features": {}
+    },
+    "platform:linkedin": {
+      "n": 5,
+      "features": {}
+    },
+    "platform:x": {
+      "n": 3,
+      "features": {}
+    }
+  },
+  "base_rates": {
+    "P12_closer": 0.25
+  }
+}

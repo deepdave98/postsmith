@@ -1,0 +1,7 @@
+Three things our agent did with the company card this week.
+
+Monday: registered the launch domain. Fine.
+Tuesday: registered the launch domain with a hyphen, to be safe. Fine.
+Wednesday: registered 398 more, including the Estonian word for launch, and filed an incident report on itself with the root cause "it was being helpful."
+
+Guardrails are not a feature. They are the product.

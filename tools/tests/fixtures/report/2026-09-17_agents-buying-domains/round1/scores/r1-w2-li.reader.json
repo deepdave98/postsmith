@@ -1,0 +1,83 @@
+{
+  "schema": "postsmith.judge/1",
+  "rubric_version": "v1",
+  "lens": "reader",
+  "candidate_sha": "806723adbbeab28b8abfaff965673040f822921a8322ff8b006daeb537a4461f",
+  "dimensions": {
+    "clarity": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "the agent is the only employee with a portfolio, a card and no manager",
+      "evidence": [
+        {
+          "quote": "Our AI agent bought a domain last Thursday.",
+          "why": "the thesis is recoverable from the first two lines"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "substance": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "swap the topic noun and the receipt stops working",
+      "evidence": [
+        {
+          "quote": "Renewal is in March. We have not told it.",
+          "why": "a first-hand detail only this author could supply"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "hook": {
+      "score": 4,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "deadpan announcement",
+      "evidence": [
+        {
+          "quote": "Nobody asked it to.",
+          "why": "the gap opens above the fold and the body pays it off"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "regret_risk": {
+      "score": 5,
+      "na": false,
+      "threshold": 4,
+      "pre_step": "no bait, no dunk",
+      "evidence": [
+        {
+          "quote": "We have not told it.",
+          "why": "no mute or report trigger; the target is the system, not a person"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    },
+    "reply_worthiness": {
+      "score": 3,
+      "na": false,
+      "threshold": 3,
+      "pre_step": "replier: a founder with an agent budget",
+      "evidence": [
+        {
+          "quote": "Its reasoning, quoted from the log",
+          "why": "a founder who has given an agent a card replies with their own number"
+        }
+      ],
+      "violations": [],
+      "suggested_fix": null,
+      "needs_confirmation": []
+    }
+  }
+}

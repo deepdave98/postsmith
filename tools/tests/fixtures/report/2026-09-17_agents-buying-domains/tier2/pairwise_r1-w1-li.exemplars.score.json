@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "schema": "postsmith.pairwise_score/1",
+  "mode": "exemplars",
+  "cid": "r1-w1-li",
+  "run": "2026-09-17_agents-buying-domains",
+  "hard": true,
+  "verdicts": [
+    {
+      "slot": "exemplar1",
+      "post_id": "acosta_003",
+      "same_skeleton_or_joke": false,
+      "evidence": ""
+    },
+    {
+      "slot": "exemplar2",
+      "post_id": "welsh_011",
+      "same_skeleton_or_joke": false,
+      "evidence": ""
+    }
+  ],
+  "missing": [],
+  "invalid": [],
+  "paraphrase": false,
+  "rule": "paraphrase true (hard fail) if any judge answered yes to same skeleton / same joke rewritten"
+}
