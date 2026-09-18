@@ -1,0 +1,38 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+.gstack/
+
+# Reference corpus and everything derived from it. The posts, images and video belong to the people who
+# wrote them; they stay on the machine that ingested them. Bring your own corpus.
+corpus/
+style/persona.md
+style/self.md
+style/authors/
+style/common.md
+style/moves.md
+style/media_habits.md
+style/exemplars.md
+style/CHANGELOG.md
+style/profile.json
+style/profile.p*.json
+style/lexicon.yaml
+
+# Run output, ratings and anything that scores them.
+drafts/
+memory/
+evals/calibration.jsonl
+evals/disagreements.jsonl
+evals/health/reports/
+
+# Working notes.
+docs/design/synthesis.md
+docs/design/critic.json
+docs/design/judge-*.json
+docs/design/design-*.md
+docs/design/M0-STATUS.md
+docs/design/M1-STATUS.md
+docs/design/research-skills-spec.md
