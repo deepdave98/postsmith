@@ -120,7 +120,9 @@ The swap is direct, so the deterministic health run in 4f is the check on it.
 ### 4e. Profiles (`profile-builder`)
 Wave 1, in parallel: one builder per author touched by this ingest whose post count in the manifest is at least
 `corpus.author_profile_min_posts` (config; 6), owning `style/authors/<slug>.md`; plus one owning `style/self.md`
-when self posts changed. Wave 2, after wave 1 returns: one builder owning `style/common.md`, `style/moves.md`,
+when self posts changed; plus one per `mode` label carried by a new post, owning `style/modes/<mode>.md`, whatever
+the author counts are (a mode profile spans authors and states a habit only when two posts share it). Wave 2, after
+wave 1 returns: one builder owning `style/common.md`, `style/moves.md`,
 `style/media_habits.md`, `style/exemplars.md`, the `do_not_reuse` block of `style/lexicon.yaml` and the
 `style/CHANGELOG.md` entry. Two waves because the common bar and the moves are derived from the author profiles,
 and one writer for CHANGELOG and lexicon.yaml avoids two agents clobbering the same file.

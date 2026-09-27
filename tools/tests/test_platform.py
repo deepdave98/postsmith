@@ -11,6 +11,7 @@ import pytest
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
+import common
 import platform_check as pc
 import xcount
 from common import load_config, split_front_matter, x_count
@@ -97,10 +98,11 @@ def test_fold_boundary_inside_140_passes_and_preview_is_three_lines():
     assert p2["desktop"]["preview"] == res["fold_preview"]
 
 
-def test_fold_midword_without_boundary_is_hard_fail():
+def test_fold_midword_short_overrun_is_flag():
     _, body = fixture("li_midword_fail.txt")
     p2 = run(body)["checks"]["P2_fold"]
-    assert p2["class"] == "hard" and p2["pass"] is False
+    assert p2["class"] == "flag" and p2["pass"] is True and p2["flag"] is True
+    assert p2["overrun"] == 49 and p2["overrun"] <= p2["run_on_limit"]
     assert p2["mobile"]["cut_by"] == "chars"
     assert p2["mobile"]["mid_word"] is True
     assert p2["mobile"]["boundary_within"] is False
@@ -109,6 +111,22 @@ def test_fold_midword_without_boundary_is_hard_fail():
     # the desktop cut (210) reaches the line break after line 1, which is a boundary
     assert p2["desktop"]["boundary_within"] is True
     assert p2["desktop"]["boundary"]["span"] == "\\n"
+
+
+def test_fold_run_on_past_a_second_fold_is_hard_fail():
+    text = "we kept shipping and shipping and shipping the same thing over and over " * 6 + "then it stopped."
+    p2 = run(text)["checks"]["P2_fold"]
+    assert p2["mobile"]["boundary_within"] is False
+    assert p2["class"] == "hard" and p2["pass"] is False
+    assert p2["overrun"] > p2["run_on_limit"]
+
+
+def test_golden_negative_preamble_2900_still_hard_fails_p2():
+    import pathlib
+    p = pathlib.Path(__file__).resolve().parents[2] / "evals/golden/negatives/preamble_2900.md"
+    _, body = common.read_front_matter_file(p)
+    p2 = run(body.rstrip("\n"))["checks"]["P2_fold"]
+    assert p2["class"] == "hard" and p2["pass"] is False and p2["overrun"] == 194
 
 
 def test_fold_word_boundary_without_clause_boundary_is_flag():
@@ -164,7 +182,7 @@ def test_fold_short_post_has_no_cut():
 def test_fold_desktop_cut_reported_independently():
     text = "y" * 150 + ". And then the rest of the sentence continued " + "z" * 100
     p2 = run(text)["checks"]["P2_fold"]
-    assert p2["mobile"]["boundary_within"] is False and p2["class"] == "hard" and p2["pass"] is False
+    assert p2["mobile"]["boundary_within"] is False and p2["class"] == "flag" and p2["pass"] is True
     assert p2["desktop"]["boundary_within"] is True
     assert len(p2["desktop"]["preview"]) == 210
 
@@ -481,7 +499,10 @@ def test_platform_check_cli_plain_text_needs_platform():
     out = cli("platform_check.py", str(FIX / "li_midword_fail.txt"), "--json")
     assert out["ok"] is False and "platform" in out["error"]
     out = cli("platform_check.py", str(FIX / "li_midword_fail.txt"), "--platform", "linkedin", "--json")
-    assert out["ok"] is True and "P2_fold" in out["hard_fails"]
+    # This fixture cuts mid-word but reaches a boundary 49 chars later, which is a flag, not a rejection:
+    # where the fold lands inside a word says nothing about the post, and how far the opening runs on does.
+    assert out["ok"] is True and out["hard_fails"] == []
+    assert out["checks"]["P2_fold"] == {**out["checks"]["P2_fold"], "class": "flag", "pass": True, "overrun": 49}
 
 
 def test_platform_check_cli_missing_file():

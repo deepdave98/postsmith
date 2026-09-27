@@ -433,3 +433,21 @@ def test_quote_leak_cli(tmp_path):
     proc = subprocess.run([sys.executable, str(TOOLS / "quote_leak_check.py"), "nope.md", "--root", str(FIX), "--json"],
                           capture_output=True, text=True, check=False)
     assert proc.returncode == 0 and json.loads(proc.stdout) == {"ok": False, "error": "file not found: nope.md"}
+
+
+def test_o2_ignores_phrases_that_are_only_a_number():
+    """A do-not-reuse entry with no letters cannot identify anyone's writing.
+
+    Regression: normalize_text("30(!)") is "30", a one-token phrase matched at zero tolerance, so every
+    candidate that quoted a price, a date or a count failed a hard gate against an unrelated author.
+    """
+    lex = {"do_not_reuse": {"alex-cohen": ["30(!)", "keynotemaxxed"]}}
+    cfg = {"phrase_edit_distance": 2, "ngram_flag": 6, "ngram_fail": 8, "lcs_fail_chars": 40,
+           "skeleton_jaccard": 0.15, "sibling_jaccard": 0.5, "near_duplicate_jaccard": 0.8}
+    prep = oc.prepare("priced at $5/$30 per million tokens, which is 30 dollars")
+    out = oc.check_o2(prep, lex, cfg)
+    assert out["pass"] is True, out["evidence"]
+
+    prep2 = oc.prepare("he got keynotemaxxed at the keynote")
+    out2 = oc.check_o2(prep2, lex, cfg)
+    assert out2["pass"] is False and "keynotemaxxed" in out2["evidence"][0]["why"]

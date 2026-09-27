@@ -70,10 +70,10 @@ def jury_entry(lens: str, dim: str, score: int, quote: str, text: str, threshold
     return {"path": f"r1-w2-li.jury.{lens}.json", "lens": lens, "data": d, "validation": judge_io.validate(d, text, thresholds, cfg)}
 
 
-def merge_li(thresholds, cfg, judges, juries=(), tier2=None, previous=None, tier0_doc=None, waived=()):
+def merge_li(thresholds, cfg, judges, juries=(), tier2=None, previous=None, tier0_doc=None, waived=(), resolve=None):
     t0 = tier0_doc or load("tier0/r1-w2-li.tier0.json")
     return aggregate.merge(RUN, t0["cid"], t0.get("round", 1), t0, judges, list(juries), tier2, previous, thresholds, cfg,
-                           None, set(waived))
+                           None, set(waived), resolve)
 
 
 # =========================================================================== thresholds.yaml
@@ -664,13 +664,55 @@ def test_oscillation_from_contradictory_fixes(li_text, thresholds, cfg):
     assert not aggregate.fixes_conflict(None, "anything")
 
 
-def test_hard_gate_flip_is_oscillation_then_regression(li_text, thresholds, cfg):
+def test_user_can_resolve_an_oscillation_but_not_a_drop(li_text, thresholds, cfg):
+    """An oscillation parks a candidate until the user picks a side, so the decision has to reach the merge.
+
+    Without it the run deadlocks: run_next reports the stop, the user answers, and nothing consumes the
+    answer. Only contradictory fixes park this way; a spent hard gate is a directed rewrite, not a question,
+    and a regression is a drop. Neither may be cleared by the user's answer to a different question.
+    """
+    def clean(d): d["dimensions"]["not_ai"]["score"] = 5
+    prev = load("merged/r1-w2-li.merged.json")  # not_ai already fails here, with its own suggested_fix
+    t0 = load("tier0/r1-w2-li.tier0.json"); t0["cid"] = "r2-w2-li"; t0["round"] = 2
+
+    def contradict(d):  # round 1 said cut, round 2 says add: the judges disagree, so only Deep can break it
+        d["dimensions"]["not_ai"]["score"] = 2
+        d["dimensions"]["not_ai"]["suggested_fix"] = "Add a longer closing line that lands the joke."
+    judges = all_judges(li_text, thresholds, cfg, voice=contradict)
+    assert merge_li(thresholds, cfg, judges, previous=prev, tier0_doc=t0)["stop"]["reason"] == "oscillation"
+
+    m = merge_li(thresholds, cfg, judges, previous=prev, tier0_doc=t0, resolve="clarity")
+    assert m["stop"] is None
+    assert m["stop_resolved"] == [{"round": 2, "reason": "oscillation",
+                                   "detail": m["stop_resolved"][0]["detail"], "favour": "clarity"}]
+    assert "not_ai" in m["stop_resolved"][0]["detail"]
+
+    # a drop is not a question: the same flag must not clear a regression
+    t0r = load("tier0/r1-w2-li.tier0.json"); t0r["cid"] = "r2-w2-li"; t0r["round"] = 2
+    t0r["checks"]["P13_specifics"] = {"class": "hard", "pass": False, "evidence": [{"span": "...", "why": "zero specifics"}]}
+    spent = merge_li(thresholds, cfg, all_judges(li_text, thresholds, cfg, voice=clean), previous=prev, tier0_doc=t0r)
+    spent["tier0"]["P13_specifics"]["pass"] = True
+    t0c = load("tier0/r1-w2-li.tier0.json"); t0c["cid"] = "r3-w2-li"; t0c["round"] = 3
+    def low(d): d["dimensions"]["clarity"]["score"] = 2
+    m3 = merge_li(thresholds, cfg, all_judges(li_text, thresholds, cfg, voice=clean, reader=low),
+                  previous=spent, tier0_doc=t0c, resolve="clarity")
+    assert m3["stop"]["reason"] == "regression" and m3["stop"]["drop"] is True
+
+
+def test_hard_gate_flip_is_spent_gate_then_regression(li_text, thresholds, cfg):
+    """A rewrite that breaks a gate it had already banked is a known-bad edit with a known-good predecessor.
+
+    That is not a question for the user and not a drop: the run names the gate and the round whose wording to
+    restore, and sends the candidate round again. Parking it instead is what deadlocked the model-names run.
+    """
     def clean(d): d["dimensions"]["not_ai"]["score"] = 5
     prev = load("merged/r1-w2-li.merged.json")  # P13_specifics passed in round 1
     t0 = load("tier0/r1-w2-li.tier0.json"); t0["cid"] = "r2-w2-li"; t0["round"] = 2
     t0["checks"]["P13_specifics"] = {"class": "hard", "pass": False, "evidence": [{"span": "...", "why": "zero specifics"}]}
     m = merge_li(thresholds, cfg, all_judges(li_text, thresholds, cfg, voice=clean), previous=prev, tier0_doc=t0)
-    assert m["stop"]["reason"] == "oscillation" and "P13_specifics" in m["stop"]["detail"] and m["stop"]["drop"] is False
+    assert m["stop"]["reason"] == "spent_gate" and m["stop"]["drop"] is False
+    assert m["stop"]["gates"] == ["P13_specifics"] and m["stop"]["revert_round"] == 1
+    assert "P13_specifics" in m["stop"]["detail"]
     assert m["counters"]["regression_events"] == [{"round": 2, "gate": "P13_specifics", "previous_round": 1}]
     # a second passed-then-failed event (a judged hard gate this time) -> regression -> drop
     m["tier0"]["P13_specifics"]["pass"] = True  # pretend round 2 ended with P13 fixed, clarity passing
@@ -718,8 +760,18 @@ def test_feedback_packet_content(li_text, thresholds, cfg):
     md, packet = aggregate.feedback(m, meta)
     assert packet["schema"] == "postsmith.feedback/1" and packet["cid"] == "r1-w3-li" and packet["verdict"] == "fail"
     assert next(i for i in packet["tier0"] if i["check"] == "P10_contrast_flip")["jury_confirmed"] is True
-    assert packet["instruction"] == ("Fix these, keep everything that passed; do not change the move or the claims unless "
-                                     "uniqueness or persona_fit failed.")
+    assert packet["instruction"].startswith("Fix these, keep everything that passed; do not change the move or the "
+                                            "claims unless uniqueness or persona_fit failed.")
+    # The two constraints that stop a rewrite buying one dimension with another. Asserted by behaviour, not by
+    # pinning the whole string: the wording is prose a human will keep tuning, the constraints are the contract.
+    assert "banked" in packet["instruction"] and "failed rewrite" in packet["instruction"]
+    assert "adding length" in packet["instruction"] and "read twice" in packet["instruction"]
+    # Banked gates reach the writer as names only. A writer that could see clarity scored 5 would spend the
+    # headroom, which is the exact failure this block exists to prevent.
+    protected = {p["dimension"] for p in packet["protected"]}
+    assert "clarity" in protected and "not_ai" not in protected  # not_ai is what failed
+    assert all(set(p) == {"dimension", "class"} for p in packet["protected"])
+    assert "## Gates already passed" in md and "clarity" in md
     assert packet["move"] == "corporate_register_for_trivial_event"
     checks = {i["check"] for i in packet["tier0"]}
     assert checks == {"P10_contrast_flip", "E1_envelope", "O1_ngram"}  # only failing checks, nothing that passed
@@ -738,8 +790,13 @@ def test_feedback_packet_content(li_text, thresholds, cfg):
     assert "shared 6-gram with welsh_004" in md
     assert "suggested fix: Cut the last line" in md and "jury median 3" in md
     assert "lineup tell (lineup-voice, confidence 4): too tidy ending" in md
-    assert md.rstrip().endswith("Fix these, keep everything that passed; do not change the move or the claims unless uniqueness or persona_fit failed.")
-    assert "clarity" not in md and "humor" not in md  # passing dimensions are not in the packet
+    assert md.rstrip().endswith("an unanswered soft note costs one score, a lost hard gate costs the candidate.")
+    assert "Fix these, keep everything that passed" in md.rsplit("## Instruction", 1)[-1]
+    # A passing dimension reaches the writer as a banked NAME and nothing else: no score, no margin, no note.
+    # Seeing that clarity scored 5 is what lets a writer spend the headroom, which is the failure being fixed.
+    for dim in ("clarity", "humor"):
+        mentions = [ln for ln in md.splitlines() if dim in ln]
+        assert all(ln.startswith("- hard: ") or ln.startswith("- soft: ") for ln in mentions), (dim, mentions)
 
 
 def test_feedback_with_nothing_failing(li_text, thresholds, cfg):
@@ -791,7 +848,11 @@ def test_cli_merge_feedback_rank_roundtrip(tmp_path):
     assert (run / "round1" / "scores" / "r1-w2-li.merged.json").exists()
     for name in ("r1-w2-li.jury.comedy.json", "r1-w2-li.jury.reader.json"):
         (run / "round1" / "scores" / name).write_bytes((FX / "jury" / name).read_bytes())
-    m = _cli("merge", str(run), "r1-w2-li", "--round", "1")
+    # P15_burstiness and E1_envelope compare the candidate against the live style/profile.json, and tier0 runs
+    # here as a subprocess with cwd=ROOT, so both move whenever the real corpus or Deep's self samples change.
+    # This test is about the merge -> feedback -> rank plumbing, not about stylometry: waive the two
+    # profile-dependent soft checks so a reingest cannot turn it red without anything being broken.
+    m = _cli("merge", str(run), "r1-w2-li", "--round", "1", "--waive", "P15_burstiness", "--waive", "E1_envelope")
     assert m["verdict"]["status"] == "pass" and m["tier1"]["not_ai"]["jury"]["median"] == 4
     f = _cli("feedback", str(run), "r1-w2-li", "--round", "1")
     assert f["ok"] and (run / "round1" / "feedback" / "r1-w2-li.md").exists() and (run / "round1" / "feedback" / "r1-w2-li.json").exists()

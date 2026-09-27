@@ -558,3 +558,24 @@ def test_contracts_section_8_names_the_deliver_actions_and_media_mode() -> None:
                    "`final/.stale`", "--media <cid>", "`<move_entry>`", "`lens: none`", "run.quick_lineup_on_tier1_pass",
                    "`round<k>/writers/`", "aggregate|jury"):
         assert needle in sec, needle
+
+
+def test_jury_overturned_tier0_hard_fail_releases_the_judges(proj: Path) -> None:
+    """A Tier 0 hard fail a jury overturned must stop skipping that candidate's Tier 1 judges.
+
+    Regression: `hard_fail` read only the tier0 file, which aggregate never rewrites. Once a jury cleared the
+    check, the merged verdict held on the ten dimensions the judges would have produced while run_next went on
+    skipping them, so the run could never leave the aggregate stage.
+    """
+    b = RunBuilder(proj)
+    b.cand("r1-w2-x").tier0("r1-w2-x", hardfail=True)   # the fixture whose P7_bait is a hard fail
+    c = run_next.derive(proj, b.name, {})
+    assert not [a for a in c["actions"] if str(a.get("agent", "")).startswith("judge-")], "judges skipped while it fails"
+
+    _wj(b.rd / "round1" / "scores" / "r1-w2-x.merged.json",
+        {"schema": "postsmith.merged/1", "cid": "r1-w2-x", "round": 1,
+         "verdict": {"status": "hold", "hard_fails": [], "soft_fails": [], "flags": [], "unscored": [],
+                     "waiting_on": ["judge-reader:clarity"]}})   # the jury cleared P7_bait
+    d = run_next.derive(proj, b.name, {})
+    lenses = sorted(a["lens"] for a in d["actions"] if str(a.get("agent", "")).startswith("judge-"))
+    assert lenses == ["comedy", "persona", "reader", "voice"], d["actions"]

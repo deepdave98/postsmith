@@ -6,7 +6,7 @@ runner-up); cards record the angle of every corpus post (`angle:` slug). Ids are
 `reveal | receipt | reframe | ridicule | rule` and appear as `assignment.angle_family`.
 
 Pick an angle by asking: (a) what does the reader already half-believe that I can make explicit (revelatory beats contrarian);
-(b) what emotion is this for; (c) what do I specifically know or have done that nobody else in the feed does; (d) why now.
+(b) what emotion is this for; (c) what can I say about this that nobody else in the feed is saying: something I know or have done, a public fact nobody looked up, a step of arithmetic nobody did, a comparison nobody drew, or a bit nobody has made yet; (d) why now.
 Contrarian-for-its-own-sake creates opposition rather than "aha".
 
 ## Angles (example topic: "OpenAI ships a new model")
@@ -43,7 +43,7 @@ Contrarian-for-its-own-sake creates opposition rather than "aha".
 | surprise | Would a follower of this topic have predicted it? |
 | truth | Is it defensible from a source or the persona fact bank? |
 | specificity | Does it carry a number, name, date or artifact? |
-| personal_fit | Could only this author say it? |
+| personal_fit | Does this need the author's own vantage, and does he have it? A score, never a gate: a 1 here is fine when specificity and surprise are high. |
 | timeliness | Why now, in one sentence? |
 | disagreeability | Could a smart person argue the other side? |
 
@@ -52,7 +52,7 @@ Contrarian-for-its-own-sake creates opposition rather than "aha".
 | killed_by | rule |
 |---|---|
 | truth_below_4 | truth < 4 |
-| fit_without_receipt | personal_fit ≤ 2 and no receipt (number, artifact, first-hand detail) backs it |
+| no_specific | specificity ≤ 2: no number, name, date, artifact, computed step or exact invented image carries the angle |
 | on_obvious_list | the angle is on the scout's obvious-takes list |
 | needs_missing_fact | the angle needs a fact the author does not have (and `--quick` forbids asking) |
 

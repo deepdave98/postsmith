@@ -675,9 +675,15 @@ def test_cli_help_and_user_errors(heldout_root: Path, tmp_path: Path):
     r = subprocess.run([sys.executable, tool, "--scope", "nope"], capture_output=True, text=True, check=False)
     assert r.returncode == 2  # argparse rejects an unknown scope
     # the CLI round trip agrees with the in-process run on the deterministic sections
+    # --root points elsewhere, so nothing may be written into the real project. Snapshot rather than assert
+    # absence: a real health run on the same date leaves its own eval directory behind, and that is not this
+    # subprocess's doing. The invariant is "this call wrote nothing here", not "nothing has ever run here".
+    stray = PROJECT / "drafts" / "eval_2026-09-20"
+    stray_before = sorted(p.name for p in stray.iterdir()) if stray.is_dir() else None
     r = subprocess.run([sys.executable, tool, "--scope", "deterministic", "--root", str(heldout_root), "--date", "2026-09-20", "--json"],
                        capture_output=True, text=True, check=False, cwd=str(PROJECT))
     assert r.returncode == 0, r.stderr
     out = json.loads(r.stdout)
     assert out["ok"] and out["green"] is True and out["oracle_source"] == "heldout" and out["sections"]["oracle_tier0"]["n"] == 4
-    assert out["report"] is None and not (PROJECT / "drafts" / "eval_2026-09-20").exists()
+    stray_after = sorted(p.name for p in stray.iterdir()) if stray.is_dir() else None
+    assert out["report"] is None and stray_after == stray_before

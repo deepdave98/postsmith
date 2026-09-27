@@ -20,6 +20,7 @@ style/CHANGELOG.md
 style/profile.json
 style/profile.p*.json
 style/lexicon.yaml
+style/modes/
 
 # Run output, ratings and anything that scores them.
 drafts/

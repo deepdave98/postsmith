@@ -7,7 +7,7 @@
 Writes `corpus/inbox/normalized_<sha>.jsonl` (sha = sha256 of the source bytes, first 16 hex chars), one row
 per post:
 
-    {author_name, author_slug, author_handle, platform, text, posted_at, url, context,
+    {author_name, author_slug, author_handle, platform, text, posted_at, url, context, mode,
      engagement: {likes, comments, reposts, views}, media: [{path_or_url, description}], transcript,
      source_ref, source_kind, source_file, lang}
 
@@ -57,7 +57,7 @@ import common  # noqa: E402
 
 CANONICAL: tuple[str, ...] = ("author", "handle", "text", "platform", "media", "media_description", "transcript",
                               "posted_at", "url", "likes", "comments", "reposts", "views", "engagement", "lang",
-                              "context")
+                              "context", "mode")
 
 # Synonyms in priority order, the exact canonical name first. Normalised: lower case, single spaces.
 SYNONYMS: dict[str, tuple[str, ...]] = {
@@ -80,6 +80,7 @@ SYNONYMS: dict[str, tuple[str, ...]] = {
     "engagement": ("engagement", "metrics", "stats"),
     "lang": ("lang", "language"),
     "context": ("context", "quoted post", "quoted text", "post context", "surrounding context", "thread context"),
+    "mode": ("mode", "post mode"),
 }
 ENGAGEMENT_KEYS: dict[str, str] = {}
 for _canon in ("likes", "comments", "reposts", "views"):
@@ -91,6 +92,8 @@ PLATFORM_ALIASES: dict[str, str] = {
     "x": "x", "twitter": "x", "tw": "x", "x twitter": "x", "twitter x": "x", "x.com": "x", "twitter.com": "x",
     "x (twitter)": "x", "twitter (x)": "x",
 }
+# What Deep filed the post as. A label on the reference, never inferred: unlabelled posts stay None.
+MODES: tuple[str, ...] = ("funny", "insightful")
 X_INFER_MAX_CHARS = 280
 URL_SCHEME_RE = re.compile(r"^[a-z][a-z0-9+.\-]*://", re.I)
 MD_SEP_RE = re.compile(r"(?m)^---[ \t]*$\n?")
@@ -536,11 +539,16 @@ def normalize(source: str, kind: str = "auto", author: str | None = None, platfo
         media = media_entries(_get(raw, col_map, "media"), _get(raw, col_map, "media_description"), source_dir)
         context = _get(raw, col_map, "context")
         context = clean_text(context) or None if context not in (None, "") else None
+        mode_raw = _get(raw, col_map, "mode")
+        mode = str(mode_raw).strip().lower() if mode_raw not in (None, "") else None
+        if mode is not None and mode not in MODES:
+            warnings.append(f"{ref}: unrecognised mode {str(mode_raw)!r} (expected one of {', '.join(MODES)})")
+            mode = None
         row = {
             "author_name": name, "author_slug": slug, "author_handle": handle, "platform": plat, "text": text,
             "posted_at": posted_at, "url": url, "engagement": engagement_of(raw, col_map), "media": media,
             "transcript": transcript, "source_ref": ref, "source_kind": source_kind, "source_file": source_file,
-            "lang": lang, "context": context,
+            "lang": lang, "context": context, "mode": mode,
         }
         rows.append(row)
         if slug:
