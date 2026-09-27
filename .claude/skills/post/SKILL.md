@@ -142,6 +142,28 @@ adds the run's row to `memory/topics.md` (`--outcome skipped` when no variant pa
 `--outcome posted` with the same command), mark the used story `used_in:` in `style/persona.md`, and print the
 file paths. With `--copy` the top LinkedIn variant is already on the clipboard.
 
+## Finishing pass: the run ends with a product
+The product is a post, not a report. Two full runs on 2026-09-20 ended in DID NOT PASS tables and nothing Deep
+could publish, because every gate was wired as a veto. A check's output is an edit. So when `run_next` reaches
+`deliver` and no candidate on a platform holds `verdict.status: pass`, do this before printing anything:
+
+1. `uv run tools/aggregate.py rank <run> --round <last> --json` and take the top candidate per platform. A
+   regression drop or a lost lineup does not disqualify it here: it is still the best text the run produced.
+2. Collect what is open on it from its `merged.json` and feedback packet: failing dimensions with their
+   suggested fixes, lineup tells with their quotes, and every claim Tier 2 marked `wrong` or `unverifiable`.
+3. Spawn one fresh `post-writer` with the candidate text and those notes inlined, told: repair exactly these,
+   keep everything else byte-identical, cut any line whose claim came back wrong, do not add length. This is
+   the one place a writer sees Tier 2 evidence, and it is a repair, not a judged round. You still never edit
+   the text yourself inside `/post`.
+4. `uv run tools/tier0.py` on the repaired text. A hard fail goes back to the same writer once.
+5. Print the repaired post first, paste-ready, under "Your post". Under it, three short lists: fixed (note →
+   edit), open (what no edit could resolve, as Deep's call), declined (a note the writer judged wrong, with
+   its reason). Then the report as before.
+
+The repaired post carries no pass label, because no `merged.json` says so, and that is fine: "pass" is a
+precise word and delivery does not wait on it. When a candidate did pass, skip the repair and lead with it.
+A run ends without paste-ready text only when Deep stops it.
+
 ## Header disclosures (never silent)
 The first line of the report and of your terminal summary states: rubric and profile versions; `health: green` or
 `health: stale for rubric sha …`; `small-corpus mode: lineup uses train posts` when `status --brief` or the

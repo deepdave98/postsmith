@@ -4,7 +4,7 @@ Scope: what separates top-1% tech/AI/startup posts on LinkedIn and X. Sources: D
 
 ## 1. Angle before words
 
-Top creators pick an angle by asking: (a) what does the reader already half-believe that I can make explicit (revelatory > contrarian); (b) what emotion is this for; (c) what do I specifically know or have done that nobody else in the feed does; (d) why now. Contrarian-for-its-own-sake ranks second to story openers in the data and creates opposition rather than "aha".
+Top creators pick an angle by asking: (a) what does the reader already half-believe that I can make explicit (revelatory > contrarian); (b) what emotion is this for; (c) what can I say about this that nobody else in the feed is saying: something I know or have done, a public fact nobody looked up, a step of arithmetic nobody did, a comparison nobody drew, or a bit nobody has made yet; (d) why now. Contrarian-for-its-own-sake ranks second to story openers in the data and creates opposition rather than "aha".
 
 Emotion targets (Puri): LOL, OHHH (now I get it), WOW, WTF, AWW, YAY, NSFW (that's crazy), FINALLY (someone said it). Choose one before writing.
 
@@ -39,8 +39,8 @@ Emotion targets (Puri): LOL, OHHH (now I get it), WOW, WTF, AWW, YAY, NSFW (that
 
 1. Inputs: topic; the persona fact bank and story bank; the emotion list; the assigned angle family; the scout's list of obvious takes.
 2. Generate 8–10 candidate angles inside the assigned family (one sentence each: the thesis a reader could restate).
-3. Score each 1–5 on Surprise (would a follower of this topic have predicted it?), Truth (defensible from a source or the fact bank?), Specificity (number, name, date or artifact?), Personal fit (could only this author say it?), Timeliness (why now, in one sentence), Disagreeability (could a smart person argue the other side?).
-4. Hard kills: Truth < 4; Personal fit ≤ 2 without a receipt; the angle is on the obvious-takes list; the angle needs a fact Deep does not have.
+3. Score each 1–5 on Surprise (would a follower of this topic have predicted it?), Truth (defensible from a source or the fact bank?), Specificity (number, name, date or artifact?), Personal fit (does this need the author's own vantage, and does he have it? — a score, never a gate), Timeliness (why now, in one sentence), Disagreeability (could a smart person argue the other side?).
+4. Hard kills: Truth < 4; Specificity ≤ 2 (no number, name, date, artifact, computed step or exact invented image carries it); the angle is on the obvious-takes list; the angle needs a bankable first-hand fact Deep does not have.
 5. Pick the top one (record the runner-up), choose the emotion and the hook family before drafting.
 6. After drafting, the thesis sentence must still be recoverable from the post in one sentence.
 
@@ -111,7 +111,7 @@ Curiosity gap without clickbait: state the subject and the stake concretely; wit
 |---|---|---|---|
 | G1 | The first line could not be attached to any other topic (a name, number or specific event) | gate | yes |
 | G2 | At least one claim a smart reader could disagree with | gate | yes |
-| G3 | At least one detail only this author could supply (fact bank, first-hand, a real number) | gate | yes |
+| G3 | At least one load-bearing detail the post cannot be written without, whatever its source: the fact bank, a sourced public fact, arithmetic done on the page, a named comparison with a real structural match, or an exact invented image | gate | yes |
 | G4 | Every factual claim is in the fact bank, sourced, or explicitly opinion/prediction | gate | yes |
 | G5 | No reject-list item in the first two lines; no "It's not X, it's Y" or "Stop X, start Y" anywhere | gate | yes |
 | G6 | No generic CTA; any closing question is specific to the post's claim | gate | yes |
@@ -145,6 +145,6 @@ Principle: good theft = study, steal from many, transform, remix; bad theft = st
 | Register (deadpan, lowercase, no intensifiers) | Signature sign-offs or catchphrases |
 | Length and format (list vs prose, P.S. usage) | Any sentence with 6+ consecutive words in common |
 
-Keeping the author at the center: reference posts inform *how*; the fact bank supplies *what*. If a draft's specific details all came from the model rather than the fact bank, G3 fails.
+Keeping the author at the center: reference posts inform *how*, and what a post asserts is governed by G4, not by provenance. A specific may come from the fact bank, from a sourced brief fact, from arithmetic done on the page, or from invention no reader would bank on; G3 asks only whether the post dies without it. The one thing that may never come from the model is a figure, internal or incident attributed to a real named third party - a customer, a competitor, a former employer, a named individual (persona `cannot_claim`). That is a persona_fit 1, not a style note, and it cannot be rewritten into truth.
 
 "Inspired by, not derivative" checklist (G8): topic+thesis pair not shared with any reference; no 6+ consecutive words in common; not the same hook family AND structure AND device order as a single reference (borrow from ≥ 2 or diverge on one axis); every specific detail traces to the fact bank or a cited source; no reference's coinage, metaphor, catchphrase or joke; a reader who has seen the reference would call this "in the same tradition", not "a rewrite"; the voice matches the author's own profile more closely than the reference author's; attribution when a borrowed idea is load-bearing.
