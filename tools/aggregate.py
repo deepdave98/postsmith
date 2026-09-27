@@ -44,8 +44,16 @@ import judge_io  # noqa: E402
 SCHEMA = "postsmith.scores/2"
 FEEDBACK_SCHEMA = "postsmith.feedback/1"
 JUDGED_LENSES = ("reader", "voice", "comedy", "persona")
-INSTRUCTION = ("Fix these, keep everything that passed; do not change the move or the claims unless "
-               "uniqueness or persona_fit failed.")
+INSTRUCTION = (
+    "Fix these, keep everything that passed; do not change the move or the claims unless uniqueness or "
+    "persona_fit failed.\n"
+    "Every dimension listed under \"Gates already passed\" is banked. A rewrite that answers a note and loses "
+    "one of them is a failed rewrite, not a trade: the run records it, names the gate, and asks for the "
+    "previous wording of those lines back.\n"
+    "Do not answer a note by adding length. Add a word only after cutting one; the rewrite must not be longer "
+    "than the previous candidate. If the only way to answer a note is a line a reader would have to read twice, "
+    "leave the note unanswered - an unanswered soft note costs one score, a lost hard gate costs the candidate."
+)
 WHOLE = judge_io.WHOLE_FILE
 
 # light stemming for the opposite-direction keyword pairs in thresholds.stop.oscillation.conflict_keywords
@@ -183,8 +191,15 @@ def _jury_block(original: int | None, jv: dict, threshold: float) -> dict:
 
 def merge(run: str, cid: str, round_k: int, tier0: dict, judge_files: list[dict], jury_files: list[dict],
           tier2: dict | None, previous_merged: dict | None, thresholds: dict, cfg: dict, profile: dict | None,
-          waived: set[str] | None = None) -> dict:
-    """Build the §7 merged document. Pure: reads nothing from disk."""
+          waived: set[str] | None = None, resolve_oscillation: str | None = None) -> dict:
+    """Build the §7 merged document. Pure: reads nothing from disk.
+
+    `resolve_oscillation` carries the side the user chose when an oscillation parked this candidate. An
+    oscillation is the judges contradicting each other, so only the user can break it; the run has no way
+    forward until they do. The decision clears that one stop and is recorded on the document, which keeps
+    the choice auditable and keeps this function the only writer of a verdict. It cannot clear a regression
+    or a persistent overlap: those are drops, not questions.
+    """
     waived = set(waived or set())
     dim_specs: dict[str, dict] = thresholds.get("dimensions") or {}
     lens_map: dict[str, list[str]] = dict(thresholds.get("lenses") or {})
@@ -603,8 +618,14 @@ def merge(run: str, cid: str, round_k: int, tier0: dict, judge_files: list[dict]
             stops.append({"reason": "regression", "detail": f"hard gates passed then failed {len(reg_events)} times: "
                           + ", ".join(f"{x['gate']}@r{x['round']}" for x in reg_events)})
         elif flips and ocfg.get("hard_gate_pass_then_fail", True):
-            stops.append({"reason": "oscillation", "detail": f"hard gate {', '.join(flips)} passed in round "
-                          f"{prev.get('round')} and fails in round {round_k}"})
+            # A spent gate is not a question for the user and not a drop: it is a known-bad rewrite with a known
+            # good previous version. The run says which gate was spent and sends the candidate round again.
+            # Two of them are still a regression, above.
+            stops.append({"reason": "spent_gate", "gates": flips, "revert_round": prev.get("round"),
+                          "detail": f"the rewrite spent hard gate {', '.join(flips)}, which passed in round "
+                                    f"{prev.get('round')}. Restore the round-{prev.get('round')} wording of the "
+                                    f"lines {', '.join(flips)} quotes below, then answer the other notes without "
+                                    f"adding a line, or leave them unanswered."})
         for dim, row in tier1.items():
             if row.get("result") != "fail" or row.get("jury_pending"):
                 continue
@@ -622,12 +643,24 @@ def merge(run: str, cid: str, round_k: int, tier0: dict, judge_files: list[dict]
         if streak[chk] >= ov_needed:
             stops.append({"reason": "overlap_persistent", "detail": f"{chk} flag survived {streak[chk] - 1} rewrites"})
     counters = {"regression_events": reg_events, "overlap_streak": streak}
+    resolved: list[dict] = list((prev.get("stop_resolved") or []))
+    if resolve_oscillation:
+        for s in [s for s in stops if s["reason"] == "oscillation"]:
+            resolved.append({"round": round_k, "reason": "oscillation", "detail": s["detail"],
+                             "favour": resolve_oscillation})
+        stops = [s for s in stops if s["reason"] != "oscillation"]
     stop: dict | None = None
     if stops:
-        order = {"regression": 0, "overlap_persistent": 1, "oscillation": 2}
+        order = {"regression": 0, "overlap_persistent": 1, "oscillation": 2, "spent_gate": 3}
         stops.sort(key=lambda s: order.get(s["reason"], 9))
         stop = {"reason": stops[0]["reason"], "detail": stops[0]["detail"],
                 "drop": stops[0]["reason"] in ("regression", "overlap_persistent"), "all": stops}
+        # A spent gate carries the two fields the rewrite needs: which gates were spent and which round holds the
+        # wording to restore. They are part of the documented stop shape, so they travel on `stop` itself rather
+        # than only inside `all`, where every reader would have to know to look.
+        for k in ("gates", "revert_round"):
+            if k in stops[0]:
+                stop[k] = stops[0][k]
         disagreements.append({"kind": stop["reason"], "dimension_or_check": None, "detail": stop["detail"]})
 
     lexicon = _safe(common.load_lexicon) or {}
@@ -647,6 +680,7 @@ def merge(run: str, cid: str, round_k: int, tier0: dict, judge_files: list[dict]
         "verdict": verdict,
         "jury_requests": jury_requests,
         "stop": stop,
+        "stop_resolved": resolved,
         "counters": counters,
         "disagreements": disagreements,
         "generated_at": common.now_iso(),
@@ -731,6 +765,14 @@ def feedback(merged: dict, candidate_meta: dict | None = None) -> tuple[str, dic
             item["claims"] = [c for c in (row.get("claims") or []) if c.get("status") == "wrong"]
         tier1_items.append(item)
 
+    # Gates this candidate has already banked. Names only, never scores: a writer who can see that clarity
+    # scored 5 can see the headroom and will spend it, which is the failure this block exists to prevent.
+    protected = sorted(
+        ({"dimension": dim, "class": row.get("class")}
+         for dim, row in t1.items()
+         if row.get("result") == "pass" and row.get("class") in ("hard", "soft")),
+        key=lambda p: (p["class"] != "hard", p["dimension"]))
+
     lineup_tells: list[dict] = []
     lu = t2.get("lineup") if isinstance(t2, dict) else None
     if isinstance(lu, dict):
@@ -761,6 +803,7 @@ def feedback(merged: dict, candidate_meta: dict | None = None) -> tuple[str, dic
         "verdict": v.get("status"), "stop": merged.get("stop"),
         "move": assignment.get("move"), "lens": assignment.get("lens"),
         "tier0": tier0_items, "envelope_out": envelope_out, "tier1": tier1_items, "tier2": tier2_items,
+        "protected": protected,
         "lineup_tells": lineup_tells, "unscored": v.get("unscored") or [], "flags": v.get("flags") or [],
         "instruction": INSTRUCTION,
     }
@@ -769,6 +812,15 @@ def feedback(merged: dict, candidate_meta: dict | None = None) -> tuple[str, dic
     if merged.get("stop"):
         s = merged["stop"]
         lines += [f"STOP: {s.get('reason')} - {s.get('detail')}", ""]
+    if protected:
+        hard = [p["dimension"] for p in protected if p["class"] == "hard"]
+        soft = [p["dimension"] for p in protected if p["class"] != "hard"]
+        lines.append("## Gates already passed (banked; a rewrite that loses one has failed)")
+        if hard:
+            lines.append("- hard: " + ", ".join(hard))
+        if soft:
+            lines.append("- soft: " + ", ".join(soft))
+        lines.append("")
     if assignment.get("move") or assignment.get("lens"):
         lines += [f"Assignment: move={assignment.get('move')} lens={assignment.get('lens')} (keep both)", ""]
     if tier0_items:
@@ -1006,7 +1058,7 @@ def cmd_merge(args: argparse.Namespace) -> dict:
     tier2 = _discover_tier2(args.run, args.cid, args.tier2)
     previous = _discover_previous(args.run, args.cid, args.round, args.previous)
     merged = merge(args.run, args.cid, args.round, tier0, judges, juries, tier2, previous, thresholds, cfg,
-                   common.load_profile(), set(args.waive or []))
+                   common.load_profile(), set(args.waive or []), args.resolve_oscillation)
     merged["judge_io"]["contamination"] = contamination
     if not args.no_write:
         common.write_json(scores / f"{args.cid}.merged.json", merged)
@@ -1058,6 +1110,9 @@ def main(argv: list[str] | None = None) -> int:
     m.add_argument("run"); m.add_argument("cid")
     m.add_argument("--round", type=int, required=True)
     m.add_argument("--waive", action="append", help="waive a flag/soft Tier 0 check id (repeatable) or accept na on a dimension")
+    m.add_argument("--resolve-oscillation", metavar="SIDE",
+                   help="the side the user chose when an oscillation parked this candidate; clears that stop "
+                        "and records the decision (never clears a regression or a persistent overlap)")
     m.add_argument("--tier2", help="explicit tier2 JSON (default: discovered under drafts/<run>/tier2/)")
     m.add_argument("--previous", help="explicit previous-round merged JSON (default: discovered via lineage.rewrite_of)")
     m.add_argument("--no-write", action="store_true")

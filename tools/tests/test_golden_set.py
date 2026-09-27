@@ -135,10 +135,18 @@ def test_media_entries(expected):
         **expected["media"]["good_fake_document.yaml"], "media_judge_must_fail": [], "media_check_must_fail": False}
 
 
-def test_oracle_placeholder():
+def test_oracle_file_shape():
+    """oracle.json starts as an empty placeholder and `health_run.py --write` fills it, so assert its shape.
+
+    Asserting it was empty pinned the project to its first day: the first real health run turned this red with
+    nothing broken. No post text may ever appear here, only ids and verdicts, because this file is a label store.
+    """
     oracle = json.loads((GOLD / "oracle.json").read_text(encoding="utf-8"))
-    assert oracle["posts"] == []
-    assert oracle["note"]
+    assert isinstance(oracle["posts"], list) and oracle["note"]
+    for row in oracle["posts"]:
+        assert {"post_id", "platform", "verdict", "failing_dimensions"} <= set(row), row
+        assert row["verdict"] in {"pass", "fail"} and isinstance(row["failing_dimensions"], list)
+        assert "text" not in row and "body" not in row
 
 
 # ----------------------------------------------------------------------------- golden text items

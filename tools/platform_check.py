@@ -11,9 +11,11 @@ Checks (ids fixed by contracts §5):
                one emoji sequence 2, code points outside the light ranges 2; long post only when the persona
                allows it).
   P2_fold      LinkedIn: what survives the mobile fold (first 3 lines or 140 units, whichever cuts first;
-               a blank line is a line; emoji count 2 units). Hard fail only when the 140 cut lands mid-word
-               AND no sentence/clause boundary (. ! ? : ; or a line break) occurs before it; a cut on a word
-               boundary with no clause boundary is a flag. The 210-unit desktop cut is reported too.
+               a blank line is a line; emoji count 2 units). Hard fail only when no sentence/clause boundary
+               (. ! ? : ; or a line break) occurs before the 140 cut AND the opening then runs on more than
+               another fold (fold_run_on_units, default 140) before the first boundary; a shorter run-on is
+               a flag, and whether the cut lands mid-word only changes the evidence wording. The 210-unit
+               desktop cut is reported too.
                X: pass when x_len <= 280; otherwise the first 280 must end at a sentence boundary.
   P_min_words  fewer words than platforms.<p>.min_words (defaults: linkedin 8, x 2) is a hard fail.
   P3_hashtags  X: any hashtag fails. LinkedIn: more than the persona/config maximum fails; any hashtag is
@@ -368,17 +370,23 @@ def check_fold(text: str, platform: str, x_len: int | None, pcfg: dict, policy: 
         why_base = f"no sentence/clause boundary (. ! ? : ; or line break) within the first {mobile['cut_at']} chars"
         ci = mobile["cut_index"]
         around = text[max(0, ci - 40):ci + 12]
-        if mobile["mid_word"]:
+        nxt = next((m.end() for m in BOUNDARY_RE.finditer(text) if m.end() > ci), None)
+        overrun = (nxt - ci) if nxt is not None else (len(text) - ci)
+        run_on_limit = int(pcfg.get("fold_run_on_units", pcfg.get("fold_mobile_chars", 140)))
+        where = (f"cuts mid-word after {text[max(0, ci - 12):ci]!r}" if mobile["mid_word"]
+                 else f"cuts after {text[max(0, ci - 12):ci]!r} on a word boundary")
+        if overrun > run_on_limit:
             return _res(
                 "hard", False,
-                [_ev(around, f"mobile fold cuts mid-word after {text[max(0, ci - 12):ci]!r} and {why_base}")],
-                flag=False, **common_fields,
+                [_ev(around, f"mobile fold {where}, {why_base}, and the opening runs on {overrun} more chars "
+                             f"before the first boundary")],
+                flag=False, overrun=overrun, run_on_limit=run_on_limit, **common_fields,
             )
         return _res(
             "flag", True,
-            [_ev(around, f"{why_base}; the cut after {text[max(0, ci - 12):ci]!r} lands on a word boundary, "
+            [_ev(around, f"{why_base}; the fold {where}, and the first boundary arrives {overrun} chars later, "
                          "so the hook is readable but incomplete")],
-            flag=True, **common_fields,
+            flag=True, overrun=overrun, run_on_limit=run_on_limit, **common_fields,
         )
     limit = int(pcfg.get("max_chars", 280))
     assert x_len is not None

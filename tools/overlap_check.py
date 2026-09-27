@@ -550,6 +550,11 @@ def check_o2(prep: Prepared, lexicon: dict | None, ocfg: dict, index: dict | Non
         k = len(p.split())
         if k == 0 or k > len(prep.tokens) or p in seen:
             continue
+        # A phrase has to carry lexical content to be anyone's. Normalisation strips punctuation, so an entry
+        # like "30(!)" reduces to the bare token "30" and would fail every candidate that cites a price, a date
+        # or a count. Numbers are facts, and the overlap checks above already cover a shared run of them.
+        if not any(ch.isalpha() for ch in p):
+            continue
         seen.add(p)
         d_eff = phrase_tolerance(p, d)
         p_nums = _numeric_tokens(p)
