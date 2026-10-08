@@ -33,7 +33,13 @@ checks:
   P_min_words:
     class: hard
     min_words: 8
-    note: fewer than 8 words or empty = fail, so empty and injection-only items fail deterministically
+    min_words_with_media: 1
+    note: >-
+      fewer than 8 words or empty = fail, so empty and injection-only items fail deterministically. A candidate that
+      carries media (front-matter media non-empty, or media_intent.decision other than none) is a caption and the
+      floor is 1 word; an empty caption still fails. Measured 2026-09-28 - heldout post unattributed_001 is 6 words
+      and turned oracle_tier0 red, train post james-hawkins_010 is 5 words, the shortest caption among the
+      reference posts is 3 characters, and every one of them carries an image that holds the content.
   P3_hashtags:
     class: hard
     base_rate_downgrade: false

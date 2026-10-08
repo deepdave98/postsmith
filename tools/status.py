@@ -104,7 +104,11 @@ def corpus_counts(root: Path) -> dict:
 
 def health_state(root: Path, profile_version: int | None) -> dict:
     reports = root / "evals" / "health" / "reports"
-    files = sorted(reports.glob("*.md")) if reports.exists() else []
+    # Newest by report date, then by modification time. A plain name sort orders two reports from the same day by
+    # rubric hash, so on 2026-09-28 a red report (hash 3e23...) outranked the green one written seven minutes later
+    # (hash 1faa...) and the dashboard stayed red after the fix.
+    files = (sorted(reports.glob("*.md"), key=lambda f: (f.name[:10], f.stat().st_mtime, f.name))
+             if reports.exists() else [])
     sha = rubric_sha(root)
     if not files:
         return {"state": "none", "latest_report": None, "rubric_sha": sha, "reason": "no health report yet"}

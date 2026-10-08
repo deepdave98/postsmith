@@ -1,5 +1,30 @@
 # Rubric changelog
 
+## v2 amendment (2026-09-28): P_min_words learns what a caption is
+
+Found by the health run that follows every ingest. Adding one heldout post, a six-word caption over a screenshot,
+turned `oracle_tier0` from green (9/9) to red (9/10): the post hard-failed `P_min_words`, whose floor of 8 words
+was written so that empty and injection-only golden items fail deterministically and never considered a post whose
+content is in its image. The same gate had hard-failed a five-word caption draft the day before and been waved
+through as a known false positive. The oracle is what showed it was a defect: the grader was rejecting a real post
+the author endorses, and would have rejected `james-hawkins_010` and the 3-character caption in the train set had
+they been in the heldout split.
+
+Change: a candidate that carries media is graded as a caption, floor `min_words_with_media` (1). Text-only
+candidates keep the floor of 8. An empty caption fails either way. The rule is in `tools/platform_check.py`
+(`has_media`, `check_min_words`), so like the P2_fold and P13 recalibration it applies under v1 as well; only this
+note and `thresholds.yaml` are version-specific. `tools/health_run.py` now passes a heldout post's `media` into the
+oracle candidate so the oracle grades it the way `/draft` and `/post` would.
+
+What did not change: `empty.md` and `injection.md` carry no media and still fail on their expected ids;
+`adversarial_frontmatter.md` still fails on every expected id. A writer can lower the floor by declaring media,
+and that is intended: a two-word caption on an image is a real form, and the injection and residue gates do not
+look at word count.
+
+Tests: `tools/tests/test_platform.py`, three new (caption with media, media never excuses an empty caption or a
+declared none, the floor is configurable). Amended in place rather than cut as v3 because v3 already exists with an
+unrelated, unpromoted change (hook class hard) and this is a calibration fix to a gate, not a new standard.
+
 ## v2 (2026-09-20)
 
 **Promoted on a RED health report, deliberately, at the author's instruction.** The first health run in this

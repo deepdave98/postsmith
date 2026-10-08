@@ -741,6 +741,7 @@ def first_pass(ctx: Ctx, expected: dict, today: _dt.date) -> dict:
         cmeta = _meta_for("oracle", src, str(meta.get("platform") or "linkedin"), post_id=pid,
                           crosspost_of=meta.get("crosspost_of"), variant_of=meta.get("variant_of"),
                           platform_choices=ORACLE_NEUTRAL_POLICY,
+                          media=(meta.get("media") or None),   # a caption is graded as a caption (P_min_words)
                           assignment={"lens": slug}, lineage={"exemplars_seen": sorted(str(x) for x in excl)})
         md = write_candidate(ctx, cid, cmeta, text)
         lens_scope = f"author:{slug}" if slug and f"author:{slug}" in scopes else "corpus"

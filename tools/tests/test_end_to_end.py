@@ -185,7 +185,11 @@ def root(tmp_path_factory) -> Root:
     dst = tmp_path_factory.mktemp("e2e") / "postsmith"
     dst.mkdir()
     _copytree(PROJECT / "config", dst / "config")
-    _copytree(PROJECT / "evals", dst / "evals")
+    # The rubric, golden set and anchors come along; the label stores do not. A real session appends to
+    # calibration.jsonl and disagreements.jsonl and writes health reports, and a dry run that inherits them
+    # counts rows it never wrote.
+    _copytree(PROJECT / "evals", dst / "evals",
+              ignore=shutil.ignore_patterns("calibration.jsonl", "disagreements.jsonl", "reports"))
     # Only the style/ scaffold is copied. The learned layer (profile.json and its history, the author
     # profiles, moves, common, exemplars, media_habits, self) is what this run builds from nothing.
     # Inheriting the project's copies would start the run already learned: the profile would resume at
