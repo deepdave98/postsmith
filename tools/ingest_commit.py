@@ -428,6 +428,7 @@ def build_meta(post_id: str, row: dict, slug: str, split: str, sha: str, source_
         "crosspost_of": crosspost_of,
         "variant_of": variant_of,
         "context": row.get("context") or None,
+        "mode": row.get("mode") or None,
         "engagement": {k: eng.get(k) for k in ("likes", "comments", "reposts", "views")},
         "media": media,
         "text_stats": text_stats(text),

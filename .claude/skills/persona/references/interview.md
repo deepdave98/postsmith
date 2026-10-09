@@ -13,7 +13,7 @@ Why it matters: the angle taxonomy's strongest family is Receipt, and receipts c
 Good answer looks like: "I run the enrichment pipeline at a 9-person data startup; most mornings I read the failed-jobs queue and two customer Slack channels; I know what a 'verified email' actually costs to produce."
 
 ## 2. Fact bank
-Why it matters: G3 of the quality bar (a detail only this author could supply) and G4 (every fact sourced) are gates. Non-round numbers with dates beat round ones; the number is the punchline in half the good posts in the corpus. Each entry must be usable inside one sentence without a follow-up question.
+Why it matters: G3 of the quality bar (a load-bearing specific the post cannot be written without) and G4 (every fact sourced) are gates. A fact bank is one way to satisfy G3, not the only one, but it is the only way to say something first-hand when the topic calls for it. Non-round numbers with dates beat round ones; the number is the punchline in half the good posts in the corpus. Each entry must be usable inside one sentence without a follow-up question.
 - Numbers you know by heart: volumes, costs, error rates, latencies, headcount, revenue-ish figures you can publish, dates things shipped or broke.
 - Customers or customer types you may name, and what they actually asked for.
 - Tools you pay for, what they cost, which you dropped and why.

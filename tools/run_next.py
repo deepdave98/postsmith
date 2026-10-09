@@ -32,6 +32,8 @@ Stage derivation (strict precedence, from files only; never from label stores or
                                                                  <run> --outcome pass, then archive prompts
     final/report.md present                        -> done       final/.stale present: back to deliver
     only a parked (oscillation) candidate remains  -> stopped    waiting_on the user
+    spent_gate stop                                -> feedback   never parks, never drops; the packet carries
+                                                                 the restore instruction
 
 Ride-along, never a stage of its own: with config run.quick_lineup_on_tier1_pass, a candidate that passes
 Tier 1 gets a one-judge Turing lineup at once, on the Tier 2 seed. Its pick at confidence >= 4 ranks
@@ -82,6 +84,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import aggregate  # noqa: E402
 import common  # noqa: E402
 import lineup  # noqa: E402
 import matrix  # noqa: E402
@@ -310,10 +313,21 @@ class Cand:
 
     @property
     def hard_fail(self) -> bool:
+        """Whether this candidate still carries an unresolved hard Tier 0 fail, which is what skips its judges.
+
+        A jury can overturn a Tier 0 hard fail, and aggregate records that in the merged verdict while the tier0
+        file keeps its original result. Reading the tier0 file alone would leave an overturned candidate with its
+        judges skipped for ever, while its verdict sat holding on the ten dimensions those judges would have
+        produced: merge, hold, merge, with no action that could ever clear it.
+        """
         if not isinstance(self.tier0, dict):
             return False
         checks = self.tier0.get("checks") or {}
-        return any(isinstance(c, dict) and c.get("class") == "hard" and c.get("pass") is False for c in checks.values())
+        failed = any(isinstance(c, dict) and c.get("class") == "hard" and c.get("pass") is False
+                     for c in checks.values())
+        if not failed or not isinstance(self.merged, dict):
+            return failed
+        return bool((self.merged.get("verdict") or {}).get("hard_fails"))
 
     @property
     def missing_lenses(self) -> list[str]:
@@ -976,8 +990,7 @@ def writer_prompt(root: Path, run: str, rd: Path, assignment: dict, round_k: int
         out = rd / f"round{round_k}" / "candidates" / f"r{round_k}-w{rewrite.writer_no}-{rewrite.suffix}.md"
         lines.append(f"Rewrite of your candidate {rewrite.cid} (round {rewrite.round}). The feedback packet and your "
                      "previous candidate are pasted below verbatim: open no candidates/ or feedback/ file.")
-        lines.append("Fix these, keep everything that passed; do not change the move or the claims unless uniqueness "
-                     "or persona_fit failed.")
+        lines.append(aggregate.INSTRUCTION)
         lines.append(f"Write the rewrite to: {_rel(root, out)} (same front matter shape; cid: {out.stem}, round: {round_k}, "
                      f"lineage.rewrite_of: {rewrite.cid}).")
         lines.append("")
@@ -1538,9 +1551,11 @@ def derive(root: Path, run: str, flags: dict | None = None) -> dict:
         if c.jury_pending(thresholds):
             needs["jury"].append(c)
             continue
-        if c.stop:
+        if c.stop and str(c.stop.get("reason")) != "spent_gate":
             (parked if str(c.stop.get("reason")) == "oscillation" else dropped).append(c)
             continue
+        # spent_gate is not terminal: it falls through to feedback and a rewrite, carrying the restore
+        # instruction in the packet. The second flip is a regression, which does stop above.
         if c.awaiting_remerge(thresholds):
             needs["aggregate"].append(c)
             continue

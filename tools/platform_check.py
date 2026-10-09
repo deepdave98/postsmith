@@ -11,11 +11,17 @@ Checks (ids fixed by contracts §5):
                one emoji sequence 2, code points outside the light ranges 2; long post only when the persona
                allows it).
   P2_fold      LinkedIn: what survives the mobile fold (first 3 lines or 140 units, whichever cuts first;
-               a blank line is a line; emoji count 2 units). Hard fail only when the 140 cut lands mid-word
-               AND no sentence/clause boundary (. ! ? : ; or a line break) occurs before it; a cut on a word
-               boundary with no clause boundary is a flag. The 210-unit desktop cut is reported too.
+               a blank line is a line; emoji count 2 units). Hard fail only when no sentence/clause boundary
+               (. ! ? : ; or a line break) occurs before the 140 cut AND the opening then runs on more than
+               another fold (fold_run_on_units, default 140) before the first boundary; a shorter run-on is
+               a flag, and whether the cut lands mid-word only changes the evidence wording. The 210-unit
+               desktop cut is reported too.
                X: pass when x_len <= 280; otherwise the first 280 must end at a sentence boundary.
-  P_min_words  fewer words than platforms.<p>.min_words (defaults: linkedin 8, x 2) is a hard fail.
+  P_min_words  fewer words than platforms.<p>.min_words (defaults: linkedin 8, x 2) is a hard fail. A candidate
+               that carries media (front-matter `media` non-empty, or `media_intent.decision` other than
+               none) is a caption, and the floor drops to min_words_with_media (default 1): the image
+               carries the content, and the reference set has real posts of three to six words. An
+               empty caption still fails.
   P3_hashtags  X: any hashtag fails. LinkedIn: more than the persona/config maximum fails; any hashtag is
                noted (target is 0). A trailing hashtag block (>= 2 hashtags on final hashtag-only lines) fails
                on both platforms. Evidence: one verbatim row per hashtag.
@@ -71,6 +77,9 @@ CHECK_IDS = ("P1_length", "P2_fold", "P_min_words", "P3_hashtags", "P4_links", "
 
 # Defaults used when neither persona nor config says otherwise.
 DEFAULT_MIN_WORDS = {"linkedin": 8, "x": 2}
+# A caption on a post that carries media. Measured 2026-09-28: james-hawkins_010 is 5 words, the heldout oracle
+# post that turned health red is 6, and the shortest caption in the reference set is 3 characters.
+DEFAULT_MIN_WORDS_WITH_MEDIA = {"linkedin": 1, "x": 1}
 DEFAULT_HASHTAGS_MAX = {"linkedin": 3, "x": 0}
 DEFAULT_EMOJI_MAX = {"linkedin": 3, "x": 1}
 FOLD_EMOJI_UNITS = 2          # research-linkedin §1: emoji consume more than one unit on the fold
@@ -231,12 +240,15 @@ def resolve_policy(platform: str, meta: dict, cfg: dict, persona_choices: dict |
     if platform == "x" and l_src == "default":
         long_posts, l_src = pick("x_long_posts", False)
     min_words, m_src = pick("min_words", DEFAULT_MIN_WORDS[platform])
+    min_media, mm_src = pick("min_words_with_media", DEFAULT_MIN_WORDS_WITH_MEDIA[platform])
     return {
         "hashtags_max": int(hashtags_max),
         "emoji_max": int(emoji_max),
         "long_posts": bool(long_posts) if platform == "x" else False,
         "min_words": int(min_words),
-        "sources": {"hashtags_max": h_src, "emoji_max": e_src, "long_posts": l_src, "min_words": m_src},
+        "min_words_with_media": int(min_media),
+        "sources": {"hashtags_max": h_src, "emoji_max": e_src, "long_posts": l_src, "min_words": m_src,
+                    "min_words_with_media": mm_src},
     }
 
 
@@ -368,17 +380,23 @@ def check_fold(text: str, platform: str, x_len: int | None, pcfg: dict, policy: 
         why_base = f"no sentence/clause boundary (. ! ? : ; or line break) within the first {mobile['cut_at']} chars"
         ci = mobile["cut_index"]
         around = text[max(0, ci - 40):ci + 12]
-        if mobile["mid_word"]:
+        nxt = next((m.end() for m in BOUNDARY_RE.finditer(text) if m.end() > ci), None)
+        overrun = (nxt - ci) if nxt is not None else (len(text) - ci)
+        run_on_limit = int(pcfg.get("fold_run_on_units", pcfg.get("fold_mobile_chars", 140)))
+        where = (f"cuts mid-word after {text[max(0, ci - 12):ci]!r}" if mobile["mid_word"]
+                 else f"cuts after {text[max(0, ci - 12):ci]!r} on a word boundary")
+        if overrun > run_on_limit:
             return _res(
                 "hard", False,
-                [_ev(around, f"mobile fold cuts mid-word after {text[max(0, ci - 12):ci]!r} and {why_base}")],
-                flag=False, **common_fields,
+                [_ev(around, f"mobile fold {where}, {why_base}, and the opening runs on {overrun} more chars "
+                             f"before the first boundary")],
+                flag=False, overrun=overrun, run_on_limit=run_on_limit, **common_fields,
             )
         return _res(
             "flag", True,
-            [_ev(around, f"{why_base}; the cut after {text[max(0, ci - 12):ci]!r} lands on a word boundary, "
+            [_ev(around, f"{why_base}; the fold {where}, and the first boundary arrives {overrun} chars later, "
                          "so the hook is readable but incomplete")],
-            flag=True, **common_fields,
+            flag=True, overrun=overrun, run_on_limit=run_on_limit, **common_fields,
         )
     limit = int(pcfg.get("max_chars", 280))
     assert x_len is not None
@@ -394,12 +412,31 @@ def check_fold(text: str, platform: str, x_len: int | None, pcfg: dict, policy: 
                 long_posts_allowed=policy["long_posts"], flag=False)
 
 
-def check_min_words(text: str, n_words: int, policy: dict) -> dict:
-    minimum = policy["min_words"]
+def has_media(meta: dict) -> bool:
+    """True when the candidate carries media: a non-empty front-matter `media`, or a `media_intent` whose
+    decision is anything but none. Then the text is a caption and the image carries the content."""
+    if not isinstance(meta, dict):
+        return False
+    media = meta.get("media")
+    if isinstance(media, str):
+        if media.strip():
+            return True
+    elif isinstance(media, (list, tuple, dict)) and len(media) > 0:
+        return True
+    mi = meta.get("media_intent")
+    if isinstance(mi, dict):
+        decision = str(mi.get("decision") or "none").strip().lower()
+        if decision not in ("", "none"):
+            return True
+    return False
+
+
+def check_min_words(text: str, n_words: int, policy: dict, with_media: bool = False) -> dict:
+    minimum = policy.get("min_words_with_media", 1) if with_media else policy["min_words"]
     if n_words >= minimum:
-        return _res("hard", True, value=n_words, min=minimum)
-    return _res("hard", False, [_ev(text.strip(), f"{n_words} words is below the minimum of {minimum}")],
-                value=n_words, min=minimum)
+        return _res("hard", True, value=n_words, min=minimum, with_media=with_media)
+    why = f"{n_words} words is below the minimum of {minimum}" + (" for a caption on a post with media" if with_media else "")
+    return _res("hard", False, [_ev(text.strip(), why)], value=n_words, min=minimum, with_media=with_media)
 
 
 def _trailing_hashtag_block(text: str) -> str | None:
@@ -556,7 +593,7 @@ def run_checks(text: str, platform: str, meta: dict, cfg: dict, persona_choices:
     checks = {
         "P1_length": check_length(text, platform, chars, x_len, pcfg, policy),
         "P2_fold": check_fold(text, platform, x_len, pcfg, policy),
-        "P_min_words": check_min_words(text, n_words, policy),
+        "P_min_words": check_min_words(text, n_words, policy, has_media(meta)),
         "P3_hashtags": check_hashtags(text, platform, policy),
         "P4_links": check_links(text, platform, meta),
         "P5_markup": check_markup(text, meta),

@@ -38,7 +38,7 @@ needs_pdftoppm = pytest.mark.skipif(not HAVE_PDFTOPPM, reason="pdftoppm not inst
 needs_sips = pytest.mark.skipif(not HAVE_SIPS, reason="sips (macOS) not available")
 
 POST_KEYS = ["schema", "post_id", "author", "platform", "posted_at", "url", "lang", "source", "content_sha256", "split",
-             "crosspost_of", "variant_of", "context", "engagement", "media", "text_stats"]
+             "crosspost_of", "variant_of", "context", "mode", "engagement", "media", "text_stats"]
 MEDIA_KEYS = ["kind", "path", "preview", "sha256", "width", "height", "duration_s", "frames_dir", "transcript",
               "provided_description"]
 
@@ -265,6 +265,22 @@ def test_markdown_blocks_and_front_matter(tmp_path: Path) -> None:
                      encoding="utf-8")
     doc = run_normalize(root, mixed)
     assert doc["rows"] == 2 and [r["platform"] for r in common.read_jsonl(root / doc["file"])] == ["linkedin", "x"]
+
+
+def test_mode_label_is_kept_when_known_and_dropped_when_not(tmp_path: Path) -> None:
+    root = make_root(tmp_path)
+    src = inbox(root) / "modes.md"
+    src.write_text("author: Lara Acosta\nplatform: linkedin\nmode: Insightful\n\nfirst labelled post, long enough\n"
+                   "---\nauthor: Lara Acosta\nplatform: linkedin\nmode: spicy\n\nsecond post with a bad label\n"
+                   "---\nauthor: Lara Acosta\nplatform: linkedin\n\nthird post with no label at all\n", encoding="utf-8")
+    doc = run_normalize(root, src)
+    rows = common.read_jsonl(root / doc["file"])
+    assert [r["mode"] for r in rows] == ["insightful", None, None]
+    assert any("unrecognised mode" in w for w in doc["warnings"]) and doc["unmapped_columns"] == []
+    out = run_commit(root, doc["file"])
+    posts = root / "corpus" / "posts"
+    metas = [common.read_front_matter_file(posts / f"{pid}.md")[0] for pid in out["ingested"]]
+    assert [m["mode"] for m in metas] == ["insightful", None, None]
 
 
 def test_normalize_user_errors(tmp_path: Path) -> None:
