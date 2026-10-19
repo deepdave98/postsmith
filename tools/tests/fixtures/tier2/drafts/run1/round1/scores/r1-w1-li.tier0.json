@@ -1,0 +1,18 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "run1",
+  "cid": "r1-w1-li",
+  "round": 1,
+  "platform": "linkedin",
+  "checks": {
+    "P1_length": {
+      "class": "hard",
+      "pass": true
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "hits": []
+    }
+  }
+}

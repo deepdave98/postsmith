@@ -1,6 +1,6 @@
 ---
 name: post
-description: Writes LinkedIn and X post variants on a topic in Deep's voice using moves learned from the reference corpus, has fresh-context judges score them, sends the failures back for surgical rewrites, and prints paste-ready posts with an optional image or video prompt. Use when Deep says "write a post about", "post ideas on", "draft something on", "give me variants for", "/post <topic>", or picks a topic after /trending.
+description: Writes LinkedIn and X post variants on a topic in the user's voice using moves learned from the reference corpus, has fresh-context judges score them, sends the failures back for surgical rewrites, and prints paste-ready posts with an optional image or video prompt. Use when the user says "write a post about", "post ideas on", "draft something on", "give me variants for", "/post <topic>", or picks a topic after /trending.
 argument-hint: "[topic] [--lens slug] [--platform both|linkedin|x] [--quick] [--wide] [--no-media] [--copy]"
 disable-model-invocation: true
 allowed-tools: Read Write Glob Grep Agent SendMessage WebSearch WebFetch AskUserQuestion Bash(uv run *) Bash(pbcopy *) Bash(mkdir *)
@@ -17,15 +17,15 @@ Project state right now (versions, health, corpus counts, nags):
 !`uv run tools/status.py --brief || true`
 
 ## What this is for
-Posts Deep would be proud to have typed himself: one specific idea, a punch that lands on a detail only he could
-know, built on a move from `style/moves.md`, in his own register (`style/self.md`, `style/persona.md`), at the level
-of the corpus (`style/common.md`). Output is text Deep pastes by hand into LinkedIn and X. Nothing here posts,
+Posts the user would be proud to have typed themselves: one specific idea, a punch that lands on a detail only they could
+know, built on a move from `style/moves.md`, in their own register (`style/self.md`, `style/persona.md`), at the level
+of the corpus (`style/common.md`). Output is text the user pastes by hand into LinkedIn and X. Nothing here posts,
 scrapes, or touches either platform.
 
 ## Why the shape of this matters
 The brand lives in a feed that punishes sameness: LinkedIn down-ranks what readers flag as AI slop, X pays for
 replies and a mute wipes a post out. A post that is merely correct and polished has failed. The eval exists to catch
-that before Deep does. Your job is to feed it honest candidates, relay its evidence unchanged, and never grade or
+that before the user does. Your job is to feed it honest candidates, relay its evidence unchanged, and never grade or
 patch a post yourself: by the end of a run you have seen feedback packets and score tables, so an orchestrator that
 edits a candidate is a generator that has read the answer key. Every boundary below follows from that.
 
@@ -33,7 +33,7 @@ edits a candidate is a generator that has read the answer key. Every boundary be
 Angle before words: the writers find the thing the reader half-believes and make it explicit, with a receipt.
 The hook is a specific thing, not a shape. One thesis per post, restatable in a sentence. A claim a smart reader
 could dispute. No lesson paragraph, no CTA, no explaining the joke. X gets the sharpest single idea; LinkedIn gets
-room to set it up; they are never the same text with the line breaks changed. Deep's best posts so far are not the
+room to set it up; they are never the same text with the line breaks changed. The user's best posts so far are not the
 long ones, so one assignment is always the short deadpan option. The full bar is `docs/design/content-quality-bar.md`;
 writers and judges carry it, you do not apply it by hand.
 
@@ -42,12 +42,12 @@ writers and judges carry it, you do not apply it by hand.
   experience; a fabricated anecdote fails a hard gate and cannot be rewritten into truth.
 - `style/moves.md`, `style/common.md`, `style/authors/*.md`, `style/exemplars.md`: mechanisms and the bar. Writers
   borrow moves, never phrasing; `style/lexicon.yaml` lists what is off limits and `tier0.py` catches reuse anyway.
-- `style/self.md`: Deep's register. Reference authors supply moves; Deep supplies the texture. `register_match_self`
+- `style/self.md`: the user's register. Reference authors supply moves; the user supplies the texture. `register_match_self`
   is the voice gate, so when `status --brief` says self samples are below the bar, print "voice anchor: weak
   (self n=<n>)" in the header and keep going.
 - `memory/lessons.md` (PREFER / AVOID / FACTS-I-CAN-USE, not RETIRED) and `memory/topics.md` (recent topics, moves
-  used in the last 3 runs, scoreboard, proven angles): what Deep has already said he likes, what scored, what was
-  used recently. Read them before anything else; blind ratings are the only ground truth about his taste.
+  used in the last 3 runs, scoreboard, proven angles): what the user has already said they like, what scored, what was
+  used recently. Read them before anything else; blind ratings are the only ground truth about their taste.
 - `angle-scout`: one agent that returns `drafts/<run>/brief_inputs.json` with the 5–8 obvious takes (writers avoid
   them; judges never see them), persona facts and opinions by line, a story-bank match, 2–4 live specifics with
   URLs when the topic is current, and `needs_user_detail`. It never proposes angles; the writers do that.
@@ -58,7 +58,7 @@ writers and judges carry it, you do not apply it by hand.
    creates `drafts/<run>/` with the seeded matrix and returns `{"ok", "run", "run_dir", ...}`; `run` is
    `<YYYY-MM-DD>_<slug>` and every later command takes it.
 2. Spawn `angle-scout` with: topic, platform, the run id, the output path `drafts/<run>/brief_inputs.json`.
-3. If `needs_user_detail` is true and not `--quick`, ask Deep exactly one question with AskUserQuestion: "One true
+3. If `needs_user_detail` is true and not `--quick`, ask the user exactly one question with AskUserQuestion: "One true
    detail from your week about this, or 'none'." A second question only if the topic touches a `cannot_claim`.
    Never ask more; never fill the gap yourself.
 4. Write `drafts/<run>/brief.md`: topic and flags; obvious takes under "Do not write these"; facts you may use,
@@ -109,14 +109,14 @@ did not name. A crash costs nothing; rerunning `run_next` resumes where the file
 - `waiting_on` non-empty → an action produced no file; re-run that one action once. A second miss is a rejection
   and `run_next` routes it (rerun with another lens, hold, jury) without your help.
 - `stopped` → read `notes`. Oscillation (the same dimension failing in consecutive rounds with contradictory fixes,
-  or a hard gate that passed then failed after the packet) means the judges disagree with each other: show Deep the
+  or a hard gate that passed then failed after the packet) means the judges disagree with each other: show the user the
   two suggested fixes verbatim and ask which side to favour, then continue. Any other stop reason goes into the
   report as written.
 
 Stop conditions are encoded in `aggregate.py`, not in you: pass → finalist; three rounds → best attempt marked did
 not pass with its table; a fix breaking a passing hard gate twice → dropped; an O1/O5 flag surviving two rewrites →
 dropped (that variant is a paraphrase at its core); a candidate failing only on a persona claim → delivered under
-"needs your call" with the claim named, never rewritten into a safer claim, because that decision is Deep's.
+"needs your call" with the claim named, never rewritten into a safer claim, because that decision is the user's.
 
 ## Tier 2 and delivery
 `run_next` runs Tier 2 on the top finalist per platform (both with `--wide`): the Turing lineup, the exemplar
@@ -143,7 +143,7 @@ adds the run's row to `memory/topics.md` (`--outcome skipped` when no variant pa
 file paths. With `--copy` the top LinkedIn variant is already on the clipboard.
 
 ## Finishing pass: the run ends with a product
-The product is a post, not a report. Two full runs on 2026-09-20 ended in DID NOT PASS tables and nothing Deep
+The product is a post, not a report. Two full runs on 2026-09-20 ended in DID NOT PASS tables and nothing the user
 could publish, because every gate was wired as a veto. A check's output is an edit. So when `run_next` reaches
 `deliver` and no candidate on a platform holds `verdict.status: pass`, do this before printing anything:
 
@@ -157,19 +157,19 @@ could publish, because every gate was wired as a veto. A check's output is an ed
    the text yourself inside `/post`.
 4. `uv run tools/tier0.py` on the repaired text. A hard fail goes back to the same writer once.
 5. Print the repaired post first, paste-ready, under "Your post". Under it, three short lists: fixed (note →
-   edit), open (what no edit could resolve, as Deep's call), declined (a note the writer judged wrong, with
+   edit), open (what no edit could resolve, as the user's call), declined (a note the writer judged wrong, with
    its reason). Then the report as before.
 
 The repaired post carries no pass label, because no `merged.json` says so, and that is fine: "pass" is a
 precise word and delivery does not wait on it. When a candidate did pass, skip the repair and lead with it.
-A run ends without paste-ready text only when Deep stops it.
+A run ends without paste-ready text only when the user stops it.
 
 ## Header disclosures (never silent)
 The first line of the report and of your terminal summary states: rubric and profile versions; `health: green` or
 `health: stale for rubric sha …`; `small-corpus mode: lineup uses train posts` when `status --brief` or the
 tier0 files say so; `lineup advisory` when the pool could not supply fillers; `voice anchor: weak (self n=…)`;
 the matrix fallback rung when `matrix.json` records one; `quick: no lineup, no pairwise` under `--quick`; rounds,
-calls and wall time from `run.log`. Each of these changes how much the verdict is worth, so Deep sees them first.
+calls and wall time from `run.log`. Each of these changes how much the verdict is worth, so the user sees them first.
 
 ## What judges and writers must never receive
 Judges: the brief, `brief_inputs.json`, any candidate's front matter, writer reasoning, feedback history, other
@@ -197,7 +197,7 @@ never from you. Do not summarise a score you did not compute, and do not round a
 `drafts/<run>/final/`: one file per variant with the exact paste text fenced, "why this works" citing moves, the
 media block or `real_capture_direction`, `reply_1` for X; `clipboard.md`; `report.md` with every dimension shown
 separately and verdicts collapsed under "After blind rating" until `/rate blind <run>` has recorded a blind
-calibration row for the run, so Deep's rating does not inherit the judge's; `blind.json`, the lettered verdict-free
+calibration row for the run, so the user's rating does not inherit the judge's; `blind.json`, the lettered verdict-free
 texts that rating reads; `lineage.json`. Terminal: finalists first, each fenced exactly as pasted with its
 one-line eval header, claims to confirm, and `Rate it: /rate blind <run>` / `Log it: /posted <run> <li|x> <url>`;
 then alternates ("passed Tier 0-1, not lineup-tested"), "needs your call", "did not pass" with evidence, paths.

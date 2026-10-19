@@ -7,7 +7,7 @@ number), **project choice** (a default this project picked inside the official r
 `config/postsmith.yaml` (`platforms.*`, `media.*`) mirrors the numbers `tools/media_check.py` enforces; this file
 is the human-readable source with provenance. `/eval health` lists every fact whose `verified_on` is older than
 `media.facts_stale_after_days` (90 days) as **unverified**: re-fetch the source, correct the number if it moved,
-and update the date here and in config. A stale fact never blocks a run; it is printed so Deep knows what to
+and update the date here and in config. A stale fact never blocks a run; it is printed so the user knows what to
 re-check.
 
 ## LinkedIn

@@ -1,0 +1,21 @@
+{
+  "run": "2026-09-10_agents-buying-domains",
+  "topic": "agents buying domains to be safe",
+  "variants": {
+    "r1-w1-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-10_agents-buying-domains/final/li_1.md",
+      "tier2_tested": true
+    },
+    "r1-w2-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-10_agents-buying-domains/final/li_2.md",
+      "tier2_tested": false
+    },
+    "r1-w1-x": {
+      "platform": "x",
+      "final_path": "drafts/2026-09-10_agents-buying-domains/final/x_1.md",
+      "tier2_tested": true
+    }
+  }
+}

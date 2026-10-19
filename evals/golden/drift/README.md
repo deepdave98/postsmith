@@ -5,7 +5,7 @@ measured between versions.
 
 ## State
 
-Empty at project start, on purpose. The set is filled by the first 12 *generated* candidates that Deep rates with
+Empty at project start, on purpose. The set is filled by the first 12 *generated* candidates that the user rates with
 `/rate` (any score). Once a candidate is frozen here it is never edited, replaced or removed; a new rubric version
 that wants a different drift set creates a new folder (`drift_v2/`) and updates `expected.json#drift`.
 

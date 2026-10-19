@@ -1,0 +1,64 @@
+schema: postsmith.media/1
+post_id: good_x_video
+platform: x
+decision: video
+decision_reason: 'M2: native video under fifteen seconds with the hook in the first second; the pen is the punchline'
+delete_test: Without it the reader never sees the hand write the item line.
+carousel_suggested: false
+genre: fake_document
+humor_or_hook_device: bureaucratic deadpan
+visual_concept: A hand writes the item line on a laminated purchase-order form pinned to a startup fridge.
+subject: a hand in a grey hoodie sleeve holding a blue ballpoint
+setting: scuffed white startup fridge, late-afternoon window light from the left
+composition:
+  framing: medium close-up
+  angle: straight-on
+  focal_point: the pen tip
+  negative_space: fridge edge on the right
+style:
+  medium: phone-camera realism
+  palette: natural colour
+  era_or_reference: taken thirty seconds ago
+  finish: faint grain
+must_show:
+- one round magnet
+keep_out_as_positive:
+- the form header is a generic block of black type
+aspect_ratio: '9:16'
+target_pixels: 1080x1920
+resolution_tier: 2K
+tool:
+  primary: veo_3_1
+  reason: native audio and a spoken line
+  fallback: runway_gen_4_5
+references:
+- role: first_frame
+  source: generated_still
+  note: the still from the image brief
+video:
+  duration_s: 8
+  start_frame: generated_still
+  camera: locked static frame
+  beats:
+  - t: 00:00-00:03
+    action: hand enters and pauses over the item line
+  - t: 00:03-00:06
+    action: hand writes slowly and underlines twice
+  - t: 00:06-00:08
+    action: hand retreats; a second magnet is slapped on
+  dialogue:
+  - speaker_desc: an unseen tired man, deadpan
+    line: It bought a domain. To be safe.
+  sfx:
+  - ballpoint scratching on laminate
+  - magnet clacking on metal
+  ambient: fridge compressor hum
+  captions_plan: burn_in_in_editor
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: A hand writes 'one domain, to be safe' on a purchase order pinned to a fridge.
+factual_claims_in_visual: []
+risk_notes: handwriting may wobble; expect two takes

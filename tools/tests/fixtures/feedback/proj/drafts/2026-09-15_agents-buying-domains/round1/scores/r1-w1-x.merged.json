@@ -1,0 +1,420 @@
+{
+  "schema": "postsmith.scores/2",
+  "run": "2026-09-15_agents-buying-domains",
+  "cid": "r1-w1-x",
+  "round": 1,
+  "platform": "x",
+  "rubric_version": "v1",
+  "rubric_sha": "deadbeef",
+  "profile_version": 2,
+  "lexicon_version": 1,
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "text_path": "drafts/2026-09-15_agents-buying-domains/round1/candidates/r1-w1-x.txt",
+  "tier0": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P15_burstiness": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P16_broetry": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    }
+  },
+  "tier1": {
+    "clarity": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "substance": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "hook": {
+      "judge": "judge-reader",
+      "class": "soft",
+      "threshold": 4,
+      "score": 3,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": {
+        "votes": [
+          3,
+          4,
+          4
+        ],
+        "median": 4,
+        "lenses": [
+          "reader",
+          "voice",
+          "comedy"
+        ]
+      },
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "regret_risk": {
+      "judge": "judge-reader",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "reply_worthiness": {
+      "judge": "judge-reader",
+      "class": "advisory",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "register_match_self": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": null,
+      "na": true,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "na",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "level_and_move": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 3,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "not_ai": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "platform_register": {
+      "judge": "judge-voice",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "humor": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "uniqueness": {
+      "judge": "judge-comedy",
+      "class": "soft",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "emotion": {
+      "judge": "judge-comedy",
+      "class": "advisory",
+      "threshold": 4,
+      "score": 4,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "persona_fit": {
+      "judge": "judge-persona",
+      "class": "hard",
+      "threshold": 4,
+      "score": 5,
+      "na": false,
+      "evidence": [],
+      "suggested_fix": null,
+      "jury": null,
+      "result": "pass",
+      "needs_confirmation": [],
+      "rejections": 0,
+      "pre_step": "ok",
+      "violations": []
+    },
+    "claims": {
+      "judge": "judge-persona",
+      "class": "special",
+      "claims": [
+        {
+          "text": "three agents in prod for six weeks",
+          "status": "user_provided",
+          "source": "persona.can_claim#1"
+        }
+      ],
+      "result": "pass"
+    }
+  },
+  "tier2": {
+    "ran": true,
+    "lineup": {
+      "pass": true,
+      "picks": [
+        {
+          "lens": "reader",
+          "picked_candidate": false,
+          "confidence": 2,
+          "tell": ""
+        }
+      ],
+      "invalid": [],
+      "rule": "fail if >= 2 picks at conf >= 4"
+    },
+    "paraphrase": false,
+    "pairwise": null,
+    "claims": [
+      {
+        "text": "three agents in prod for six weeks",
+        "status": "user_provided",
+        "source": "persona.can_claim#1"
+      }
+    ],
+    "media": null
+  },
+  "judge_io": {
+    "rejected": [],
+    "na_by_rejection": [],
+    "na_declared": [],
+    "holds": [],
+    "contamination": []
+  },
+  "verdict": {
+    "status": "pass",
+    "hard_fails": [],
+    "soft_fails": [],
+    "flags": [],
+    "unscored": [],
+    "advisory": {},
+    "na_declared": []
+  },
+  "jury_requests": [],
+  "stop": null
+}

@@ -123,7 +123,7 @@ checks:
     fail_ngram: 8
     fail_lcs_chars: 40
     persistent_drop_after_rewrites: 2
-    note: overlap with memory/published/; Deep must not repeat himself
+    note: overlap with memory/published/; the user must not repeat themselves
   E1_envelope:
     class: soft
     threshold: 0.70

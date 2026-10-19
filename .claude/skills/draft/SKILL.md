@@ -1,80 +1,107 @@
 ---
 name: draft
-description: Writes one paste-ready post fast, in a chosen mode (funny or insightful), from the learned style files, then runs one pass of checks and hands over the text plus a meme prompt. Use when Deep says "give me a post on X", "funny post about X", "insightful post like this one", "restructure this post", "hawkins style", or pastes a post and asks for his version. Minutes, not hours. /post stays for the full tournament.
-argument-hint: "<topic | pasted post> [funny|insightful] [li|x|both]"
-allowed-tools: Read Write Agent WebFetch WebSearch Bash(uv run *)
+description: Turns one pick (a number from today's shortlist, a pasted story, or the user's own line) into the material for a post in their voice: facts opened at source, ten candidate lines for the one place the post turns, then the dialogue or ladder built around the line they pick, an image concept and generator prompt (never a render), captions under six words, the first comment and two reply seeds. Deterministic checks only, no judges. Use when the user says "draft #2", "do this one", "punchlines for X", "funny post about X", "insightful post on X", "hawkins style", or pastes a story or a line.
+argument-hint: "<#n from today's shortlist | topic | pasted line> [funny|insightful]"
+allowed-tools: Read Write WebFetch WebSearch Bash(uv run *)
 metadata:
-  skill_version: "1.0"
+  skill_version: "2.0"
 ---
 
 # /draft
 
 Request: $ARGUMENTS
 
-## What this is
-One post, one pass, about five minutes. You write it yourself, with the learned files open on the desk. Deep
-asked for this on 2026-09-20 after two full `/post` runs produced nothing he could publish: the tournament
-optimised for rejection and a from-memory draft missed the lens author's signature move. This is the middle.
-Ingestion decides how the post is built. A short list of checks decides whether it ships. Nothing loops.
+## What changed on 2026-10-06 and why
+Version 1 wrote one polished post per topic, ran four judges on it, and handed it over. In two weeks none of
+those posts went live as written. The one that did go up was the user's own rewrite, and the Muse post was made
+by fifteen fast rounds of punchlines, their pick, a screenshot carrying the joke, and five words on top. The
+judges passed every draft they rejected. So the product is no longer a finished post. It is raw material in their
+voice, delivered in two halves with their pick in between: first the facts and ten candidate lines for the one
+place the post turns; then, after they pick or write their own, everything built around that line.
 
-## Mode picks the lens
-- `funny`: `style/authors/james-hawkins.md`. He is the primary target. Pick one archetype he actually uses
-  (escalation_ladder, screenshot_commentary, one_liner) and say which.
-- `insightful`: `style/modes/insightful.md` when it exists. Until it does, the structural reference is the
-  example Deep pasted (skeleton only, never wording) plus `style/common.md`, and the output says
-  "insightful lens: thin" so he knows the draft leaned on one example.
-- No mode given: infer it from the topic, say which you chose, carry on.
-- No topic given, insightful mode: `memory/insightful_topic_bank.md` holds scouted topics with scores, the other
-  side's best argument and facts already opened at source. Pick one not marked used, re-open each URL you quote
-  (facts go stale), mark it used. When the bank is older than about 30 days, scout again before drafting.
+## Read first, every time
+- `memory/published/*.md`: all of it. The new post shares no subject, no opener shape, no beat and no closer
+  with the last three. They said "i dont want shit to sound repetitive at all".
+- `corpus/self/*` and `style/self.md`: their register. This outranks every reference author. Where the self
+  samples are thin, their live posts in `memory/published/` are the better anchor.
+- `style/persona.md`: `do_not_target`, `cannot_claim`, Opinions refused, Never. No personal angle unless they
+  asked for one.
+- `style/lexicon.yaml` `do_not_reuse`: other people's coinages. Never in a line of their.
+- `style/authors/james-hawkins.md` sections 7 and 10 for funny; `style/modes/insightful.md` for insightful.
+  These are mechanism catalogs now, not the voice.
+- `memory/shortlist/<today>.md` when the request is a number.
+- The private company context pack, when `style/persona.md` names one under `## Company context` (it lives
+  outside this repo and is never copied in here), whenever the post touches the user's company, its products,
+  a competitor or the space: every receipt, every number's verdict, the "never say" list and leadership's
+  rules for that half of the feed are in it.
+- `memory/lessons.md` when it exists.
 
-## New examples keep the lenses honest
-When Deep pastes a post he likes and calls it funny or insightful, file it: a Markdown block in `corpus/inbox/`
-with `mode:` set, then the `/ingest` stages (normalize, commit, card, verify, mode profile rebuild). A mode profile
-states a habit only when two posts share it, so one odd example cannot bend the lens; it waits under "Seen once"
-until a second post agrees. That is what keeps quality steady as the pile grows.
+## Half one: facts and ten lines
+1. **Facts.** Open every number, date, name and quote at its source with WebFetch. Write
+   `drafts/<date>_<slug>/claims.md`: claim, status, source. A figure that cannot be confirmed is not used.
+   A false figure survived twelve judge passes on 2026-09-20 and was caught only by looking.
+2. **The turn.** Decide where the post turns: the last bubble of a chat, the caption under a screenshot, the
+   kicker of a ladder. There is one such place. Everything else is setup.
+3. **Ten lines for it.** Numbered, each twelve words or fewer, each a different mechanism: literal compliance
+   one rung past; the complaint relabelled as the request; the institution's own vocabulary; the scale made
+   exact; the format's last slot filled with what it entails; the artifact's own words transcribed; the flat
+   confession; the chirpy non-answer; the smaller-than-the-setup payoff; the "you" that makes a claim about
+   the reader. Lowercase unless the line is the machine speaking in its own case. No emoji unless it is the
+   machine's. Beside each line at most five words naming the mechanism, nothing more. Do not rank them in
+   prose; put the one you would ship first.
+4. **Stop.** Print the facts in three lines, the ten numbered lines, and nothing else. Wait for their pick.
 
-## Before writing, read
-`style/persona.md` (voice choices, the never list, `cannot_claim`, `do_not_target`), the lens file,
-`style/moves.md` (pick one move, name it), and the lens author's `do_not_reuse` block in `style/lexicon.yaml`.
-No default personal angle: a personal line goes in only when Deep asked for one. Invention nobody would bank on
-is allowed and stays deadpan. Invention pinned on a real named third party is not.
+## Half two: build around their line
+When they pick a number or pastes their own line:
+- **Their line is the line.** Build the setup to land it. Never swap their words for better ones; sharpen only
+  what they ask, and show the change as a one-line diff. If their line has a logic gap (a word that does not
+  carry the misreading, as "marketplace" did not carry "stock market" on 2026-10-05), name the gap in one
+  sentence and give two words that close it.
+- **Shape.** For a chat parody: three or four bubbles, the user typed lowercase, the machine in its own
+  case, the punch the last bubble, nothing after. For a ladder: three blocks, events in order, flat register,
+  the punch the last words. Read the last sentence of every block in a row; at most one may land.
+- **Image.** The default format is image plus caption; a text ladder only when there is no artifact. Write
+  the concept in one sentence and the generator prompt (ChatGPT Images unless they name another tool). When they
+  gives a reference screenshot, the prompt opens with "use the attached screenshot as the exact UI reference"
+  and lists only what changes. Never render, mock up, crop or build the image; they make it. A fake capture of a
+  real product is their call, flagged once in one line, never refused twice.
+- **Captions.** Three, each six words or fewer, lowercase, no period, no emoji. A caption is a reaction to the
+  image, never a description of it, never a correction of it.
+- **First comment and two reply seeds.** In their lane (GTM, startups, dev tools). The comment is a joke that
+  extends the post into the lane, not a pitch and not an explanation. The reply seeds are two one-liners for
+  the first two kinds of reply they will get (the pedant, the fan).
+- **Checks, deterministic only.** `uv run tools/tier0.py <candidate> --as-golden --lens author:james-hawkins
+  --json` on the caption or ladder text, with `media:` set in the front matter so a caption is scored as a
+  caption. Fix a hard fail; read O1, O2, O5 for overlap; ignore E1 on a caption. `uv run
+  tools/quote_leak_check.py <candidate> --json`. No judge batch. Judges run only if they type "judge it".
+- **Hand over.** The dialogue or ladder, the image prompt, the three captions, the first comment, the reply
+  seeds, then a short list of what the checks changed and what is their call. No score table, no verdict word.
 
-## Write
-LinkedIn and X unless told otherwise. X is its own post, not LinkedIn with the breaks removed. Line 1 must
-leave a question open; a specification is not a hook. Restructuring a pasted post: keep its skeleton, replace
-every sentence.
+## Insightful mode
+Same two halves. The turn is the opinion line or the one number that changes what the reader does. Ten
+candidate lines for it, their pick, then the plain-sentence post built around it in the register of
+the user's own live posts under `memory/published/`: their spoken lines, one idea per paragraph, about
+five figures total, no mirrored lines, no fragment runs, no "not X, it's Y", no colon reveal.
 
-## Then check, once, in this order
-1. **Lens conformance.** Walk the lens file's checkable rules against the draft and fix misses before anything
-   else runs. For Hawkins that means: line 1 leads with the object, not with "i"; the absurd thing is said in
-   the vocabulary of the institution it belongs to; none of the six marks he never uses; the pivot is the last
-   words; nothing follows the punch.
-2. **Tier 0.** Write the draft to `drafts/draft_<date>_<slug>/round1/candidates/e1-li.md` (and `e1-x.md`) with
-   golden-style front matter, then `uv run tools/tier0.py <file> --as-golden --lens author:<slug> --json`.
-   A hard fail is fixed and rerun. Seconds.
-3. **One batch of fresh judges.** `uv run tools/run_next.py draft_<date>_<slug> --json`, spawn the first batch
-   in parallel with the five-line delegation `/eval` uses, and stop there. No juries, no rewrite rounds. Reader
-   always (the hook gap test, clarity, substance). Comedy when the mode is funny (the eight joke tests).
-4. **Claims.** Every number and dated fact is opened at its source with WebFetch before delivery. A false
-   figure survived twelve judge passes on 2026-09-20 and was caught only by looking.
+## Story posts
+Mandatory, by the user's standing order of 2026-10-18: any post or paragraph that narrates something that happened
+walks `.claude/skills/story/SKILL.md` (the `/story` skill) before anything else here continues. No story post
+exists without it. It carries the framework they pasted, the two halves and the ten-line audit. In short: art, the
+moment told from inside it in specific detail with one felt beat, nothing invented about the user's company, its products or a named
+person; science, a bridge sentence naming the moment and the count in words, then two or three numbered lessons,
+each a plain sentence with a verb, the last one their opinion, nothing after it. In half one the turn is the
+sentence where the thing happened; the scene and the lessons are built in half two around their pick. This shape is
+exempt from the insightful lens rules 6 to 9 and rule 19's no-takeaway clause.
 
-## Checks repair, they never cancel
-The product is a post. Every note from step 1 to 4 ends one of two ways: it becomes an edit, or it is declined
-with a one-line reason (a register check built on seven Slack messages objecting to a flat comic ladder is
-declined; a reader who cannot resolve a line is never declined). A claim that cannot be confirmed is cut or
-corrected, and the post survives without it. An overlap rewrites its span. A hook with no gap rewrites line 1.
-When an edit rewrote line 1 or the line the post turns on, send the new text to the reader judge once more,
-one call, because a fix can break what it touched. Two judge batches is the ceiling. Then hand over, always.
-
-## Hand over
-Paste-ready LinkedIn. Paste-ready X. One meme prompt or capture direction: most of the corpus attaches
-media, and the lens author's habit is a tight crop of a real screen or an obviously fictional parody chart or
-UI, never a faked capture of a real product. Then a short list: what the checks changed, what was declined
-and why, and anything left open as Deep's call. No score table, no pass or fail label, and never a run that
-ends without text he can paste.
+## Log it
+When they say it went up: write the live caption or text exactly as posted to
+`drafts/<run>/final_live_caption.txt`, keep the posted image beside it under `drafts/<run>/media/`, and run
+`uv run tools/posted_record.py <run> <cid> --text-file <file> --posted-at <date> --json` the same minute.
+Forty-eight hours later: `/posted <run> <li|x> <views> views <likes> likes <comments> comments`. After ten
+logged posts, read `memory/performance.jsonl` by format (image plus caption, chat parody, text ladder) and
+say which one moves for them.
 
 ## Boundaries
-Never open `corpus/heldout/`, `corpus/ratings.jsonl`, `evals/calibration.jsonl` or a `*.key.json`. Judge
-output here is advice, not a verdict: `/draft` never says "passed". Only `/post` and `/eval` do, and only
-from a `merged.json`.
+Never open `corpus/heldout/`, `corpus/ratings.jsonl`, `evals/calibration.jsonl` or a `*.key.json`. Never
+render a UI, an image or a screenshot. Never post. Never say "passed"; nothing here passes, it ships when they
+says so.

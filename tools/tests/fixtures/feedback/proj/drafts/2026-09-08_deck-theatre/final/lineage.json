@@ -1,0 +1,36 @@
+{
+  "run": "2026-09-08_deck-theatre",
+  "topic": "deck theatre",
+  "variants": {
+    "r2-w1-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-08_deck-theatre/final/r2-w1-li.md",
+      "tier2_tested": true,
+      "verdict": "pass",
+      "assignment": {
+        "angle_family": "receipt",
+        "archetype": "incident",
+        "move": "corporate_register_for_trivial_event",
+        "device": "anti_climax",
+        "lens": "lara-acosta",
+        "seed": 1,
+        "short_deadpan": false
+      }
+    },
+    "r2-w2-x": {
+      "platform": "x",
+      "final_path": "drafts/2026-09-08_deck-theatre/final/r2-w2-x.md",
+      "tier2_tested": true,
+      "verdict": "pass",
+      "assignment": {
+        "angle_family": "reframe",
+        "archetype": "incident",
+        "move": "quote_then_deflate",
+        "device": "anti_climax",
+        "lens": null,
+        "seed": 1,
+        "short_deadpan": false
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ Emotion targets (Puri): LOL, OHHH (now I get it), WOW, WTF, AWW, YAY, NSFW (that
 | Ridicule | escalation_absurd | Extend the trend to its logical, ridiculous conclusion | honest about the trend | "At this cadence, by Q3 the changelog will be longer than the model card." |
 | Rule | who_this_hurts | Name the loser the announcement omits | specific, not cruel | "Great for anyone with a 1,000-GPU eval harness. A tax on everyone else." |
 | Rule | uncomfortable_tradeoff | Name the trade nobody says out loud, and who pays | you own the trade | "We'll take a 2% accuracy hit for a 40% cost cut. Every customer says no. Every customer's CFO says yes." |
-| Rule | falsifiable_prediction | A number and a date | you will post the result | "By March, 95% of our tokens will go to tasks no human at Floqer ever did. Screenshot this." |
+| Rule | falsifiable_prediction | A number and a date | you will post the result | "By March, 95% of our tokens will go to tasks no human on our team ever did. Screenshot this." |
 | Rule | the_razor | A one-line rule of thumb for deciding | memorable and usable tomorrow | "If a launch demo doesn't show the failure case, assume the failure case is the product." |
 | Receipt | artifact | Post the artifact (memo, screenshot, dashboard), not its summary | you have the artifact | (Lütke posting the Shopify memo) |
 
@@ -39,8 +39,8 @@ Emotion targets (Puri): LOL, OHHH (now I get it), WOW, WTF, AWW, YAY, NSFW (that
 
 1. Inputs: topic; the persona fact bank and story bank; the emotion list; the assigned angle family; the scout's list of obvious takes.
 2. Generate 8–10 candidate angles inside the assigned family (one sentence each: the thesis a reader could restate).
-3. Score each 1–5 on Surprise (would a follower of this topic have predicted it?), Truth (defensible from a source or the fact bank?), Specificity (number, name, date or artifact?), Personal fit (does this need the author's own vantage, and does he have it? — a score, never a gate), Timeliness (why now, in one sentence), Disagreeability (could a smart person argue the other side?).
-4. Hard kills: Truth < 4; Specificity ≤ 2 (no number, name, date, artifact, computed step or exact invented image carries it); the angle is on the obvious-takes list; the angle needs a bankable first-hand fact Deep does not have.
+3. Score each 1–5 on Surprise (would a follower of this topic have predicted it?), Truth (defensible from a source or the fact bank?), Specificity (number, name, date or artifact?), Personal fit (does this need the author's own vantage, and do they have it? — a score, never a gate), Timeliness (why now, in one sentence), Disagreeability (could a smart person argue the other side?).
+4. Hard kills: Truth < 4; Specificity ≤ 2 (no number, name, date, artifact, computed step or exact invented image carries it); the angle is on the obvious-takes list; the angle needs a bankable first-hand fact the user does not have.
 5. Pick the top one (record the runner-up), choose the emotion and the hook family before drafting.
 6. After drafting, the thesis sentence must still be recoverable from the post in one sentence.
 
@@ -105,6 +105,8 @@ Overused (reject): "Here's what nobody tells you" (−4.3% reach), "It's not X, 
 
 Curiosity gap without clickbait: state the subject and the stake concretely; withhold only the mechanism, number or twist; deliver it inside the post; never withhold the subject. Bait: "This one change 10x'd our pipeline." Gap done right: "We rewrote one 40-line prompt. Extraction errors fell 31%. The line that mattered was the last one."
 
+Story posts (a first-person account of something that happened) walk the `/story` skill (`.claude/skills/story/SKILL.md`) before anything else, by the user's standing order of 2026-10-18; this paragraph is its summary. They need art and science together. Art: the moment told from inside it in specific detail (the day, the room, what was on the screen, what someone said in their own words) with one beat of feeling shown as what the teller did or thought right then; specific, not long. Science: a bridge sentence naming the moment and the count in words, then two or three numbered takeaways that result from the experience, each a plain sentence with a verb the reader could act on, no label-colon-definition items, no mirrored pair, nothing after the last item. A story with no lessons is a diary; lessons with no story are the listicle `not_ai` punishes. Every scene detail comes from the user or is left as a bracketed slot for them; a story about the user's company, its products or a named person invents nothing.
+
 ## 5. The quality bar (gates then scores)
 
 | # | Criterion | Type | Pass |
@@ -124,7 +126,7 @@ Curiosity gap without clickbait: state the subject and the stake concretely; wit
 | S5 | Register: deadpan, no intensifiers/exclamation marks/emoji-laughter; sounds like speech | 1–5 | ≥ 4 |
 | S6 | Hook mechanics: one line, ≤ ~40 chars (LinkedIn) or the whole point in line one (X); line 2 re-hooks or delivers | 1–5 | ≥ 4 |
 | S7 | Payoff: what the hook withheld is delivered; the ending closes the loop or calls back | 1–5 | ≥ 4 |
-| S8 | Personal fit: consistent with the persona/voice; a colleague would believe he wrote it | 1–5 | ≥ 4 |
+| S8 | Personal fit: consistent with the persona/voice; a colleague would believe they wrote it | 1–5 | ≥ 4 |
 | S9 | Timeliness: passes "why now?" in one sentence | 1–5 | ≥ 3 |
 | S10 | Humor quality (if attempted): fresh reader names the mechanism and the true observation it rests on | 1–5 | ≥ 4 or no joke |
 | S11 | Emotion target is identifiable and singular | 1–5 | ≥ 4 |

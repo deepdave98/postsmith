@@ -282,6 +282,37 @@ def test_min_words_from_persona_choices():
     assert res["checks"]["P_min_words"]["pass"] is True
 
 
+def test_min_words_caption_on_a_post_with_media():
+    """A caption is allowed to be short because the image carries the content. Found 2026-09-28: a six-word
+    heldout post with a screenshot turned the oracle red, and a five-word caption draft hard-failed."""
+    short = "This one is six words long"
+    assert run(short)["checks"]["P_min_words"]["pass"] is False                     # text-only: floor of 8 holds
+    for meta in ({"media": ["shot.png"]},                                           # reference post front matter
+                 {"media": "shot.png"},
+                 {"media": [{"path_or_url": "shot.png", "description": "a capture"}]},
+                 {"media_intent": {"decision": "image"}},                           # candidate front matter
+                 {"media_intent": {"decision": "real_capture"}}):
+        res = run(short, "linkedin", meta)["checks"]["P_min_words"]
+        assert res["pass"] is True and res["with_media"] is True and res["min"] == 1, meta
+    one = run("checks out", "linkedin", {"media": ["shot.png"]})["checks"]["P_min_words"]
+    assert one["pass"] is True
+
+
+def test_min_words_media_does_not_excuse_an_empty_caption_or_a_declared_none():
+    assert run("", "linkedin", {"media": ["shot.png"]})["checks"]["P_min_words"]["pass"] is False
+    assert run("   ", "linkedin", {"media": ["shot.png"]})["checks"]["P_min_words"]["pass"] is False
+    for meta in ({"media": []}, {"media": ""}, {"media": None},
+                 {"media_intent": {"decision": "none"}}, {"media_intent": {}}, {"media_intent": None}, {}):
+        res = run("Three words here.", "linkedin", meta)["checks"]["P_min_words"]
+        assert res["pass"] is False and res["with_media"] is False and res["min"] == 8, meta
+
+
+def test_min_words_with_media_floor_is_configurable():
+    meta = {"media": ["shot.png"], "platform_choices": {"linkedin": {"min_words_with_media": 4}}}
+    assert run("Three words here.", "linkedin", meta)["checks"]["P_min_words"]["pass"] is False
+    assert run("Four words are here.", "linkedin", meta)["checks"]["P_min_words"]["pass"] is True
+
+
 # --------------------------------------------------------------------------- P3 hashtags
 
 
@@ -333,12 +364,12 @@ def test_x_url_in_body_fails_and_reports_reply_1():
     assert p4["pass"] is False and p4["class"] == "hard" and p4["count"] == 1
     assert p4["reply_1_present"] is True
     assert "reply_1" in p4["evidence"][0]["why"]
-    assert p4["evidence"][0]["span"] == "https://floqer.com/blog/agents-buying-domains"
+    assert p4["evidence"][0]["span"] == "https://example.com/blog/agents-buying-domains"
 
 
 def test_x_bare_domain_counts_as_link():
-    p4 = run("the writeup is on floqer.com if you want the receipts.", "x")["checks"]["P4_links"]
-    assert p4["pass"] is False and p4["links"] == ["floqer.com"]
+    p4 = run("the writeup is on example.com if you want the receipts.", "x")["checks"]["P4_links"]
+    assert p4["pass"] is False and p4["links"] == ["example.com"]
     assert p4["reply_1_present"] is False
 
 
@@ -348,7 +379,7 @@ def test_x_no_link_passes():
 
 
 def test_linkedin_single_naked_link_is_advisory():
-    text = "We wrote it up in detail here https://floqer.com/blog/agents and the short version is: it worked."
+    text = "We wrote it up in detail here https://example.com/blog/agents and the short version is: it worked."
     p4 = run(text)["checks"]["P4_links"]
     assert p4["class"] == "advisory" and p4["pass"] is True and p4["count"] == 1 and p4["note"]
 

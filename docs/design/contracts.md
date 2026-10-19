@@ -20,7 +20,7 @@ split: train                   # train | heldout | self (mirrors directory; stic
 crosspost_of: null
 variant_of: null
 context: null                  # quoted or surrounding text the post answers; shown to annotators, never scored
-mode: null                     # funny | insightful | null. Deep's label at filing time; never inferred
+mode: null                     # funny | insightful | null. The user's label at filing time; never inferred
 engagement: {likes: null, comments: null, reposts: null, views: null}
 media: [{kind: image|video|carousel|screenshot|unavailable, path, preview, sha256, width, height, duration_s, frames_dir, transcript, provided_description}]
 text_stats: {chars, words, lines, blank_lines}

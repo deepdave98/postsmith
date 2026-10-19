@@ -1,0 +1,11 @@
+Every AI budget review I sat in this year had the same slide, and nobody could say who read the output.
+
+Ours had it too. Line 14: an agent that summarises support tickets. Cost: 900 a month. Readers: the agent, and a dashboard nobody opened since May.
+
+So we switched it off for two weeks to see who noticed.
+
+Support noticed on day nine. Not because the summaries stopped. Because the dashboard turned grey and someone thought the database was down.
+
+We kept the agent off. We kept the dashboard, grey.
+
+Turns out the 900 a month was buying a colour.

@@ -1,0 +1,2 @@
+The camera holds a locked static frame as a hand in a grey hoodie sleeve enters from the right holding a blue ballpoint and writes on the first row of the form, then underlines the words twice and pulls back out of frame. The magnet wobbles slightly when the hand brushes the form. Slow, deliberate motion, handheld-steady, documentary realism.
+[00:00 through 00:02] hand enters and pauses. [00:02 through 00:06] writing and double underline. [00:06 through 00:08] hand exits, magnet settles.

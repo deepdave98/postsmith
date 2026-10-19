@@ -22,7 +22,7 @@ Matching is case-insensitive; spaces, underscores and hyphens are equivalent.
 | comments | comments, replies | no | |
 | reposts | reposts, shares, retweets | no | |
 | views | views, impressions | no | |
-| mode | mode, post mode | no | `funny` or `insightful`: what Deep filed the post as. Feeds `style/modes/<mode>.md`. Anything else is dropped with a warning |
+| mode | mode, post mode | no | `funny` or `insightful`: what the user filed the post as. Feeds `style/modes/<mode>.md`. Anything else is dropped with a warning |
 
 Unmapped columns are listed in the ingest report and otherwise ignored. If `text` or `author` cannot be mapped, the
 tool returns `needs` and /ingest asks one question; answer with the column names or pass `--author` / `--mapping`.

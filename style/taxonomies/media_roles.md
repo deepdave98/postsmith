@@ -14,9 +14,9 @@ record `genre`; the media-director cites rules M1-M7 and the media-judge scores 
 | whiteboard_explainer | hand-drawn diagram that explains the post's mechanism | three boxes and an arrow that the caption does not draw | LinkedIn; the drawing adds a step the text only implies | promptable; ≤ 5 text elements |
 | diagram_chart | a chart or diagram asserting numbers | a two-bar chart of cost before/after | every number is in `factual_claims_in_visual` | promptable; factual sub-result is hard |
 | photoreal_scene | a staged photographic scene | a phone photo of a sticky note on a monitor | the scene reads as "taken 30 seconds ago" | promptable; no real faces or logos |
-| product_mock | a mock of Deep's own product or artifact | a fictional dashboard of Deep's own tool | the brand is Deep's own | promptable; brand check exempts only the author's brand |
+| product_mock | a mock of the user's own product or artifact | a fictional dashboard of the user's own tool | the brand is the user's own | promptable; brand check exempts only the author's brand |
 | comic_panels | 2-4 panels with dialogue | an agent and a CFO in three panels | the last panel is the punch; ≤ 8 words per panel | promptable |
-| user_photo_direction | a real photo of the author, with shot direction | "Deep at the desk, laptop open on the error, phone photo" | LinkedIn; faces beat polished brand shots | needs_real_face; the brief gives direction only |
+| user_photo_direction | a real photo of the author, with shot direction | "the user at the desk, laptop open on the error, phone photo" | LinkedIn; faces beat polished brand shots | needs_real_face; the brief gives direction only |
 | real_capture_direction | a real screenshot with exact capture instructions | "open Claude Code, run X, crop to the last 12 lines, redact the key" | proof of a real product's output (M6: never faked) | needs_real_screenshot; capture_direction sub-result |
 | photo_of_artifact | a real photo of a real object or page (corpus analysis) | a whiteboard with "???" in the third box | annotating the corpus; in generation becomes user_photo_direction or photoreal_scene | needs_real_photo |
 | screenshot | a real screenshot in a corpus post (corpus analysis) | a pricing page, a terminal | annotating the corpus; in generation this is always real_capture_direction | needs_real_screenshot |

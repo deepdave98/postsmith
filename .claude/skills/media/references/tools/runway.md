@@ -17,10 +17,10 @@ success bias as weaknesses. Audio is conflicting between the help-center spec (n
 added December 2025): treat the output as silent and plan voiceover in an editor. Web only; 720p; 24/25 fps;
 2-10 s; text-to-video is 16:9 only, so it never fits a LinkedIn or X vertical video; use image-to-video.
 
-## Settings Deep sets in the app
+## Settings the user sets in the app
 Gen-4.5, image-to-video, upload the clean still (no artifacts, no visible text errors), 9:16 or 1:1 to match the
 still, duration 5-8 s, 24 fps. Text-to-video only when consistency does not matter, and then 16:9 (which no
-platform video list in config allows: it is a last resort for a landscape asset Deep will crop himself).
+platform video list in config allows: it is a last resort for a landscape asset the user will crop themselves).
 
 ## Image-to-video template (the default)
 ```

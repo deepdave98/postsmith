@@ -107,9 +107,9 @@ def rubric_sha_of(rubric_dir: Path, root: Path) -> str | None:
             found = True
             h.update(name.encode("utf-8"))
             h.update(p.read_bytes())
-    lex = root / "style" / "lexicon.yaml"
+    lex = common.lexicon_path(root)
     if lex.exists():
-        h.update(b"lexicon.yaml")
+        h.update(lex.name.encode("utf-8"))
         h.update(lex.read_bytes())
     return h.hexdigest() if found else None
 
@@ -260,7 +260,7 @@ def waive_own_author_o2(doc: dict, slug: str | None) -> list[str]:
 
 
 # Oracle items are other authors' published posts. They are graded for mechanical defects, never against
-# Deep's own policy: evals/golden/oracle.json makes persona_fit N/A for them, and emoji_max / hashtags_max
+# The user's own policy: evals/golden/oracle.json makes persona_fit N/A for them, and emoji_max / hashtags_max
 # resolve from style/persona.md, which IS persona policy. Neutralising them to the platform ceiling via the
 # candidate front matter uses the documented meta > persona > config precedence in platform_check.
 ORACLE_NEUTRAL_POLICY = {"linkedin": {"emoji_max": 3, "hashtags_max": 3},
@@ -268,7 +268,7 @@ ORACLE_NEUTRAL_POLICY = {"linkedin": {"emoji_max": 3, "hashtags_max": 3},
 
 
 def waive_p4_links_phrase(doc: dict) -> list[str]:
-    """'link in comments' on an oracle post is that author's tactic, not a defect in Deep's draft. The gate
+    """'link in comments' on an oracle post is that author's tactic, not a defect in the user's draft. The gate
     stays hard for candidates, and a real URL in an X body is never waived (its span is a URL, not a phrase)."""
     res = (doc.get("checks") or {}).get("P4_links")
     if not isinstance(res, dict) or res.get("pass") is not False:
@@ -741,6 +741,7 @@ def first_pass(ctx: Ctx, expected: dict, today: _dt.date) -> dict:
         cmeta = _meta_for("oracle", src, str(meta.get("platform") or "linkedin"), post_id=pid,
                           crosspost_of=meta.get("crosspost_of"), variant_of=meta.get("variant_of"),
                           platform_choices=ORACLE_NEUTRAL_POLICY,
+                          media=(meta.get("media") or None),   # a caption is graded as a caption (P_min_words)
                           assignment={"lens": slug}, lineage={"exemplars_seen": sorted(str(x) for x in excl)})
         md = write_candidate(ctx, cid, cmeta, text)
         lens_scope = f"author:{slug}" if slug and f"author:{slug}" in scopes else "corpus"
@@ -762,7 +763,7 @@ def first_pass(ctx: Ctx, expected: dict, today: _dt.date) -> dict:
     note = (f"{len(posts)} oracle post(s) from the " + ("train split, leave-one-out (small-corpus mode)" if oracle_source != "heldout" else "heldout split")
             + "; no hard fail after the oracle N/A list (own id / crosspost / variant excluded, own-author "
               "lexicon phrases, fold flag, 'link in comments' phrase, and emoji/hashtag limits neutralised to "
-              "the platform ceiling - those are Deep's policy, not defects in another author's post)")
+              "the platform ceiling - those are the user's policy, not defects in another author's post)")
     empty_oracle_blocks = not rows and not ctx.small_corpus       # no heldout post outside small-corpus mode
     if empty_oracle_blocks:
         note += "; the heldout split is empty on a corpus that is not in small-corpus mode - the oracle cannot run"

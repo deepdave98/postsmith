@@ -17,7 +17,7 @@ extension by 7 s at 720p. No negative-prompt field exists in the Gemini API, and
 On-screen text is not a documented capability and community reports show garbled captions (unverified), so
 captions are burned in an editor afterwards.
 
-## Settings Deep sets in the app
+## Settings the user sets in the app
 Model Veo 3.1 (Fast for drafts, Lite only to extend); 9:16 for LinkedIn and X vertical; 8 s; 1080p. "Using the
 provided image for the {form, character, setting}, ..." at the start of the prompt when a generated still is
 the first frame. For first-and-last-frame mode, describe only the transition and the audio.
@@ -48,7 +48,7 @@ SFX: {one or two concrete sounds}. Ambient noise: {bed}.
   `no `, `don't`, `do not`, `without`, `avoid` or `never`. Rewrite each exclusion as what is there instead.
 - Under about 150 words (hard cap 700 in config, well under 1,024 tokens): clarity over length.
 - 9:16 for both platforms (16:9 is not in either platform's `video_aspects`), 8 s, 1080p.
-- No real people, no lookalikes of Deep's colleagues or of named founders; detailed descriptions of an invented
+- No real people, no lookalikes of the user's colleagues or of named founders; detailed descriptions of an invented
   person (age, hair, clothing) improve adherence.
 
 ## Rendered example
@@ -67,5 +67,5 @@ rendered.)
 ## Self-check before returning (mirrors `media_check.py`)
 Under 700 words (aim under 150) · `video.duration_s` in {4, 6, 8} · dialogue words ≤ 2.5 × duration and one
 line ≤ 15 words · no negation words · none of the on-screen-text words listed above · aspect 9:16 (or 16:9 only
-where a platform allows it) · no real person's name, no brand other than Deep's own · at most three beats, one
+where a platform allows it) · no real person's name, no brand other than the user's own · at most three beats, one
 camera move.

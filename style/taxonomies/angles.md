@@ -43,7 +43,7 @@ Contrarian-for-its-own-sake creates opposition rather than "aha".
 | surprise | Would a follower of this topic have predicted it? |
 | truth | Is it defensible from a source or the persona fact bank? |
 | specificity | Does it carry a number, name, date or artifact? |
-| personal_fit | Does this need the author's own vantage, and does he have it? A score, never a gate: a 1 here is fine when specificity and surprise are high. |
+| personal_fit | Does this need the author's own vantage, and do they have it? A score, never a gate: a 1 here is fine when specificity and surprise are high. |
 | timeliness | Why now, in one sentence? |
 | disagreeability | Could a smart person argue the other side? |
 

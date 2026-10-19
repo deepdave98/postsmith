@@ -1,0 +1,681 @@
+# postsmith AI-tell lexicon v1 (machine source of truth; contracts.md section 12).
+# This is the tracked base: the research tiers only. The live file style/lexicon.yaml (gitignored) is this plus the
+# do_not_reuse phrases learned from your corpus; every tool falls back to this file when the live one is absent.
+# Built from docs/design/research-ai-tells.md (sections 1A-1M, 3, 4) and docs/design/content-quality-bar.md section 4.
+#
+# Entry shape: {phrase, note, since?, regex?, flags?}
+#   phrase  - literal phrase (word boundaries applied automatically, whitespace matches any run of whitespace,
+#             matching is case-insensitive and NFKC/quote-folded) or, when `regex: true`, a Python regex.
+#   flags   - regex flags for `regex: true` entries; default "i" (case-insensitive) + multiline. "" = case-sensitive.
+#   since   - model era / date the phrase became a tell (research 1M); refresh every ~6 months (principle P5).
+#
+# Tiers (research section 1, 6.1 HF-7):
+#   t1      near-diagnostic in social copy (AI verbs, abstraction nouns, inflated significance, global openers,
+#           throat-clearing, announcement trio, hook templates)          -> P11_cluster: >= 3 hits = hard
+#   t2      strong in clusters (adjectives/adverbs, transitions, business buzzwords, hedge-adjacent)
+#   t3      weak alone; counts toward the >= 5 across t1+t2+t3 cluster rule
+#   claude  Claude-specific tics (generator = Claude; Velitchkov / Santo / PCWorld)  -> P11_cluster: >= 2 hits = hard
+#   bait    engagement solicitation (P7_bait, hard)
+#   openers stale line-1 openers (P8_opener, hard, base-rate downgradable; line 1 only)
+#   closers moralizing / summarizing closers (P12_closer, hard on the last two nonblank lines)
+#   residue chatbot residue, placeholders, reply-bot register (P9_residue, hard)
+#   clickbait  clickbait framing (P19_clickbait: hard on X, soft on LinkedIn)
+#   hedges  hedge stack (P18_hedges: soft at >= 3)
+lexicon_version: 6
+updated: "2026-10-18"
+sources:
+  - docs/design/research-ai-tells.md
+  - docs/design/content-quality-bar.md#4
+tiers:
+  t1:
+    # --- 1A AI verbs -------------------------------------------------------------------------------------
+    - {phrase: '\bdelv(?:e|es|ed|ing)\b', regex: true, note: "AI verb; Kobak et al. 28x rise; GPT-4 era", since: "2023"}
+    - {phrase: '\b(?:let''s|lets) (?:dive|jump|dig) (?:in|into|right in)\b', regex: true, note: "staged run-up (1A/1E)"}
+    - {phrase: '\bdeep[- ]dive\b', regex: true, note: "AI verb / listicle framing"}
+    - {phrase: '\b(?:let''s|lets|to|time to) unpack\b', regex: true, note: "AI verb 'unpack' (not the tuple kind)"}
+    - {phrase: '\bunpack(?:s|ed|ing)? (?:this|that|why|what|the idea|the reason)\b', regex: true, note: "AI verb 'unpack'"}
+    - {phrase: '\bnavigat(?:e|es|ed|ing) the (?:landscape|complexities|complexity|nuances|challenges|world|waters|uncertainty)\b', regex: true, note: "navigate the landscape (1A)"}
+    - {phrase: '\bleverag(?:es|ed|ing)\b', regex: true, note: "leverage as a verb (1A)"}
+    - {phrase: '\bharness(?:es|ed|ing)? the power\b', regex: true, note: "harnessing the power of (1A/1H)"}
+    - {phrase: '\belevat(?:e|es|ing) (?:your|the|our|their|its|my)\b', regex: true, note: "elevate your X (1A)"}
+    - {phrase: '\bunlock(?:s|ed|ing)? (?:the|new|your|its|their|our|growth|potential|value|insights|opportunities)\b', regex: true, note: "unlock the potential (1A)"}
+    - {phrase: '\bunleash(?:es|ed|ing)?\b', regex: true, note: "AI verb (1A/1H)"}
+    - {phrase: '\bfoster(?:s|ed|ing)?\b', regex: true, note: "AI verb; GPT-4o era", since: "2024"}
+    - {phrase: '\bcultivat(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bempower(?:s|ed|ing|ment)?\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bshowcas(?:e|es|ed|ing)\b', regex: true, note: "20x AI vs human (GPTZero)", since: "2024"}
+    - {phrase: '\bunderscor(?:e|es|ed|ing)\b', regex: true, note: "COLING focal word; Grok 2026 too", since: "2023"}
+    - {phrase: '\bhighlight(?:s|ed|ing)? the (?:importance|need|value|role|significance|power)\b', regex: true, note: "highlighting the importance of (1A/2.23)"}
+    - {phrase: '\bbolster(?:s|ed|ing)?\b', regex: true, note: "GPT-4/4o era verb", since: "2023"}
+    - {phrase: '\bgarner(?:s|ed|ing)?\b', regex: true, note: "GPT-4 era verb", since: "2023"}
+    - {phrase: '\bsupercharg(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\brevolutioni[sz](?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bdemystif(?:y|ies|ied|ying)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\baims? to (?:explore|shed light|bridge)\b', regex: true, note: "aims to explore (50x+, GPTZero)"}
+    - {phrase: '\bpav(?:e|es|ed|ing) the way\b', regex: true, note: "paving the way (1A)"}
+    - {phrase: '\breimagin(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bshed(?:s|ding)? light on\b', regex: true, note: "AI verb phrase"}
+    - {phrase: '\bbridg(?:e|es|ing) the gap\b', regex: true, note: "AI verb phrase"}
+    - {phrase: '\bpropel(?:s|led|ling)?\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bspearhead(?:s|ed|ing)?\b', regex: true, note: "AI verb (1A/1H)"}
+    - {phrase: '\bchampion(?:s|ed|ing) (?:a|an|the|this)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bembark(?:s|ed|ing)? on\b', regex: true, note: "AI verb (1A)"}
+    # --- 1B abstraction nouns ------------------------------------------------------------------------------
+    - {phrase: tapestry, note: "abstraction noun; GPT-4 era", since: "2023"}
+    - {phrase: landscape, note: "the X landscape (1B)", since: "2023"}
+    - {phrase: realm, note: "COLING focal word (1B)"}
+    - {phrase: testament, note: "expert-detector key phrase (Russell)", since: "2023"}
+    - {phrase: '\bgame[- ]?chang(?:er|ers|ing)\b', regex: true, note: "game-changer (1B); quality-bar reject list"}
+    - {phrase: paradigm shift, note: "abstraction noun (1B)"}
+    - {phrase: '\bsynerg(?:y|ies|istic|ize|ise)\b', regex: true, note: "synergy (1B/3)"}
+    - {phrase: beacon, note: "abstraction noun (1B)"}
+    - {phrase: symphony, note: "abstraction noun (1B)"}
+    - {phrase: interplay, note: "GPT-4 era noun", since: "2023"}
+    - {phrase: '\bintricac(?:y|ies)\b', regex: true, note: "GPT-4 era noun", since: "2023"}
+    - {phrase: '\bnuances?\b', regex: true, note: "nuance/nuances (Claude-heavy); 'nuanced' lives in the claude tier"}
+    - {phrase: '\b(?:valuable|actionable|key|powerful|deep|fresh|unique|rich) insights?\b', regex: true, note: "valuable/actionable/key insights (1B)"}
+    - {phrase: insights, note: "plural 'insights' as an abstraction noun (1B)"}
+    - {phrase: '\badvancements?\b', regex: true, note: "COLING focal word (1B)"}
+    - {phrase: '\bendeavou?rs?\b', regex: true, note: "abstraction noun (1B)"}
+    - {phrase: north star, note: "business abstraction (1B)"}
+    - {phrase: secret sauce, note: "business abstraction (1B)"}
+    - {phrase: '\bsuperpowers?\b', regex: true, note: "business abstraction (1B)"}
+    - {phrase: the art of, note: "the art of X (1B)"}
+    - {phrase: the power of, note: "the power of X (1B)"}
+    - {phrase: a masterclass in, note: "a masterclass in (1B)"}
+    - {phrase: a reminder that, note: "a reminder that (1B/1F)"}
+    - {phrase: cornerstone, note: "abstraction noun (1B)"}
+    - {phrase: catalyst, note: "abstraction noun (1B)"}
+    - {phrase: '\bnew heights\b', regex: true, note: "take X to new heights"}
+    - {phrase: '\bthe (?:next|new) frontier\b', regex: true, note: "abstraction noun (1F)"}
+    # --- 1E throat-clearing / staged run-up ---------------------------------------------------------------
+    - {phrase: '\bit(?:''s| is) (?:important|worth|crucial|vital|essential) to (?:note|remember|mention|understand|recognize|recognise|highlight|emphasize|acknowledge)\b', regex: true, note: "it's important to note (1E); quality-bar reject list"}
+    - {phrase: '\bworth noting\b', regex: true, note: "it's worth noting (1E)"}
+    - {phrase: here's the thing, note: "throat-clearing (1E/1L)"}
+    - {phrase: the thing is, note: "throat-clearing (1E)"}
+    - {phrase: here's what you need to know, note: "throat-clearing (1E)"}
+    - {phrase: '\bhonestly\?', regex: true, note: "'Honestly?' run-up (1E)"}
+    - {phrase: real talk, note: "throat-clearing (1E)"}
+    - {phrase: '\blet''s be (?:honest|real|clear)\b', regex: true, note: "let's be honest (1E)"}
+    - {phrase: let me explain, note: "throat-clearing (1E)"}
+    - {phrase: here's why, note: "throat-clearing (1E)"}
+    - {phrase: here's the kicker, note: "throat-clearing (1E)"}
+    - {phrase: '\bhere''s the (?:twist|catch|truth|reality|problem|secret|best part|thing nobody|part nobody)\b', regex: true, note: "here's the X reveal (1E)"}
+    - {phrase: '\bplot twist\b', regex: true, note: "throat-clearing (1E/2.4)"}
+    - {phrase: '\bthe (?:result|catch|kicker|best part|worst part|irony|twist|upshot)\?', regex: true, note: "hypophora run-up; 'The result?' -4.8% reach (magicpost)"}
+    - {phrase: the truth is, note: "throat-clearing (1E)"}
+    - {phrase: '\bthe (?:hard|harsh|brutal|uncomfortable|simple|honest) truth\b', regex: true, note: "the hard truth (1E)"}
+    - {phrase: the real question, note: "the real question is (1E/1K)"}
+    - {phrase: at its core, note: "throat-clearing (1E)"}
+    - {phrase: what really matters, note: "throat-clearing (1E)"}
+    - {phrase: '\bspoiler(?: alert)?:', regex: true, note: "Spoiler: (1E)"}
+    - {phrase: simply put, note: "throat-clearing (1E)"}
+    - {phrase: '\bbottom line:?', regex: true, note: "Bottom line: [unverified as model-specific]"}
+    - {phrase: '\bshort version:', regex: true, note: "Short version: [unverified]"}
+    - {phrase: '\bmake no mistake\b', regex: true, note: "throat-clearing (1E)"}
+    - {phrase: '\bnews ?flash\b', regex: true, note: "throat-clearing (1E)"}
+    - {phrase: '\bfun fact\b', regex: true, note: "throat-clearing (1E)"}
+    - {phrase: '\bpro tip\b', regex: true, note: "throat-clearing (1E/2.18)"}
+    - {phrase: '\blittle[- ]known fact\b', regex: true, note: "throat-clearing (1E)"}
+    - {phrase: '\bthe reality is\b', regex: true, note: "throat-clearing (1E)"}
+    # --- 1F inflated significance / borrowed authority ----------------------------------------------------
+    - {phrase: '\bstands? as a testament\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bserves? as a (?:reminder|testament|beacon|catalyst|blueprint)\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bplay(?:s|ed|ing)? a (?:pivotal|crucial|significant|vital|key|critical|central) role\b', regex: true, note: "GPTZero #1 (182x)"}
+    - {phrase: '\bmarks? a (?:turning point|new chapter|milestone|shift|new era)\b', regex: true, note: "marks a turning point (1F)"}
+    - {phrase: '\b(?:key|major|critical) turning point\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bsets? the stage for\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bever[- ](?:evolving|changing)\b', regex: true, note: "the ever-evolving landscape (1F)"}
+    - {phrase: the future looks bright, note: "inflated significance (1F)"}
+    - {phrase: '\blasting impact\b', regex: true, note: "leaves a lasting impact (1F)"}
+    - {phrase: indelible mark, note: "inflated significance (1F)"}
+    - {phrase: '\breflects? a broader\b', regex: true, note: "reflects a broader shift (1F)"}
+    - {phrase: '\bunderscores? the importance\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: the future is here, note: "inflated significance (1F)"}
+    - {phrase: we're just getting started, note: "inflated significance (1F)"}
+    - {phrase: '\b(?:this )?chang(?:es|ed) everything\b', regex: true, note: "this changes everything (1F); quality-bar reject list"}
+    - {phrase: '\bexperts (?:say|agree|believe|suggest)\b', regex: true, note: "vague attribution (1F)"}
+    - {phrase: '\b(?:studies|research|data|science) (?:show|shows|suggest|suggests|indicate|indicates)\b', regex: true, note: "vague attribution (1F)"}
+    - {phrase: industry reports, note: "vague attribution (1F)"}
+    - {phrase: '\bobservers have\b', regex: true, note: "vague attribution (1F)"}
+    - {phrase: '\bsome (?:critics|people|would) argue\b', regex: true, note: "vague attribution (1F)"}
+    - {phrase: it is believed that, note: "vague attribution (1F)"}
+    - {phrase: deeply rooted, note: "inflated significance (1F)"}
+    - {phrase: enduring legacy, note: "inflated significance (1F)"}
+    - {phrase: '\brapidly evolving\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\ba new era\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\busher(?:s|ed|ing)? in\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bseismic shift\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bunprecedented (?:pace|times|change|growth|rate|scale)\b', regex: true, note: "inflated significance (1F)"}
+    - {phrase: '\bbrave new world\b', regex: true, note: "inflated significance (1F)"}
+    # --- 1G global openers / blog cliches (T1 anywhere; also in `openers` for line 1) -----------------------
+    - {phrase: '\bin today''s (?:fast[- ]paced|digital|modern|rapidly[- ]changing|ever[- ]changing|hyper[- ]connected|competitive|data[- ]driven)?\s*(?:world|age|era|economy|landscape|society|environment|market)\b', regex: true, note: "In today's fast-paced world (107x, GPTZero)"}
+    - {phrase: '\bin (?:an|the) era (?:of|where)\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin the age of\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin a world where\b', regex: true, note: "global opener (1G)"}
+    - {phrase: imagine a world where, note: "global opener (1G)"}
+    - {phrase: '\bpicture this\b', regex: true, note: "global opener (1G)"}
+    - {phrase: have you ever wondered, note: "global opener (1G)"}
+    - {phrase: it goes without saying, note: "global opener (1G)"}
+    - {phrase: everyone wants to, note: "global opener (1G)"}
+    - {phrase: as we navigate, note: "global opener (1G)"}
+    - {phrase: when it comes to, note: "Pangram cue (1G)"}
+    - {phrase: '\bin the world of\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin the realm of\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin this day and age\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bnow more than ever\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin these (?:uncertain|challenging|unprecedented) times\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bin an increasingly\b', regex: true, note: "global opener (1G)"}
+    - {phrase: '\bwith the rise of\b', regex: true, note: "global opener (1G)"}
+    - {phrase: let me tell you a story, note: "global opener (1G) [unverified]"}
+    - {phrase: ever since I was, note: "global opener (1G) [unverified]"}
+    # --- 1H announcement trio and gratitude arc -------------------------------------------------------------
+    - {phrase: '\b(?:thrilled|humbled|excited|honou?red|proud|delighted|grateful|blessed|overjoyed|ecstatic|beyond excited)(?: and (?:humbled|honou?red|grateful|excited|proud))? to (?:announce|share)\b', regex: true, note: "announcement trio (1H/3); quality-bar reject list"}
+    - {phrase: '\bi had the pleasure of\b', regex: true, note: "1H"}
+    - {phrase: '\bwe are proud to support\b', regex: true, note: "1H"}
+    - {phrase: '\bgrateful for the journey\b', regex: true, note: "gratitude paragraph (3)"}
+    - {phrase: '\bcouldn''t have done it without\b', regex: true, note: "gratitude paragraph (3)"}
+    - {phrase: '\bhumbled and honou?red\b', regex: true, note: "fake humility (3)"}
+    - {phrase: '\bincredible journey\b', regex: true, note: "hero arc (3)"}
+    - {phrase: '\b(?:new|next) chapter\b', regex: true, note: "announcement cliche (3)"}
+    - {phrase: '\bsome personal news\b', regex: true, note: "announcement cliche (3)"}
+    - {phrase: '\bwhat a (?:journey|ride|year)\b', regex: true, note: "gratitude/closer cliche (3)"}
+    # --- 1L hook templates (also in `openers`; here so a mid-post use still counts) --------------------------
+    - {phrase: '\bunpopular opinion\b', regex: true, note: "X hook template (1L); 'sharp two years ago, now noise' (voicemoat)"}
+    - {phrase: '\bhot take\b', regex: true, note: "X hook template (1L)"}
+    - {phrase: '\bcontroversial (?:opinion|take)\b', regex: true, note: "X hook template (1L)"}
+    - {phrase: '\bnobody (?:is talking|talks) about\b', regex: true, note: "hook template (1L); also clickbait"}
+    - {phrase: '\bhere''s what nobody (?:tells|told|will tell) you\b', regex: true, note: "-4.3% reach (magicpost)"}
+    - {phrase: '\bwhat nobody (?:tells|told) you\b', regex: true, note: "curiosity gap (1L/2.30)"}
+    - {phrase: '\bstop (?:\w+ing|doing) \w+.{0,30}?\bstart \w+ing\b', regex: true, note: "Stop X, start Y (-6.7% reach)"}
+    - {phrase: '\bmost people (?:don''t|won''t|will never|never|will ignore)\b', regex: true, note: "hook template (1L)"}
+    - {phrase: '\bnormali[sz]e \w+ing\b', regex: true, note: "motivational imperative (3) [unverified as documented]"}
+    - {phrase: '\bbe the person who\b', regex: true, note: "motivational imperative (3)"}
+    - {phrase: '\bthis is your (?:sign|reminder)\b', regex: true, note: "motivational imperative (1L/3)"}
+    - {phrase: '\bi asked chatgpt\b', regex: true, note: "AI-about-AI filler (3) [user-supplied]"}
+  t2:
+    # --- 1A/1B softer verbs and nouns ---------------------------------------------------------------------
+    - {phrase: '\bdive into\b', regex: true, note: "AI verb (1A), common in speech so t2"}
+    - {phrase: '\bleverage\b', regex: true, note: "bare leverage (noun or verb)"}
+    - {phrase: '\bharness(?:es|ed|ing)?\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bembrac(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\btransform(?:s|ed|ing|ative)?\b', regex: true, note: "AI verb (1A); technical uses exist"}
+    - {phrase: '\billuminat(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bemphasi[sz](?:e|es|ed|ing)\b', regex: true, note: "GPT-4o/5 era verb", since: "2024"}
+    - {phrase: '\benhanc(?:e|es|ed|ing)\b', regex: true, note: "GPT-4o/5 era verb", since: "2024"}
+    - {phrase: '\bstreamlin(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\balign(?:s|ed|ing)? with\b', regex: true, note: "aligns with (16x)"}
+    - {phrase: remarked, note: "18x (GPTZero)"}
+    - {phrase: '\bsurpass(?:es|ed|ing)\b', regex: true, note: "12x (GPTZero)"}
+    - {phrase: impacting, note: "11x (GPTZero)"}
+    - {phrase: impactful, note: "business buzzword (1H)"}
+    - {phrase: '\bresonat(?:e|es|ed|ing)\b', regex: true, note: "resonate with (1A)"}
+    - {phrase: '\bredefin(?:e|es|ed|ing)\b', regex: true, note: "AI verb (1A)"}
+    - {phrase: '\bboast(?:s|ed|ing)?\b', regex: true, note: "copula avoidance (2.22); GPT-4 era"}
+    - {phrase: journey, note: "abstraction noun (1B); product 'user journey' exists so t2"}
+    - {phrase: ecosystem, note: "abstraction noun (1B)"}
+    - {phrase: mindset, note: "abstraction noun (1B)"}
+    - {phrase: blueprint, note: "abstraction noun (1B)"}
+    - {phrase: the future of, note: "abstraction (1B)"}
+    - {phrase: '\bthe human (?:element|touch|side)\b', regex: true, note: "abstraction (1B)"}
+    - {phrase: '\bthe way we (?:work|live|think|build|communicate)\b', regex: true, note: "buzz phrase"}
+    - {phrase: '\bdigital transformation\b', regex: true, note: "business buzzword (1H)"}
+    # --- 1C adjectives / adverbs --------------------------------------------------------------------------
+    - {phrase: crucial, note: "expert-detector key phrase (Russell); GPT-4/4o era", since: "2023"}
+    - {phrase: pivotal, note: "GPT-4 era adjective", since: "2023"}
+    - {phrase: vital, note: "1C"}
+    - {phrase: '\bkey (?:insight|takeaway|lesson|factor|role|driver|element|component|aspect|point|question|difference|benefit|challenge|trend|player)s?\b', regex: true, note: "key as adjective (1C)"}
+    - {phrase: '\bsignificant(?:ly)?\b', regex: true, note: "1C"}
+    - {phrase: groundbreaking, note: "COLING focal word (1C)"}
+    - {phrase: revolutionary, note: "1C"}
+    - {phrase: '\bcutting[- ]edge\b', regex: true, note: "1C"}
+    - {phrase: '\bstate[- ]of[- ]the[- ]art\b', regex: true, note: "1C"}
+    - {phrase: robust, note: "1C"}
+    - {phrase: '\bseamless(?:ly)?\b', regex: true, note: "1C"}
+    - {phrase: scalable, note: "1C"}
+    - {phrase: holistic, note: "1C"}
+    - {phrase: comprehensive, note: "1C"}
+    - {phrase: multifaceted, note: "1C"}
+    - {phrase: myriad, note: "1C"}
+    - {phrase: plethora, note: "1C"}
+    - {phrase: intricate, note: "COLING focal word (1C)", since: "2023"}
+    - {phrase: '\bmeticulous(?:ly)?\b', regex: true, note: "GPT-4 era", since: "2023"}
+    - {phrase: vibrant, note: "GPT-4/4o era", since: "2023"}
+    - {phrase: '\bprofound(?:ly)?\b', regex: true, note: "1C"}
+    - {phrase: unwavering, note: "1C"}
+    - {phrase: unparalleled, note: "1C"}
+    - {phrase: '\bfast[- ]paced\b', regex: true, note: "1C"}
+    - {phrase: truly, note: "1C"}
+    - {phrase: tragically, note: "11x (GPTZero)"}
+    - {phrase: notably, note: "1C/1D"}
+    - {phrase: effortlessly, note: "1C"}
+    - {phrase: '\bremarkabl[ey]\b', regex: true, note: "1C"}
+    - {phrase: invaluable, note: "1C"}
+    - {phrase: unprecedented, note: "1C"}
+    - {phrase: paramount, note: "Kobak focal word"}
+    - {phrase: commendable, note: "Kobak focal word"}
+    - {phrase: noteworthy, note: "1C"}
+    - {phrase: compelling, note: "1C"}
+    - {phrase: indispensable, note: "1C"}
+    - {phrase: '\bthought[- ]provoking\b', regex: true, note: "1C"}
+    - {phrase: '\beye[- ]opening\b', regex: true, note: "1C"}
+    - {phrase: staggering, note: "1C"}
+    - {phrase: '\btop[- ]notch\b', regex: true, note: "1C"}
+    - {phrase: '\bworld[- ]class\b', regex: true, note: "1C/1H"}
+    - {phrase: '\bbest[- ]in[- ]class\b', regex: true, note: "1H"}
+    - {phrase: '\bnext[- ]level\b', regex: true, note: "1H"}
+    - {phrase: '\bmission[- ]critical\b', regex: true, note: "1H"}
+    - {phrase: '\bfuture[- ]proof\b', regex: true, note: "1H"}
+    - {phrase: '\bdata[- ]driven\b', regex: true, note: "stacked qualifier (2.21)"}
+    - {phrase: '\bcustomer[- ]centric\b', regex: true, note: "1H"}
+    - {phrase: '\bpurpose[- ]driven\b', regex: true, note: "1H"}
+    - {phrase: '\bpeople[- ]first\b', regex: true, note: "1H"}
+    - {phrase: '\bhuman[- ]centric\b', regex: true, note: "1H"}
+    # --- 1D transitions (sentence-initial) -------------------------------------------------------------------
+    - {phrase: '(?:(?<=^)|(?<=[.!?] )|(?<=[.!?]\n)|(?<=\n))(?:Additionally|Moreover|Furthermore)\b', regex: true, note: "essay connectors, sentence-initial; quality-bar reject list"}
+    - {phrase: '(?:(?<=^)|(?<=[.!?] )|(?<=[.!?]\n)|(?<=\n))(?:However|Conversely|Subsequently|Thereby|Overall|Ultimately|Finally|Firstly|Secondly|Thirdly|Lastly)\b', regex: true, note: "sentence-initial connective (1D)"}
+    - {phrase: '\bin conclusion\b', regex: true, note: "1D; strongest negative in the SEL study"}
+    - {phrase: '\bin summary\b', regex: true, note: "1D"}
+    - {phrase: '\bthat said\b', regex: true, note: "1D"}
+    - {phrase: '\bto be clear\b', regex: true, note: "arguing with no one (2.15)"}
+    - {phrase: '\bin essence\b', regex: true, note: "1D"}
+    - {phrase: '\bdon''t get me wrong\b', regex: true, note: "arguing with no one (2.15)"}
+    - {phrase: '\bi''m not saying\b', regex: true, note: "arguing with no one (2.15)"}
+    - {phrase: '\ba tempting approach\b', regex: true, note: "arguing with no one (2.15) [CP]"}
+    # --- 1H business buzzwords ------------------------------------------------------------------------------
+    - {phrase: '\bresults[- ]driven\b', regex: true, note: "1H"}
+    - {phrase: '\bsolutions[- ]led\b', regex: true, note: "1H"}
+    - {phrase: customer delight, note: "1H"}
+    - {phrase: '\bthought[- ]leader(?:ship)?s?\b', regex: true, note: "1H"}
+    - {phrase: '\bvalue[- ]add\b', regex: true, note: "1H"}
+    - {phrase: '\bdisrupt(?:s|ed|ing|ion|ive|or|ors)?\b', regex: true, note: "1H/3"}
+    - {phrase: '\breshap(?:e|es|ed|ing)\b', regex: true, note: "1H/3"}
+    - {phrase: '\b10x\b', regex: true, note: "1H"}
+    - {phrase: '\blevel(?:ing|ling)? up\b', regex: true, note: "1H"}
+    - {phrase: '\bmov(?:e|es|ed|ing) the needle\b', regex: true, note: "1H"}
+    - {phrase: at scale, note: "1H"}
+    - {phrase: growth mindset, note: "1H"}
+    - {phrase: learnings, note: "1H"}
+    - {phrase: '\bcircle back\b', regex: true, note: "1H"}
+    - {phrase: '\bbest practices\b', regex: true, note: "1H"}
+    - {phrase: '\blow[- ]hanging fruit\b', regex: true, note: "1H"}
+    - {phrase: '\bwin[- ]win\b', regex: true, note: "1H"}
+    - {phrase: '\binnovative solutions?\b', regex: true, note: "1H"}
+    - {phrase: '\bservant leader(?:ship)?\b', regex: true, note: "1H"}
+    - {phrase: '\blead(?:s|ing)? with empathy\b', regex: true, note: "1H"}
+    - {phrase: '\bhyper[- ]growth\b', regex: true, note: "1H"}
+    - {phrase: '\brockstar\b', regex: true, note: "1H"}
+    - {phrase: '\bamazing team\b', regex: true, note: "gratitude paragraph (3)"}
+    - {phrase: '\bincredible team\b', regex: true, note: "gratitude paragraph (3)"}
+    - {phrase: '\bhumbled\b', regex: true, note: "fake humility (3)"}
+    - {phrase: '\bblessed\b', regex: true, note: "fake humility (3)"}
+    - {phrase: actionable, note: "1B"}
+  t3:
+    - {phrase: '\bdouble(?:d|s)? down\b', regex: true, note: "1A weak"}
+    - {phrase: '\blean(?:ing|ed|s)? in\b', regex: true, note: "1A weak"}
+    - {phrase: playbook, note: "1B weak"}
+    - {phrase: roadmap, note: "1B weak (real product term)"}
+    - {phrase: storytelling, note: "1H weak"}
+    - {phrase: essential, note: "1C weak"}
+    - {phrase: powerful, note: "1C weak"}
+    - {phrase: '\bauthentic(?:ity|ally)?\b', regex: true, note: "1C weak"}
+    - {phrase: amazing, note: "1H weak"}
+    - {phrase: '\bincredibl[ey]\b', regex: true, note: "1C weak"}
+    - {phrase: '\binnovati(?:on|ve)\b', regex: true, note: "1H weak"}
+    - {phrase: stakeholders, note: "1H weak"}
+    - {phrase: '\bend[- ]to[- ]end\b', regex: true, note: "stacked qualifier (2.21)"}
+    - {phrase: '\bcross[- ]functional\b', regex: true, note: "stacked qualifier (2.21)"}
+    - {phrase: '\bhigh[- ]quality\b', regex: true, note: "stacked qualifier (2.21)"}
+    - {phrase: dynamic, note: "1C weak"}
+    - {phrase: strategic, note: "1C weak"}
+    - {phrase: meaningful, note: "1C weak"}
+    - {phrase: '\btl;?dr\b', regex: true, note: "TL;DR closer (1E weak)"}
+    - {phrase: value proposition, note: "1H weak"}
+    - {phrase: '\bat the end of the day\b', regex: true, note: "1D weak; also a closer"}
+    - {phrase: '\bin[- ]depth\b', regex: true, note: "1C weak"}
+    - {phrase: transformation, note: "1A weak"}
+    - {phrase: '\bso excited\b', regex: true, note: "1H weak"}
+    - {phrase: passionate, note: "1H weak"}
+    - {phrase: '\bno[- ]brainer\b', regex: true, note: "1H weak"}
+    - {phrase: certainly, note: "Originality.ai top token; weak mid-sentence"}
+    - {phrase: '\bhow we work\b', regex: true, note: "buzz phrase, weak"}
+    - {phrase: '\bas a (?:founder|leader|ceo|cto|marketer|developer|engineer|designer|recruiter|manager|product manager), i\b', regex: true, note: "As a [role], I (1G, T2 in research; weak here)"}
+    - {phrase: '\bfirst[- ]hand\b', regex: true, note: "weak"}
+    - {phrase: '\bin real[- ]time\b', regex: true, note: "weak"}
+    - {phrase: '\bwe''ve all been there\b', regex: true, note: "weak opener"}
+  claude:
+    - {phrase: genuinely, note: "Claude tic (Velitchkov; PCWorld)"}
+    - {phrase: structurally, note: "Claude tic (Velitchkov)"}
+    - {phrase: nuanced, note: "Claude loves 'nuanced' (the-ai-corner)"}
+    - {phrase: the honest answer, note: "Claude [CDF] (Velitchkov)"}
+    - {phrase: '\bthe honest version\b', regex: true, note: "Claude [CDF] variant [unverified]"}
+    - {phrase: in other words, note: "Restatement Gloss [RG] (Velitchkov)"}
+    - {phrase: put differently, note: "Restatement Gloss [RG] (Velitchkov)"}
+    - {phrase: '\bput simply\b', regex: true, note: "Restatement Gloss [RG] variant"}
+    - {phrase: '\bwhich is to say\b', regex: true, note: "Restatement Gloss [RG] variant"}
+    - {phrase: '\bthat is to say\b', regex: true, note: "Restatement Gloss [RG] variant"}
+    - {phrase: has a name, note: "colon reveal [CR] (Velitchkov)"}
+    - {phrase: '\bthe cleanest (?:way|idea|version|framing|answer|explanation|cut)\b', regex: true, note: "Claude tic (Velitchkov)"}
+    - {phrase: '\band (?:no more|nothing (?:more|else|finer|less))\b', regex: true, note: "deflating tail [DT] (Velitchkov)"}
+    - {phrase: this matters because, note: "significance signaling [SS] (Velitchkov)"}
+    - {phrase: '\bthe deepest (?:point|cut|reason|version)\b', regex: true, note: "Claude tic (Velitchkov)"}
+    - {phrase: '\bbetter posed\b', regex: true, note: "Claude tic (Velitchkov)"}
+    - {phrase: '\bit would be (?:wrong|a mistake|tempting|easy), though,? to\b', regex: true, note: "corrective pivot [CP] (Velitchkov)"}
+    - {phrase: '\bit would be (?:wrong|a mistake) to\b', regex: true, note: "corrective pivot [CP] variant"}
+    - {phrase: '\bfalls? out of\b', regex: true, note: "Claude tic (Velitchkov)"}
+    - {phrase: '\bfollows? directly\b', regex: true, note: "Claude tic (Velitchkov)"}
+    - {phrase: '\bcan be made precise\b', regex: true, note: "validate-then-promise [VP] (Velitchkov)"}
+    - {phrase: '\bnot decoration but\b', regex: true, note: "contrastive binary [CB] (Velitchkov)"}
+    - {phrase: quietly, note: "Claude tic [unverified]"}
+    - {phrase: '\b(?:does|doing|did) (?:a lot of|all|most of) the (?:heavy lifting|work)\b', regex: true, note: "heavy lifting [unverified]"}
+    - {phrase: '\bheavy lifting\b', regex: true, note: "heavy lifting [unverified]"}
+    - {phrase: '\bload[- ]bearing\b', regex: true, note: "Claude tic [unverified]"}
+    - {phrase: '\bthe real (?:\w+) is\b', regex: true, note: "the real X is Y [unverified]"}
+    - {phrase: that's the whole point, note: "Claude tic [unverified]"}
+    - {phrase: '\bworth (?:sitting|dwelling|pausing|lingering) (?:with|on)\b', regex: true, note: "worth sitting with [unverified]"}
+    - {phrase: '\bworth (?:pausing on|noting|saying out loud|naming)\b', regex: true, note: "Claude 'worth X' tic [unverified]"}
+    - {phrase: '\bthe (?:interesting|boring|uncomfortable|important|hard|tricky|subtle) (?:part|question|bit|thing) is\b', regex: true, note: "self-ranking [SRC] (Velitchkov)"}
+    - {phrase: '\bthe tell (?:is|here is|:)', regex: true, note: "Claude tic [unverified]"}
+    - {phrase: '\bstrictly speaking\b', regex: true, note: "Claude precision tic [unverified]"}
+    - {phrase: '\bto be precise\b', regex: true, note: "Claude precision tic [unverified]"}
+    - {phrase: '\bcrucially\b', regex: true, note: "significance signaling [SS]"}
+    - {phrase: '\bimportantly\b', regex: true, note: "significance signaling [SS]"}
+    - {phrase: '\bit''s tempting to\b', regex: true, note: "corrective pivot [CP] variant"}
+    - {phrase: '\bthe temptation is\b', regex: true, note: "corrective pivot [CP] variant"}
+    - {phrase: '\bthere''s a version of this\b', regex: true, note: "Claude tic [unverified]"}
+    - {phrase: '\bif anything\b', regex: true, note: "Claude hedge-pivot [unverified]"}
+    - {phrase: '\bnot a (?:bug|flaw|failure) but a (?:feature|signal|choice)\b', regex: true, note: "contrastive binary [CB]"}
+    - {phrase: '\ba (?:stance|choice|feature|signal), not (?:its|an|the) absence\b', regex: true, note: "aphoristic ender [AE] shape"}
+    - {phrase: '\bisn''t (?:widening|narrowing|growing|shrinking)\. it''s (?:collapsing|exploding|inverting)\b', regex: true, note: "spectrum shape [unverified]"}
+    - {phrase: '\bsits (?:at|between|somewhere between)\b', regex: true, note: "Claude spatial metaphor [unverified]"}
+    - {phrase: '\bof a piece with\b', regex: true, note: "Claude tic [unverified]"}
+    - {phrase: '\bsecond[- ]order (?:effects?|consequences?)\b', regex: true, note: "Claude tic [unverified]"}
+  bait:
+    - {phrase: '\bagree\?', regex: true, note: "comment-bait closer (1L/3)"}
+    - {phrase: '\bthoughts\?', regex: true, note: "comment-bait closer (1L/3)"}
+    - {phrase: '\b(?:let me know|tell me|share|drop it|say so|sound off) in the comments\b', regex: true, note: "comment bait (1L)"}
+    - {phrase: '\bin the comments below\b', regex: true, note: "comment bait (1L)"}
+    - {phrase: '\bcomment below\b', regex: true, note: "comment bait (1L)"}
+    - {phrase: '\bdrop a (?:comment|like|heart|fire|🔥|❤️|👇|yes|word|line|emoji)\b', regex: true, note: "comment bait (1L)"}
+    - {phrase: '\bdrop (?:your|a) (?:thoughts|question|questions|take)\b', regex: true, note: "comment bait (1L)"}
+    - {phrase: '\bcomment ["''"“]?[A-Z]{2,}["''"”]?\b', regex: true, flags: "", note: "Comment YES / Comment GUIDE (1L)"}
+    - {phrase: '\bcomment ["''"“]?\w+["''"”]? (?:and i''ll|and i will|below|to get|for the|if you)\b', regex: true, note: "Comment X and I'll DM you (1L)"}
+    - {phrase: '\brepost (?:if|to|this)\b', regex: true, note: "repost bait (1L/3)"}
+    - {phrase: '♻️', regex: true, note: "repost emoji closer (3)"}
+    - {phrase: '\bshare (?:if|this with|with someone|with a)\b', regex: true, note: "share bait (1L)"}
+    - {phrase: '\bread (?:that|this|it) again\b', regex: true, note: "1L; X policy solicitation"}
+    - {phrase: '\blet that sink in\b', regex: true, note: "1L; quality-bar reject list"}
+    - {phrase: '\bsit with that\b', regex: true, note: "1L variant"}
+    - {phrase: '\bfollow (?:me )?for more\b', regex: true, note: "follow bait (1L); X policy"}
+    - {phrase: '\bfollow (?:me|along|@)', regex: true, note: "follow bait (1L)"}
+    - {phrase: '\bbookmark this\b', regex: true, note: "1L; X policy"}
+    - {phrase: '\bsave this (?:post|for later|one|thread)\b', regex: true, note: "1L"}
+    - {phrase: '\btag (?:someone|a friend|a founder|a colleague|a coworker|your)\b', regex: true, note: "tag bait (1L)"}
+    - {phrase: '\blike (?:this )?if you\b', regex: true, note: "like bait (1L)"}
+    - {phrase: '\bdouble[- ]tap\b', regex: true, note: "like bait (1L)"}
+    - {phrase: '\bwho else\b', regex: true, note: "1L"}
+    - {phrase: '\bwho''s with me\b', regex: true, note: "1L"}
+    - {phrase: '\bwhat do you think\?', regex: true, note: "generic closing question (1L)"}
+    - {phrase: '\bwhat are your thoughts\b', regex: true, note: "generic closing question (1L)"}
+    - {phrase: '\b(?:would|i''d) love to hear\b', regex: true, note: "generic closing question (1L)"}
+    - {phrase: '\bcurious to hear\b', regex: true, note: "generic closing question (1L)"}
+    - {phrase: '\blet me know your\b', regex: true, note: "generic closing question (1L)"}
+    - {phrase: '\breply (?:["''"“]?yes["''"”]?|with|if you)\b', regex: true, note: "reply bait (1L); X policy"}
+    - {phrase: '\bi''ll follow everyone who\b', regex: true, note: "X policy: 3 strikes -> revenue-share removal"}
+    - {phrase: '\bi''ll dm you\b', regex: true, note: "DM bait (1L)"}
+    - {phrase: '\bdm me (?:for|and|the word|to)\b', regex: true, note: "DM bait (1L)"}
+    - {phrase: '\bsteal this\b', regex: true, note: "1L/4"}
+    - {phrase: '\btake notes\b', regex: true, note: "1L"}
+    - {phrase: '\bthat''s a wrap\b', regex: true, note: "1L/4"}
+    - {phrase: '\bstop scrolling\b', regex: true, note: "1L"}
+    - {phrase: '\bpsa:', regex: true, note: "1L"}
+    - {phrase: '\b(?:friendly|gentle|quick|daily) reminder\b', regex: true, note: "1L"}
+    - {phrase: '\bsmash that\b', regex: true, note: "like bait"}
+    - {phrase: '\bhit the (?:like|follow|bell)\b', regex: true, note: "like bait"}
+    - {phrase: '\bturn on notifications\b', regex: true, note: "follow bait"}
+    - {phrase: '\blink in (?:my |the )?bio\b', regex: true, note: "link bait"}
+    - {phrase: '\bjoin the conversation\b', regex: true, note: "comment bait"}
+    - {phrase: '\bshare your (?:story|experience|thoughts|take)\b', regex: true, note: "comment bait"}
+    - {phrase: '\bp\.?s\.? (?:repost|share|follow|like|comment)\b', regex: true, note: "P.S. engagement line (3)"}
+  openers:
+    # Matched only at the start of line 1 (leading emoji/quotes/punctuation are skipped).
+    - {phrase: unpopular opinion, note: "X hook template (1L); quality-bar reject list"}
+    - {phrase: hot take, note: "X hook template (1L); quality-bar reject list"}
+    - {phrase: '\bcontroversial (?:opinion|take)\b', regex: true, note: "hook template (1L)"}
+    - {phrase: '\bconfession\b', regex: true, note: "hook template (1L)"}
+    - {phrase: true story, note: "hook template (1L)"}
+    - {phrase: real talk, note: "hook template (1L)"}
+    - {phrase: '\bhonestly\?', regex: true, note: "hook template (1E)"}
+    - {phrase: is it just me or, note: "hook template (1L)"}
+    - {phrase: am I the only one, note: "hook template (1L)"}
+    - {phrase: '\bi''ve (?:noticed|been thinking|been reflecting)\b', regex: true, note: "hook template (1L); throat-clearing"}
+    - {phrase: something I've been thinking about, note: "throat-clearing opener"}
+    - {phrase: here's the thing, note: "hook template (1L)"}
+    - {phrase: '\bnobody (?:is talking|talks) about\b', regex: true, note: "hook template (1L)"}
+    - {phrase: '\bhere''s what nobody (?:tells|told|will tell) you\b', regex: true, note: "-4.3% reach (magicpost)"}
+    - {phrase: '\bstop (?:\w+ing|doing) \w+.{0,30}?\bstart \w+ing\b', regex: true, note: "Stop X, start Y (-6.7% reach)"}
+    - {phrase: '\bin today''s\b', regex: true, note: "In today's fast-paced world (1G)"}
+    - {phrase: '\bin (?:an|the) era (?:of|where)\b', regex: true, note: "1G"}
+    - {phrase: '\bin the age of\b', regex: true, note: "1G"}
+    - {phrase: '\bin a world where\b', regex: true, note: "1G"}
+    - {phrase: '\bin the world of\b', regex: true, note: "1G"}
+    - {phrase: '\bin this day and age\b', regex: true, note: "1G"}
+    - {phrase: '\bnow more than ever\b', regex: true, note: "1G"}
+    - {phrase: '\bwith the rise of\b', regex: true, note: "1G"}
+    - {phrase: '\bimagine (?:a world|this|if|you''re|being)\b', regex: true, note: "1G"}
+    - {phrase: picture this, note: "1G"}
+    - {phrase: '\bhave you ever (?:wondered|noticed|felt|thought)\b', regex: true, note: "1G"}
+    - {phrase: '\bever (?:wondered|noticed) \b', regex: true, note: "1G"}
+    - {phrase: it goes without saying, note: "1G"}
+    - {phrase: everyone wants to, note: "1G"}
+    - {phrase: '\beveryone(?:''s| is) talking about\b', regex: true, note: "1G"}
+    - {phrase: as we navigate, note: "1G"}
+    - {phrase: when it comes to, note: "1G"}
+    - {phrase: ever since I was, note: "1G [unverified]"}
+    - {phrase: let me tell you a story, note: "1G [unverified]"}
+    - {phrase: '\b(?:story ?time|quick story)\b', regex: true, note: "1G"}
+    - {phrase: '\bwhat if i told you\b', regex: true, note: "hook template"}
+    - {phrase: '\bwe''ve all been there\b', regex: true, note: "1G"}
+    - {phrase: '\bwe all know\b', regex: true, note: "1G"}
+    - {phrase: '\blet''s (?:be honest|face it|talk about)\b', regex: true, note: "1E"}
+    - {phrase: '\bcan we talk about\b', regex: true, note: "hook template"}
+    - {phrase: '\b(?:i''m |i am |so |very |beyond |incredibly |truly )?(?:thrilled|humbled|excited|honou?red|proud|delighted|grateful|blessed)(?: and \w+)? to (?:announce|share)\b', regex: true, note: "announcement trio (3); quality-bar reject list"}
+    - {phrase: '\b(?:big|exciting|some personal) news\b', regex: true, note: "announcement cliche (3)"}
+    - {phrase: '\bi was today years old\b', regex: true, note: "quality-bar reject list"}
+    - {phrase: '\bstop scrolling\b', regex: true, note: "1L"}
+    - {phrase: '\bpsa:', regex: true, note: "1L"}
+    - {phrase: '\b(?:friendly|gentle|quick|daily) reminder\b', regex: true, note: "1L"}
+    - {phrase: '\bthis is your (?:sign|reminder)\b', regex: true, note: "1L/3"}
+    - {phrase: '\bfun fact\b', regex: true, note: "1E"}
+    - {phrase: '\b(?:harsh|hard|brutal|uncomfortable) truth\b', regex: true, note: "1E"}
+    - {phrase: '\bthe truth is\b', regex: true, note: "1E"}
+    - {phrase: '\btruth bomb\b', regex: true, note: "1E"}
+    - {phrase: '\breality check\b', regex: true, note: "1E"}
+    - {phrase: '\bwake[- ]up call\b', regex: true, note: "1E"}
+    - {phrase: '\bi asked chatgpt\b', regex: true, note: "AI-about-AI filler (3)"}
+    - {phrase: '\b(?:life|leadership|career|business) (?:update|lesson)\b', regex: true, note: "3"}
+    - {phrase: '\bdear linkedin\b', regex: true, note: "3"}
+    - {phrase: '\bthread\b', regex: true, note: "thread formula (4)"}
+    - {phrase: '🧵', regex: true, note: "thread formula (4)"}
+    - {phrase: '\bbreaking:', regex: true, note: "clickbait framing (P19)"}
+    - {phrase: '\b(?:three|four|five|six|seven|eight|nine|ten|\d+) (?:things|lessons|mistakes|truths|rules|reasons|ways|tips|habits|signs) (?:i|i''ve|we|you|that|every|most|about|from|to)\b', regex: true, note: "listicle opener (3)"}
+  closers:
+    # Matched on the last two nonblank lines only.
+    - {phrase: in conclusion, note: "2.8; SEL strongest negative"}
+    - {phrase: in summary, note: "2.8"}
+    - {phrase: '\bto (?:sum up|summarize|summarise|wrap up)\b', regex: true, note: "2.8"}
+    - {phrase: ultimately, note: "2.8"}
+    - {phrase: '\bthe lesson(?:\?|:| is| here| learned)', regex: true, note: "The lesson? (2.8)"}
+    - {phrase: '\blessons? learned\b', regex: true, note: "2.8"}
+    - {phrase: '\b(?:the |key |my |biggest )?takeaways?(?:\?|:| is| here)', regex: true, note: "Takeaway: (2.8)"}
+    - {phrase: '\b(?:the )?moral(?: of the story)?(?:\?|:| is)', regex: true, note: "2.8"}
+    - {phrase: '\bthat''s when (?:it hit me|i realized|i realised|it clicked|everything changed|i knew)\b', regex: true, note: "and that's when it hit me (2.8)"}
+    - {phrase: '\bat the end of the day\b', regex: true, note: "2.8"}
+    - {phrase: '\bbottom line\b', regex: true, note: "2.8"}
+    - {phrase: '\btl;?dr\b', regex: true, note: "TL;DR closer (4)"}
+    - {phrase: '\blong story short\b', regex: true, note: "2.8"}
+    - {phrase: '\b(?:just )?remember:', regex: true, note: "2.8"}
+    - {phrase: '\bfood for thought\b', regex: true, note: "2.8"}
+    - {phrase: '\bsomething to think about\b', regex: true, note: "2.8"}
+    - {phrase: '\bonwards? and upwards?\b', regex: true, note: "2.8"}
+    - {phrase: '\bgrateful for the journey\b', regex: true, note: "gratitude closer (3)"}
+    - {phrase: '\bwhat a (?:journey|ride|year)\b', regex: true, note: "gratitude closer (3)"}
+    - {phrase: '\bcouldn''t have done it without\b', regex: true, note: "gratitude closer (3)"}
+    - {phrase: '\bthank you (?:all|everyone|to everyone)\b', regex: true, note: "gratitude closer (3)"}
+    - {phrase: '\bkeep (?:going|pushing|building|showing up|shipping|grinding|learning)\b', regex: true, note: "motivational closer (2.8)"}
+    - {phrase: '\byou(?:''ve)? got this\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bstay (?:curious|humble|hungry|focused|consistent)\b', regex: true, note: "motivational closer"}
+    - {phrase: '\btrust the process\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bprogress over perfection\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bconsistency is key\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bnever (?:stop learning|give up)\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bbe kind\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bthe best is yet to come\b', regex: true, note: "motivational closer"}
+    - {phrase: '\beverything happens for a reason\b', regex: true, note: "motivational closer"}
+    - {phrase: '\blet this be a reminder\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bthis is your reminder\b', regex: true, note: "motivational closer"}
+    - {phrase: '\bnormali[sz]e \w+ing\b', regex: true, note: "motivational imperative (3)"}
+    - {phrase: '\bbe the person who\b', regex: true, note: "motivational imperative (3)"}
+    - {phrase: '\bit''s that simple\b', regex: true, note: "aphoristic ender"}
+    - {phrase: '\bsimple as that\b', regex: true, note: "aphoristic ender"}
+    - {phrase: '\bthat''s the whole (?:point|game)\b', regex: true, note: "aphoristic ender [unverified]"}
+    - {phrase: '\band that''s (?:okay|ok|the point|fine)\b', regex: true, note: "aphoristic ender"}
+    - {phrase: '\bmore (?:soon|to come)\b', regex: true, note: "stay-tuned closer"}
+    - {phrase: '\bwatch this space\b', regex: true, note: "stay-tuned closer"}
+    - {phrase: '\bstay tuned\b', regex: true, note: "stay-tuned closer"}
+    - {phrase: '\bhere''s to (?:the|more|a|another|many)\b', regex: true, note: "toast closer (3)"}
+    - {phrase: '\bthe rest is history\b', regex: true, note: "2.8"}
+    - {phrase: '\bgrowth is a journey\b', regex: true, note: "aphoristic ender"}
+    - {phrase: '\brejection is redirection\b', regex: true, note: "aphoristic ender (S5)"}
+    - {phrase: '\bthe (?:journey|work) continues\b', regex: true, note: "closer cliche"}
+    - {phrase: '\bonward\b', regex: true, note: "closer cliche"}
+  residue:
+    - {phrase: '\bi hope this helps\b', regex: true, note: "chatbot residue (1I) = hard fail"}
+    - {phrase: '\bhope (?:this|that) helps\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '^\s*(?:certainly|absolutely|of course|sure)[!,.:]', regex: true, note: "paragraph-initial Certainly!/Absolutely! (Originality.ai)"}
+    - {phrase: '\bgreat question\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\blet me know if\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bfeel free to\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bwould you like (?:me to|a|another|an)\b', regex: true, note: "GPT-5 trailing offer (1I)"}
+    - {phrase: '\bwant me to\b', regex: true, note: "GPT-5 trailing offer (1I)"}
+    - {phrase: '\bif you(?:''d like| want), i can\b', regex: true, note: "GPT-5 trailing offer (1I)"}
+    - {phrase: '\bi(?:''d| would) be happy to\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bhappy to help\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bas an ai\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\b(?:ai |large )?language model\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bas of my (?:last|latest) (?:update|training|knowledge)\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bmy (?:training data|knowledge cutoff)\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\bi (?:don''t|do not) have access to\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\b(?:sure|certainly|absolutely)[!,.]? here(?:''s| is| are)\b', regex: true, note: "Sure! Here's a LinkedIn post (1I)"}
+    - {phrase: '\bhere(?:''s| is) a (?:version|draft|rewrite|rewritten|revised|polished|tighter|shorter|punchier|linkedin post|tweet|post) (?:that|for|with|you|of)\b', regex: true, note: "Here's a version that... (1I)"}
+    - {phrase: '\bhere(?:''s| is) (?:the|an|your) (?:updated|revised|final|edited|polished) (?:version|draft|post)\b', regex: true, note: "chatbot residue (1I)"}
+    - {phrase: '\boption [1-9ab]\b', regex: true, note: "Option 1 / Option 2 (1I)"}
+    - {phrase: '\bversion [ab12]\b', regex: true, note: "Version A / Version B (1I)"}
+    - {phrase: '\[(?:your name|name|your company|company|company name|insert[^\]]*|add[^\]]*|link|date|product|city|number|x)\]', regex: true, note: "placeholder (1I)"}
+    - {phrase: '^\s*(?:hook|caption|body|cta|headline|title|post|tweet|alt text|word count|character count|chars|characters):', regex: true, note: "label leak (1I)"}
+    - {phrase: '\(≈\s*\d+\s*(?:chars|characters|words)\)', regex: true, note: "(≈280 chars) label leak (1I)"}
+    - {phrase: '\(\d+\s*(?:chars|characters)\)', regex: true, note: "(280 chars) label leak (1I)"}
+    - {phrase: '\bturn\d+search\d+\b', regex: true, note: "citation artifact (1I)"}
+    - {phrase: '\boaicite\b', regex: true, note: "citation artifact (1I)"}
+    - {phrase: '\[cite:', regex: true, note: "citation artifact (1I)"}
+    - {phrase: '\bcontentreference\b', regex: true, note: "citation artifact (1I)"}
+    - {phrase: '\bi''ve (?:kept|also|added|removed|tightened|trimmed) (?:the|it|a|your)\b', regex: true, note: "editor's note residue (1I)"}
+    - {phrase: '\bthanks? (?:you )?for (?:sharing|reading|posting)\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bgreat (?:point|post|insight|share|perspective|thread|write-up|article)[!.]', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bthis is so true\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '(?:^|(?<=[.!?] ))\s*so true[!.]', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bcouldn''t agree more\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bwell said\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bspot on[!.]', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '(?:^|(?<=[.!?] ))\s*fascinating[!.]', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\b(?:absolutely|totally|completely|100%) agree\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\blove this (?:perspective|take|post|framing)\b', regex: true, note: "reply-bot register (4.1)"}
+    - {phrase: '\bin this (?:post|article|piece|thread), (?:i|we)(?:''ll| will)\b', regex: true, note: "essay preamble (1I)"}
+  clickbait:
+    - {phrase: '\bBREAKING\b', regex: true, flags: "", note: "clickbait framing (P19)"}
+    - {phrase: '🚨', regex: true, note: "siren emoji (P19)"}
+    - {phrase: '\bnobody (?:is talking|talks) about\b', regex: true, note: "quality-bar reject list; P19"}
+    - {phrase: '\bno one (?:is talking|talks) about\b', regex: true, note: "P19"}
+    - {phrase: '\byou won''t believe\b', regex: true, note: "P19"}
+    - {phrase: '\b(?:will |gonna |going to )?blow your mind\b', regex: true, note: "P19"}
+    - {phrase: '\bmind[- ]blowing\b', regex: true, note: "P19"}
+    - {phrase: '\b(?:this )?chang(?:es|ed) everything\b', regex: true, note: "quality-bar reject list; P19"}
+    - {phrase: '\b(?:[A-Z][\w-]*|seo|saas|marketing|programming|coding|content|email|prompt engineering|the (?:\w+ )?industry) is dead\b', regex: true, flags: "", note: "X is dead (quality-bar reject list)"}
+    - {phrase: '\bi was today years old\b', regex: true, note: "quality-bar reject list"}
+    - {phrase: '\bthe (?:one|#1|number one|only) (?:thing|reason|skill|habit|mistake|tool) (?:you|that|holding|nobody|every)\b', regex: true, note: "P19"}
+    - {phrase: '\b(?:life|growth|productivity|linkedin|career|one simple|simple) hacks?\b', regex: true, note: "P19"}
+    - {phrase: '\bmust[- ](?:read|see|watch|know)\b', regex: true, note: "P19"}
+    - {phrase: '\byou need to (?:see|read|know|hear) this\b', regex: true, note: "P19"}
+    - {phrase: '\bthis is huge\b', regex: true, note: "P19"}
+    - {phrase: '\bwait for it\b', regex: true, note: "P19"}
+    - {phrase: '\b(?:you''re|you are|nobody is) not ready\b', regex: true, note: "P19"}
+    - {phrase: '\bstop what you''re doing\b', regex: true, note: "P19"}
+    - {phrase: '🧵', regex: true, note: "thread formula (4.4)"}
+    - {phrase: '\ba thread\b', regex: true, note: "thread formula (4.4); quality-bar reject list"}
+    - {phrase: '\bthread (?:below|👇)', regex: true, note: "thread formula (4.4)"}
+    - {phrase: '^[ \t]*1/(?:\d+|n)?(?![\d/])(?:[ \t]*$|[ \t]+(?!(?:of|the|in|a|an|to|as)\b)(?=[A-Z\-:(]))', regex: true, flags: "", note: "thread numbering 1/ or 1/n at line start, never a fraction in prose (4.4)"}
+    - {phrase: '\beverything you need to know\b', regex: true, note: "P19"}
+    - {phrase: '\bthe ultimate guide\b', regex: true, note: "P19"}
+    - {phrase: '\bthe only \w+ you(?:''ll)? (?:ever )?need\b', regex: true, note: "P19"}
+    - {phrase: '\b(?:[A-Z]{3,}\s+){2,}[A-Z]{3,}\b', regex: true, flags: "", note: "all-caps urgency (three+ shouted words)"}
+    - {phrase: '🔥🔥|💯|🚀🚀', regex: true, note: "emoji clusters (4.8)"}
+    - {phrase: '\bsteal my (?:prompt|playbook|template|system)\b', regex: true, note: "thread formula (4.4)"}
+    - {phrase: '\b(?:insane|crazy|wild) (?:results?|numbers|growth|stats)\b', regex: true, note: "P19"}
+  hedges:
+    - {phrase: typically, note: "hedge (1J)"}
+    - {phrase: might, note: "hedge (1J)"}
+    - {phrase: '\bmay\b(?!\s+\d)(?!\s+\d{1,2}(?:st|nd|rd|th)?\b)', regex: true, note: "modal 'may' (not the month)"}
+    - {phrase: '\bcould (?:potentially|arguably|possibly)\b', regex: true, note: "hedge (1J)"}
+    - {phrase: potentially, note: "hedge (1J)"}
+    - {phrase: arguably, note: "hedge (1J)"}
+    - {phrase: in some cases, note: "hedge (1J)"}
+    - {phrase: in many cases, note: "hedge (1J)"}
+    - {phrase: in most cases, note: "hedge (1J)"}
+    - {phrase: generally speaking, note: "hedge (1J)"}
+    - {phrase: '\bgenerally\b', regex: true, note: "hedge (1J)"}
+    - {phrase: it could be argued, note: "hedge (1J)"}
+    - {phrase: '\bsome (?:would |might |may )?argue\b', regex: true, note: "hedge (1J)"}
+    - {phrase: on the other hand, note: "both-sides hedge (1J/2.9)"}
+    - {phrase: to be fair, note: "hedge (1J)"}
+    - {phrase: '\btends? to\b', regex: true, note: "hedge (1J)"}
+    - {phrase: roughly, note: "hedge (1J)"}
+    - {phrase: largely, note: "hedge (1J)"}
+    - {phrase: almost, note: "hedge (1J)"}
+    - {phrase: in many ways, note: "hedge (1J)"}
+    - {phrase: perhaps, note: "hedge (1J)"}
+    - {phrase: somewhat, note: "hedge (1J)"}
+    - {phrase: kind of, note: "hedge (1J)"}
+    - {phrase: sort of, note: "hedge (1J)"}
+    - {phrase: '\boften\b', regex: true, note: "blanket softener (1J)"}
+    - {phrase: '\brather\b(?! than)', regex: true, note: "hedge (1J)"}
+    - {phrase: actually, note: "PCWorld: 15x in 11.7k words"}
+    - {phrase: '\bcan help (?:to|you|with)\b', regex: true, note: "hedge (1J)"}
+    - {phrase: '\b(?:could|may|might) help\b', regex: true, note: "hedge (1J)"}
+    - {phrase: it depends, note: "hedge (1J)"}
+    - {phrase: '\bto (?:some|a certain|an) extent\b', regex: true, note: "hedge (1J)"}
+    - {phrase: more or less, note: "hedge (1J)"}
+    - {phrase: for the most part, note: "hedge (1J)"}
+    - {phrase: '\bin general\b', regex: true, note: "hedge (1J)"}
+    - {phrase: not necessarily, note: "hedge (1J)"}
+    - {phrase: it's possible that, note: "hedge (1J)"}
+    - {phrase: possibly, note: "hedge (1J)"}
+    - {phrase: likely, note: "hedge (1J)"}
+    - {phrase: seemingly, note: "hedge (1J)"}
+    - {phrase: apparently, note: "hedge (1J)"}
+    - {phrase: presumably, note: "hedge (1J)"}
+    - {phrase: '\bit''s (?:complicated|nuanced)\b', regex: true, note: "hedge (1J/2.9)"}
+do_not_reuse:
+  storytelling-framework:   # the post the user pasted on 2026-10-18 (.claude/skills/story/SKILL.md); shape only, never its words
+    - "absolutely suck at storytelling"
+    - "art and science"
+    - "excessive detail"
+    - "bring the listener into the story"
+    - "palms of my hands became clammy"
+    - "clammy with sweat"
+    - "my heart was racing"
+    - "Breathe, I told myself"
+    - "Take them with you"
+    - "Package your wisdom"
+    - "I guarantee you"
+    - "change the nature of your career"
+user_tells: []

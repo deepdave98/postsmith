@@ -65,7 +65,7 @@ SELF_POSTS = [
     ("linkedin", "Our data team has a rule: no dashboard ships without the number that would embarrass us.\n\nLast "
                  "quarter that number was the 41% of enrichment jobs that returned the same address for two different "
                  "companies. It is on the front page now.\n\nThe jobs are at 9%. The front page has not changed."),
-    ("x", "hiring rule at floqer: the take-home is the bug we shipped last week. if you find it in under an hour we "
+    ("x", "hiring rule at acme: the take-home is the bug we shipped last week. if you find it in under an hour we "
           "talk. if you find two we talk faster."),
     ("x", "our enrichment pipeline has a status page. the status page has a status page. neither of them was up on "
           "tuesday."),
@@ -185,14 +185,18 @@ def root(tmp_path_factory) -> Root:
     dst = tmp_path_factory.mktemp("e2e") / "postsmith"
     dst.mkdir()
     _copytree(PROJECT / "config", dst / "config")
-    _copytree(PROJECT / "evals", dst / "evals")
+    # The rubric, golden set and anchors come along; the label stores do not. A real session appends to
+    # calibration.jsonl and disagreements.jsonl and writes health reports, and a dry run that inherits them
+    # counts rows it never wrote.
+    _copytree(PROJECT / "evals", dst / "evals",
+              ignore=shutil.ignore_patterns("calibration.jsonl", "disagreements.jsonl", "reports"))
     # Only the style/ scaffold is copied. The learned layer (profile.json and its history, the author
     # profiles, moves, common, exemplars, media_habits, self) is what this run builds from nothing.
     # Inheriting the project's copies would start the run already learned: the profile would resume at
     # the project's version instead of 1 and the "built from zero" assertions would measure real data.
     (dst / "style").mkdir(parents=True, exist_ok=True)
     _copytree(PROJECT / "style" / "taxonomies", dst / "style" / "taxonomies")
-    shutil.copy2(PROJECT / "style" / "lexicon.yaml", dst / "style" / "lexicon.yaml")
+    shutil.copy2((PROJECT / "style" / "lexicon.yaml" if (PROJECT / "style" / "lexicon.yaml").exists() else PROJECT / "style" / "lexicon.base.yaml"), dst / "style" / "lexicon.yaml")
     _copytree(PROJECT / ".claude", dst / ".claude")
     _copytree(PROJECT / "tools", dst / "tools", ignore=shutil.ignore_patterns("tests", "__pycache__"))
     (dst / "evals" / "health" / "reports").mkdir(parents=True, exist_ok=True)
@@ -441,7 +445,7 @@ PERSONA = """---
 schema: postsmith.persona/1
 name: Deep
 handle: "@deep"
-brands: [Floqer]
+brands: [Acme]
 aliases: []
 lens_preferences: [dana-kessler]
 platform_choices: {hashtags: never, emoji: never, long_posts: false}
@@ -455,7 +459,7 @@ do_not_target:
 updated: 2026-09-17
 ---
 ## Who I am
-Founder of a data company (Floqer). I run the agents that touch our billing.
+Founder of a data company (Acme). I run the agents that touch our billing.
 
 ## Story bank
 - story#2 (2026-08-20): the agent that registered a domain in staging. used_in: none

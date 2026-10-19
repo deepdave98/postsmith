@@ -79,6 +79,7 @@ Setup:
 2. Open Claude Code in this folder.
 3. `/persona`. A 10 to 15 minute interview that writes `style/persona.md`: fact bank, story bank, what you can and cannot claim, opinions, platform choices. It is the only source of first-hand claims a post may carry. It also collects samples of your own writing into `corpus/self/`, which are never held out.
 4. Drop reference posts into `corpus/inbox/` and run `/ingest`.
+5. `uv run pytest -q` passes on a fresh clone. Until `/ingest` has learned your corpus, the AI-tell checks read the tracked `style/lexicon.base.yaml` (the research tiers); the learned `style/lexicon.yaml` replaces it and stays local.
 
 Three commands carry the loop:
 
@@ -87,6 +88,8 @@ Three commands carry the loop:
 | `/post <topic> [--lens slug] [--platform both\|linkedin\|x] [--quick] [--wide] [--no-media] [--copy]` | topic to paste-ready LinkedIn and X text, with a media prompt and the full evidence table |
 | `/rate blind [run]` | shows the delivered texts unlabelled and records your 1 to 5 and tags before any verdict is revealed |
 | `/posted <draft-id> <li\|x> [url]` | stores the text you actually published, diffs it against the draft, and later takes metrics in plain words |
+
+The daily loop is lighter than `/post`. `/shortlist` each morning finds three stories in your lane, each with a one-line joke and an image concept. `/draft <#n or topic>` turns your pick into facts, ten candidate lines for the place the post turns, and then the dialogue, image prompt, captions and first comment built around the line you choose. `/story` is mandatory for any post that tells something that happened: the moment told from inside it, then numbered lessons. `/post` is the full tournament and is opt-in.
 
 `/ingest` adds references. `/trending [area]` finds topics in your lane. `/status` shows what is unrated, unmeasured or stale. `/eval <file> --platform li|x` scores arbitrary text and `/eval health` self-tests the graders. `/learn` rebuilds the style layer after a taxonomy change. `/media` rebuilds a media brief. Asking in plain chat to tighten or shorten a line you wrote yourself runs the `voice` skill, which is not a command.
 
@@ -101,6 +104,10 @@ Three commands carry the loop:
 | `evals/` | rubric versions and anchors, thresholds, golden sets, health reports, calibration |
 | `tools/` | the deterministic Python, each script with `--help` and `--json`, tests under `tools/tests/` |
 | `docs/design/contracts.md` | authoritative for every CLI, schema and path. Code that disagrees is the bug |
+
+## Private context
+
+Anything about your own company that must not be public (product facts, competitive research, leadership's rules for the public voice) stays outside this repo. Record its path under `## Company context` in `style/persona.md`, which is gitignored, and the writing skills read it from there before any post about the company, its space or a competitor. `style/`, `corpus/`, `drafts/` and `memory/` are local for the same reason: what is tracked is the method, not your data.
 
 ## Limits
 

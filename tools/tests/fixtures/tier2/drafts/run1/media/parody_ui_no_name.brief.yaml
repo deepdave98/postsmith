@@ -1,0 +1,51 @@
+schema: postsmith.media/1
+post_id: parody_ui_no_name
+platform: linkedin
+decision: image
+decision_reason: 'M3: fake-document punchline; the caption sets up the purchase, the form lands the item line'
+delete_test: Without it the caption ends on a setup and the reader never sees the receipt.
+carousel_suggested: false
+genre: parody_ui
+humor_or_hook_device: bureaucratic deadpan
+visual_concept: A phone banking app showing a twelve dollar charge labelled as an agent purchase.
+subject: a phone screen with a generic banking app, one transaction row highlighted
+setting: scuffed white office fridge in a small startup kitchen, late-afternoon window light from the left
+composition:
+  framing: medium close-up
+  angle: straight-on
+  focal_point: the handwritten item line
+  negative_space: fridge edge visible on the right
+style:
+  medium: photorealistic phone photo
+  palette: natural, slightly warm
+  era_or_reference: taken thirty seconds ago
+  finish: faint grain
+on_image_text:
+  lines:
+  - Agent purchase
+  - '12.00'
+  placement: transaction row
+  typography_intent: clean app sans
+must_show:
+- one round magnet
+- a coffee ring on the corner
+keep_out_as_positive:
+- the fridge is clean of brand marks
+- the only legible words are the two lines plus short generic field labels
+aspect_ratio: '4:5'
+target_pixels: 1080x1350
+resolution_tier: 2K
+tool:
+  primary: gpt_image
+  reason: UI mock
+  fallback: nano_banana_pro
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: 'Laminated purchase order on a fridge; the item line reads: one domain, to be safe.'
+factual_claims_in_visual: []
+risk_notes: text-heavy; expect two or three regenerations

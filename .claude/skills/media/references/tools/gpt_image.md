@@ -17,7 +17,7 @@ date. It is the fallback when a Nano Banana concept needs a photographic finish.
 element placement in dense layouts, the same character across separate generations, small type (use quality
 high), and up to two minutes on complex prompts.
 
-## Settings Deep sets in the app
+## Settings the user sets in the app
 Image mode. Vertical for 4:5 (then crop to 1080x1350; whether typing "4:5" yields an exact 4:5 file is
 unverified), Square for 1:1. Quality `high` whenever the image carries text; `xhigh` or `max` only when high
 fails. API: `size` as custom WxH (multiples of 16, ratio at most 3:1), `quality=high`, up to 32,000 characters.
@@ -67,5 +67,5 @@ at 12 words, leave such extras out or count them.)
 ## Self-check before returning (mirrors `media_check.py`)
 Every `on_image_text.lines` entry appears verbatim in quotes · total on-image words ≤ 12, each line ≤ 8 · prompt
 80-200 words · aspect ratio matches the brief and the platform · no real person's name, no brand other than
-Deep's own · parody UI names a fictional product · the still, if it feeds Runway, is described clean and
+the user's own · parody UI names a fictional product · the still, if it feeds Runway, is described clean and
 artifact-free.

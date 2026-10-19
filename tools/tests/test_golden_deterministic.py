@@ -45,7 +45,7 @@ def build_root(dst: Path) -> Path:
     (dst / "config").mkdir(parents=True)
     shutil.copy(PROJECT / "config" / "postsmith.yaml", dst / "config" / "postsmith.yaml")
     (dst / "style").mkdir()
-    shutil.copy(PROJECT / "style" / "lexicon.yaml", dst / "style" / "lexicon.yaml")
+    shutil.copy((PROJECT / "style" / "lexicon.yaml" if (PROJECT / "style" / "lexicon.yaml").exists() else PROJECT / "style" / "lexicon.base.yaml"), dst / "style" / "lexicon.yaml")
     rubric = common.rubric_dir()
     shutil.copytree(rubric, dst / "evals" / "rubric" / rubric.name)
     (dst / "evals" / "rubric" / "current").symlink_to(rubric.name)

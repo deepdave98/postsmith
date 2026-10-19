@@ -1,0 +1,19 @@
+schema: postsmith.media/1
+post_id: real_capture
+platform: linkedin
+decision: real_capture_direction
+decision_reason: 'M6: real product output is never faked; capture the real terminal'
+delete_test: The receipt is the joke; without the capture the claim is just a claim.
+genre: real_capture_direction
+visual_concept: The real terminal line where the agent reports the domain purchase, cropped tight.
+aspect_ratio: '4:5'
+real_capture_direction:
+  what_to_open: the agent run log in the terminal
+  what_to_show: the purchase confirmation line and the two lines above it
+  crop: tight to the three lines, 4:5
+  redact: card digits, registrar account id, hostname
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: 'Terminal log: the agent reports buying one domain, to be safe.'

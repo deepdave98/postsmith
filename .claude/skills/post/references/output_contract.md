@@ -2,7 +2,7 @@
 
 `uv run tools/assemble_report.py <run> [--copy]` writes `drafts/<run>/final/` from the merged scores, the Tier 2
 files and the media briefs, and prints the terminal layout to stdout. The orchestrator prints that stdout verbatim
-(Deep reads the terminal, not the files) and adds only what section 4 lists. Verdict labels come from
+(the user reads the terminal, not the files) and adds only what section 4 lists. Verdict labels come from
 `scores/<cid>.merged.json` via the tool, never from the orchestrator.
 
 ## 1. `drafts/<run>/final/` layout
@@ -16,7 +16,7 @@ Body, in order:
    untouched. This block is the deliverable; nothing in it is ever edited after the writer wrote it.
 2. `reply_1` for X: the link or line that goes in the first reply (an X body never carries a link).
 3. "Why this works": two or three sentences citing the moves by slug from `style/moves.md` and the angle from the
-   candidate's `angle_sheet.pick`, so Deep can learn the mechanism, not just the post.
+   candidate's `angle_sheet.pick`, so the user can learn the mechanism, not just the post.
 4. Media: `decision` + `decision_reason` citing the rule id (M1–M7) and the `delete_test`; `alt_text`; one fenced
    block per tool prompt preceded by a settings line (tool, aspect ratio, resolution or duration, fallback tool);
    or `real_capture_direction` with what to open, type, crop and redact; or "No media: <delete-test reason>".
@@ -47,7 +47,7 @@ LinkedIn variant to `pbcopy`.
 - Verdict handling: `--hide-verdicts` is the default until `evals/calibration.jsonl` holds a blind rating row for
   this run. Hidden means the PASSED / DID NOT PASS / needs-your-call words, the scores and the failing evidence sit
   in one collapsed section titled "After blind rating" at the end of the file; the tables above it still list every
-  check id and its evidence quote but no result column. Deep's rating must not inherit the judge's, which is the
+  check id and its evidence quote but no result column. The user's rating must not inherit the judge's, which is the
   whole point of the blind step.
 
 ### `lineage.json`
@@ -93,12 +93,12 @@ The pairwise clause in a variant header is `pairwise <outcome>` when a reference
 clean` when no pairwise ran and the lineup was clean, or `pairwise not run`.
 
 ## 3. Hidden-verdict mode (the default until `/rate blind <run>` has run)
-Same layout with these substitutions, so nothing on screen tells Deep what the judges decided before he rates:
+Same layout with these substitutions, so nothing on screen tells the user what the judges decided before they rate:
 - Variant headers carry no label: `## LinkedIn · A (1,420 chars · fold: "…")`, `## X · A (271/280 as X counts)`.
   Lineup, pairwise and jury numbers are omitted from the header.
 - The alternates, needs-your-call and did-not-pass sections are merged into `## Also delivered` with the texts and
   headers only; failing dimensions and evidence are not printed.
-- "Confirm before posting" lines still print: a claim needing Deep's confirmation is his information, not a verdict.
+- "Confirm before posting" lines still print: a claim needing the user's confirmation is their information, not a verdict.
 - One closing line: `Verdicts, scores and evidence: hidden until /rate blind <run>; then in
   drafts/<run>/final/report.md.`
 - The disclosures in the header line (health, small-corpus mode, lineup advisory, voice anchor, rung, quick) are

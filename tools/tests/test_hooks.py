@@ -487,7 +487,7 @@ def test_judge_lineup_and_pairwise_policies(project: Path) -> None:
 def test_post_writer_policy(project: Path) -> None:
     for t in ("style/persona.md", "style/authors/lara-acosta.md", "memory/lessons.md", "drafts/run_a/brief.md",
               "drafts/run_a/round1/writers/writer-1.0cd43ee122.md", "drafts/run_a/round2/writers/rewrite-r1-w1-li.9f13ab0c74.md",
-              "docs/design/contracts.md", ".claude/skills/post/references/writer_brief.md"):
+              "docs/design/contracts.md", ".claude/skills/post/references/writer_brief.md", ".claude/skills/story/SKILL.md"):
         assert_allowed(run_hook(GUARD_PATHS, WRITER_PATHS, payload("Read", project, file_path=t), project))
     for t in ("corpus/heldout/acosta_004.md", "corpus/cards/acosta_001.md", "corpus/posts/acosta_001.md", "corpus/ratings.jsonl",
               "evals/rubric/v1/rubric.md", "evals/calibration.jsonl", "memory/performance.jsonl", "memory/topics.md",

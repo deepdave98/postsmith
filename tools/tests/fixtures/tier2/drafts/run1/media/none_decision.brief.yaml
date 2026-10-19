@@ -1,0 +1,7 @@
+schema: postsmith.media/1
+post_id: none_decision
+platform: x
+decision: none
+decision_reason: 'M1: the post loses nothing without media'
+delete_test: nothing
+alt_text: null

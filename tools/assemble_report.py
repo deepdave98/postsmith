@@ -900,9 +900,9 @@ def collect(root: Path, run: str, show_verdicts: bool | None = None) -> dict:
     profile = profile if isinstance(profile, dict) else None
     profile_version = profile.get("profile_version") if profile else None
     lexicon = None
-    if (root / "style" / "lexicon.yaml").exists():
+    if common.lexicon_path(root).exists():
         try:
-            lexicon = common.load_yaml(root / "style" / "lexicon.yaml")
+            lexicon = common.load_yaml(common.lexicon_path(root))
         except Exception:  # noqa: BLE001
             lexicon = None
     lexicon_version = lexicon.get("lexicon_version") if isinstance(lexicon, dict) else None

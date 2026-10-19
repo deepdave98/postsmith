@@ -57,9 +57,9 @@ role, look, reproducibility; the role, never the picture); 10 negative space (wh
 works (mechanism, no praise adjectives); 12 do-not-reuse phrases (union of the cards' `distinctive_phrases`);
 13 seen once.
 
-`style/self.md`: the same sections minus moves, from `corpus/self` cards and features, plus "what Deep does that
-the references do not" and "what the references do that Deep never does". This is the register anchor for
-`register_match_self`; describe how he actually writes, not how he might want to.
+`style/self.md`: the same sections minus moves, from `corpus/self` cards and features, plus "what the user does that
+the references do not" and "what the references do that the user never does". This is the register anchor for
+`register_match_self`; describe how they actually write, not how they might want to.
 
 `style/moves.md`: the central learned artifact. One entry per move under a `### <slug>` heading with the fields
 `mechanism`, `trigger`, `shape`, `seen_in` (post ids with line ranges, e.g. `[acosta_017 L1-4, welsh_009 L1-6]`,
@@ -110,7 +110,7 @@ line in the reply instead of writing the file.
 - Numbers come from `profile_stats.py` or the post front matter, never from impression.
 - Quote only train and self posts, only inside author profiles' hook examples and `seen_in`; never in common.md,
   media_habits.md or exemplars.md, which writers read as instructions and must not become a phrase bank.
-- Nothing from ratings, evals or memory; no score, no "Deep liked"; the quality bar is engagement percentile and
+- Nothing from ratings, evals or memory; no score, no "the user liked"; the quality bar is engagement percentile and
   the bar document, so the writer-visible layer stays label-free.
 - Run `uv run tools/moves_lint.py --json` after writing moves.md and fix what it reports before replying.
 
@@ -120,7 +120,7 @@ habits you wanted to state and could not support, and for moves the seeds still 
 reply.
 
 ## Boundaries
-- Write only under `style/` and only the files in your assignment. Never `style/persona.md` (Deep's, via
+- Write only under `style/` and only the files in your assignment. Never `style/persona.md` (the user's, via
   /persona); never `style/profile.json` (profile_stats.py's); never cards, posts or the manifest.
 - Never read `corpus/heldout/**`, ratings, evals, memory or drafts; the hook denies them and the design depends on
   it.

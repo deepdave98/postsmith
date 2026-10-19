@@ -448,12 +448,12 @@ def test_anonymize_strips_names_emails_domains_and_persona_identity(tmp_path: Pa
     assert "Ledger got four votes." in out and "founder" in out and "losing gracefully" in out
     dst = tmp_path / "root"
     shutil.copytree(FIX / "tier2", dst)
-    (dst / "style" / "persona.md").write_text("---\nname: Deep Dave\naliases: [Deepak]\nbrands: [Floqer]\nhandle: '@deepdave'\n---\n", encoding="utf-8")
+    (dst / "style" / "persona.md").write_text("---\nname: Deep Dave\naliases: [Deepak]\nbrands: [Acme]\nhandle: '@deepdave'\n---\n", encoding="utf-8")
     old_root, old_cfg = common.ROOT, common._CONFIG
     lineup.apply_root(str(dst))
     try:
-        c = lineup.anonymize("Deep here, from Floqer. Deepak said so; a deep dive follows. deepdave.", None)
-        assert "Floqer" not in c and "Deepak" not in c and "deepdave" not in c and "deep dive" in c
+        c = lineup.anonymize("Deep here, from Acme. Deepak said so; a deep dive follows. deepdave.", None)
+        assert "Acme" not in c and "Deepak" not in c and "deepdave" not in c and "deep dive" in c
         out = lineup.build("r1-w1-li", "run1", seed=7)
         key = json.loads((dst / out["key"]).read_text(encoding="utf-8"))
         prompt = (dst / out["prompt"]).read_text(encoding="utf-8")
@@ -462,7 +462,7 @@ def test_anonymize_strips_names_emails_domains_and_persona_identity(tmp_path: Pa
             for tok in meta["author"]["name"].split():
                 assert tok not in prompt
             assert meta["author"]["handle"].lstrip("@") not in prompt
-        assert "@" not in prompt.split("## Post A")[1] and "Floqer" not in prompt
+        assert "@" not in prompt.split("## Post A")[1] and "Acme" not in prompt
     finally:
         common.ROOT, common._CONFIG = old_root, old_cfg
 
@@ -617,7 +617,7 @@ def test_platform_evidence_is_verbatim_and_prose_is_not_markup() -> None:
     p5 = run(text, "linkedin", {"corpus_uses_straight_quotes": True})["checks"]["P5_markup"]
     assert [e["span"] for e in p5["evidence"]] == ["We didn’t ship it.", "“Later,” they said."]
     assert run("We did it.So the vendor said nothing for nine days.", "x")["checks"]["P4_links"]["pass"] is True
-    assert run("the writeup is on floqer.com if you want it", "x")["checks"]["P4_links"]["links"] == ["floqer.com"]
+    assert run("the writeup is on example.com if you want it", "x")["checks"]["P4_links"]["links"] == ["example.com"]
     assert run("Option A: pay the vendor 3 more months.\nOption B: write the 11 lines ourselves.")["checks"]["P5_markup"]["pass"] is True
     assert run("Option A\nWe pay the vendor for 3 more months and it stays broken.")["checks"]["P5_markup"]["kinds"] == ["leaked_variant_label"]
     assert run("I sent a two-line reply (12 words) and the deal closed on the 4th call.")["checks"]["P5_markup"]["pass"] is True

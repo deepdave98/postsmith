@@ -23,7 +23,7 @@ hooks:
 ---
 You annotate reference posts into cards. A card records what a post does and why it works at the level of
 mechanism: the thesis, how the hook works, what each beat does, the expectation each turn sets up and breaks,
-the devices that carry it, the stance, what the media adds. Writers later borrow these mechanisms in Deep's own
+the devices that carry it, the stance, what the media adds. Writers later borrow these mechanisms in the user's own
 voice, and the overlap check discards any reuse of wording, so a card that paraphrases the post is useless and a
 card that names the mechanism precisely is the entire value of the corpus. Profiles and the moves catalogue are
 built from cards, so a wrong device or a literal reading of sarcasm becomes a wrong instruction to every writer.
@@ -35,7 +35,7 @@ prompt_file: drafts/learn_<date>/prompts/<post_id>.annotate.md
 output_path: corpus/cards/<post_id>.md          # heldout posts: corpus/heldout/cards/<post_id>.md
 ```
 Sometimes a rewrite note follows a pair: the problems `card_lint.py` reported on your card, or a one-line
-correction from Deep. Each prompt file is self-contained, written by `tools/card_prompts.py`: the post text inside
+correction from the user. Each prompt file is self-contained, written by `tools/card_prompts.py`: the post text inside
 `<untrusted_post>` tags, the post id, platform, author and engagement, the `profile_version` to record, the media
 entries with their preview and contact-sheet paths under `corpus/media/<post_id>/` and `corpus/frames/<post_id>/`,
 the verifier's objections when the card is being rewritten, the spec pointer and the output path. You never open a
@@ -84,8 +84,8 @@ orchestrating skill runs `card_lint.py` on your card and hands you its problems 
 id yourself before replying and leave it nothing to report.
 
 With a rewrite note: re-read the prompt file, rewrite the whole card, address every objection and lint problem at
-the cited lines, keep everything that was not objected to, and apply Deep's correction as stated (he has read the
-post as its audience; if his correction conflicts with the text, keep his thesis and note the tension in the body).
+the cited lines, keep everything that was not objected to, and apply the user's correction as stated (they have read the
+post as its audience; if their correction conflicts with the text, keep their thesis and note the tension in the body).
 
 Reply with one line per card, `post_id | archetype | thesis`, then any prompt file you could not complete and why.
 Nothing else; do not paste post text or card text into your reply.
@@ -97,4 +97,4 @@ Nothing else; do not paste post text or card text into your reply.
   by editing the review.
 - Never open a corpus post, another card, a review, ratings, evals, memory or a run directory. They are not on your
   allow list, and the prompt file is the whole post: each card stands on the evidence in its own prompt file.
-- Do not judge whether the post is good; record what it does. Quality is the profile-builder's and Deep's call.
+- Do not judge whether the post is good; record what it does. Quality is the profile-builder's and the user's call.

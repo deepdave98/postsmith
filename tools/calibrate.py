@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""How well the judges track Deep's ratings (contracts §17).
+"""How well the judges track the user's ratings (contracts §17).
 
 Reads evals/calibration.jsonl (generated rows joined with judge medians by rate_record.py) and reports:
 
@@ -10,7 +10,7 @@ Reads evals/calibration.jsonl (generated rows joined with judge medians by rate_
   (thresholds.yaml `dimensions`; na / missing dimensions are skipped). Average ranks for ties; pure Python.
 - Per-tag false-negative rates using the contract tag -> dimension map (TAG_DIMENSIONS): a complaint tag whose
   mapped dimensions all passed is a false negative. Positive tags (media_great) report how often the system
-  flagged what Deep praised instead.
+  flagged what the user praised instead.
 - Proposals in the fix order 1 user tell -> 2 anchor -> 3 threshold -> 4 anchor text, as structured JSON.
 - Drift of judge medians across rubric versions.
 - Performance PREFER/AVOID proposals by angle family / move / lens once >= calibration.performance_min_posts
@@ -306,14 +306,14 @@ def proposals_section(rows: list[dict], thresholds: dict[str, int], root: Path) 
             dims = _failing_dims(r, thresholds)
             props.append({"order": 2, "kind": "anchor", "strength": "strong", "post_ref": _ref(r),
                           "dimension": dims[0] if dims else None, "dimensions": dims,
-                          "why": f"Deep {r.get('user_score')}/5 on a system {r.get('verdict')}; make it a strong anchor"})
+                          "why": f"the user {r.get('user_score')}/5 on a system {r.get('verdict')}; make it a strong anchor"})
         else:
             dims = [d for t in (r.get("tags") or []) for d in TAG_DIMENSIONS.get(t, [])]
             for d in dims or ["unspecified"]:
                 raise_votes.setdefault(d, []).append(_ref(r))
             props.append({"order": 2, "kind": "anchor", "strength": "weak", "post_ref": _ref(r),
                           "dimension": dims[0] if dims else None, "dimensions": dims,
-                          "why": f"Deep {r.get('user_score')}/5 on a system pass; make it a weak anchor"})
+                          "why": f"the user {r.get('user_score')}/5 on a system pass; make it a weak anchor"})
     # 3. thresholds: >= 3 complaint tags the mapped dimension passed -> raise; >= 3 user-pass on a dim fail -> lower
     for tag, dims in TAG_DIMENSIONS.items():
         if tag in POSITIVE_TAGS:
@@ -328,12 +328,12 @@ def proposals_section(rows: list[dict], thresholds: dict[str, int], root: Path) 
         if d in thresholds and len(refs) >= 3:
             props.append({"order": 3, "kind": "threshold", "dimension": d, "direction": "+1",
                           "current": thresholds[d], "n": len(refs), "refs": refs,
-                          "why": "the dimension passed on posts Deep tagged; the bar is too low"})
+                          "why": "the dimension passed on posts the user tagged; the bar is too low"})
     for d, refs in sorted(lower_votes.items()):
         if d in thresholds and len(refs) >= 3:
             props.append({"order": 3, "kind": "threshold", "dimension": d, "direction": "-1",
                           "current": thresholds[d], "n": len(refs), "refs": refs,
-                          "why": "the dimension failed posts Deep rated >= 4; the bar is too high"})
+                          "why": "the dimension failed posts the user rated >= 4; the bar is too high"})
     # 4. anchor text: a dimension pulled both ways
     for d in sorted(set(raise_votes) & set(lower_votes)):
         if d in thresholds and len(raise_votes[d]) >= 2 and len(lower_votes[d]) >= 2:

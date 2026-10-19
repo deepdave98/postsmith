@@ -131,7 +131,7 @@ The key file and the score file are never on a judge's path; the orchestrator ne
 - **Reference pairwise (advisory ranking):** `pairwise.py build|score <run> <cid> --mode reference`, nearest
   heldout reference, both orders × lenses, the same token and nonce scheme (key `tier2/pairwise_<cid>.key.json`,
   score `tier2/pairwise_<cid>.score.json`), char counts shown with the length disclaimer; "which is the better
-  post" and "which sounds more like the voice in Posts A–C" where A–C are Deep's self samples, not the lens
+  post" and "which sounds more like the voice in Posts A–C" where A–C are the user's self samples, not the lens
   author. Inconsistent answers across orders = tie. Skipped when the lineup is clean 0/3 (config
   `skip_pairwise_when_lineup_clean`). It never gates.
 
