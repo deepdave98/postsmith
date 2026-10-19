@@ -13,13 +13,13 @@ for each item is stated because the writer is expected to use it for that reason
 | The brief | `drafts/<run>/brief.md` | Topic, flags, the obvious takes under "Do not write these" (the angle must not be one of them), numbered facts `brief.fact#N` with URLs, the story match by persona id, `brief.user_detail`, moves and topics used in the last 3 runs. Every number in a post traces to this file or to `persona.md`. |
 | The assignment | inlined as JSON in the writer's own prompt file under `round<k>/writers/` (`run_next.py` copies it from `drafts/<run>/matrix.json`, which the writer does not open; also on the delegation prompt's third line) | `{angle_family, archetype, move, device, lens, seed, short_deadpan}`. Diversity across writers is by assignment, not by asking one writer for "three versions". |
 | Persona | `style/persona.md` | The only source of first-hand claims: fact bank, story bank (with `used_in:`), opinions held and refused, `can_claim` / `cannot_claim`, `do_not_target`, vocabulary use/never, platform choices, media willingness. |
-| Deep's register | `style/self.md` | Sentence shape, casing, punctuation, contractions, how he addresses the reader. `register_match_self` is the voice gate; reference authors never override this. |
+| The user's register | `style/self.md` | Sentence shape, casing, punctuation, contractions, how they address the reader. `register_match_self` is the voice gate; reference authors never override this. |
 | The bar | `style/common.md` | Shared traits of the corpus, divergent traits the persona decides, anti-patterns, the corpus envelope. |
 | Moves | `style/moves.md` | Mechanisms with `execute_without_copying` notes; the assigned move is executed from here. |
 | Lens profile | `style/authors/<lens>.md` (absent for the lens-free writer) | How that author executes moves, rhythm, endings, negative space, do-not-reuse phrases. It informs *how*, never *what*. |
 | Exemplars | `style/exemplars.md` | Lettered train-split posts, the only raw reference text a writer sees. Skeletons and devices may be borrowed; wording, claims, anecdotes, coinages and jokes may not, and the candidate's `lineage.exemplars_seen` lists them so Tier 2 can check paraphrase against exactly these. |
 | Lexicon | `style/lexicon.yaml` | Tiers of off-limits phrases, stale openers, closers, bait, residue, hedges, `do_not_reuse` per author, `user_tells`. `tier0.py` fails on hits; the writer avoids them at the source. |
-| Lessons | `memory/lessons.md`, the last 40 non-RETIRED entries (the prompt names the file) | Distilled from Deep's blind ratings: PREFER / AVOID / FACTS-I-CAN-USE. Tags and cids only, never scores. |
+| Lessons | `memory/lessons.md`, the last 40 non-RETIRED entries (the prompt names the file) | Distilled from the user's blind ratings: PREFER / AVOID / FACTS-I-CAN-USE. Tags and cids only, never scores. |
 | Taxonomies | `style/taxonomies/{angles,hooks,structures,devices}.md` | Slugs for `angle_sheet.candidates[].family`, `hook_type`, `archetype`, `ending`, `device`. Every slug must exist there (judges and cards use them); `tier0.py` P0 checks only that the required keys are present. |
 | Output contract | `.claude/skills/post/references/output_contract.md` and section 4 below | The front matter and file layout the tools parse. |
 | Rewrite packet (round ≥ 2) | inlined in the writer's own `round<k>/writers/rewrite-<cid>.<token>.md` inside `<feedback_packet>` (the packet exactly as `aggregate.py feedback` wrote it to `round<k-1>/feedback/<cid>.md`, which the writer does not open) with the previous candidate inside `<previous_candidate>`; only the writer's own | Only failing or flagged checks, each with the judge's quoted span and one-sentence surgical fix, out-of-envelope features with numbers, lineup tells. Instruction: fix these, keep everything that passed; do not change the move or the claims unless `uniqueness` or `persona_fit` failed. |
@@ -28,7 +28,7 @@ for each item is stated because the writer is expected to use it for that reason
 - `corpus/heldout/**`, `corpus/cards/**`, `corpus/features/**`, `corpus/ratings.jsonl`, `evals/**`,
   `memory/performance.jsonl`, `memory/published/**`: label stores and the answer key. A writer who has seen the
   rubric writes to the rubric; a writer who has seen heldout posts copies them; a writer who has seen published
-  text repeats Deep.
+  text repeats the user.
 - `drafts/*/round*/scores`, `drafts/*/tier2`, `drafts/*/media`, `drafts/*/final`, `brief_inputs.json`,
   `matrix.json`, `run.log`, `state.json`, `memory/topics.md`: verdicts, key files, other runs' passed posts, the
   scout's notes, the rating-derived scoreboard. The only judge output a writer sees is its own packet.
@@ -111,8 +111,8 @@ reply_1: null                            # X only: the link or line that goes in
 | writer 2 | assigned | assigned | assigned | assigned | best-fit author, or `--lens` | |
 | writer 3 (…5 with `--wide`) | assigned | assigned | assigned | assigned | second best-fit author, or `--lens` | |
 
-- Writer 1 is always lens-free so the pure-Deep voice competes.
-- The `short_deadpan: true` slot writes the short, flat option (plain case, no intensifiers, punch last); Deep's
+- Writer 1 is always lens-free so the pure-the user voice competes.
+- The `short_deadpan: true` slot writes the short, flat option (plain case, no intensifiers, punch last); the user's
   best posts so far are the short ones.
 - Moves used in the last 3 runs and moves with scoreboard mean ≤ 2.5 (n ≥ 3) are excluded; mean ≥ 4 preferred.
   When the catalogue is small the fallback ladder relaxes recency to 1 run → allows a repeat with a different
@@ -122,6 +122,7 @@ reply_1: null                            # X only: the link or line that goes in
 
 ## 7. Writer boundaries
 - No claim, number, customer, incident, or story that is not in `persona.md` or the brief. No borrowed biography.
+- A candidate, or any paragraph of one, that narrates something that happened walks `.claude/skills/story/SKILL.md` (the story audit: the moment told from inside it, then a bridge and numbered lessons) before it is written. The user's standing order of 2026-10-18; no story candidate exists without it.
 - No phrase from `style/lexicon.yaml`; no do-not-reuse phrase of any author; no 6+ consecutive words shared with
   any exemplar (`O1_ngram` fails at 8, flags at 6).
 - No CTA or engagement bait unless the persona opts in; no moral, summary or restated thesis at the end; no
