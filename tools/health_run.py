@@ -233,7 +233,7 @@ class Ctx:
 # --------------------------------------------------------------------------- tier0 wrappers
 
 def waive_p2_fold(doc: dict) -> list[str]:
-    """P2_fold's word-boundary flag (pass true, flag true) is noise on a golden positive / oracle post."""
+    """P2_fold's fold flag (pass true, flag true) is noise on a golden positive / oracle post."""
     res = (doc.get("checks") or {}).get("P2_fold")
     if isinstance(res, dict) and res.get("pass") is True and res.get("flag"):
         res["flag"] = False
@@ -257,6 +257,29 @@ def waive_own_author_o2(doc: dict, slug: str | None) -> list[str]:
     res["evidence"] = []
     res["waived"] = f"health: {len(own)} own-author lexicon phrase hit(s) on an oracle post"
     return ["O2_phrases"]
+
+
+# Oracle items are other authors' published posts. They are graded for mechanical defects, never against
+# Deep's own policy: evals/golden/oracle.json makes persona_fit N/A for them, and emoji_max / hashtags_max
+# resolve from style/persona.md, which IS persona policy. Neutralising them to the platform ceiling via the
+# candidate front matter uses the documented meta > persona > config precedence in platform_check.
+ORACLE_NEUTRAL_POLICY = {"linkedin": {"emoji_max": 3, "hashtags_max": 3},
+                         "x": {"emoji_max": 1, "hashtags_max": 0}}
+
+
+def waive_p4_links_phrase(doc: dict) -> list[str]:
+    """'link in comments' on an oracle post is that author's tactic, not a defect in Deep's draft. The gate
+    stays hard for candidates, and a real URL in an X body is never waived (its span is a URL, not a phrase)."""
+    res = (doc.get("checks") or {}).get("P4_links")
+    if not isinstance(res, dict) or res.get("pass") is not False:
+        return []
+    ev = res.get("evidence") or []
+    if not ev or any("comment" not in str(e.get("span", "")).lower() for e in ev):
+        return []
+    res["pass"] = True
+    res["evidence"] = []
+    res["waived"] = "health: 'link in comments' on an oracle post"
+    return ["P4_links"]
 
 
 def hard_fails(doc: dict) -> dict[str, dict]:
@@ -717,11 +740,12 @@ def first_pass(ctx: Ctx, expected: dict, today: _dt.date) -> dict:
         excl = {x for x in (pid, meta.get("crosspost_of"), meta.get("variant_of")) if x}
         cmeta = _meta_for("oracle", src, str(meta.get("platform") or "linkedin"), post_id=pid,
                           crosspost_of=meta.get("crosspost_of"), variant_of=meta.get("variant_of"),
+                          platform_choices=ORACLE_NEUTRAL_POLICY,
                           assignment={"lens": slug}, lineage={"exemplars_seen": sorted(str(x) for x in excl)})
         md = write_candidate(ctx, cid, cmeta, text)
         lens_scope = f"author:{slug}" if slug and f"author:{slug}" in scopes else "corpus"
         doc = run_tier0(ctx, md, cid, lens_scope=lens_scope, exclude_ids={str(x) for x in excl})
-        waived = waive_p2_fold(doc) + waive_own_author_o2(doc, slug)
+        waived = waive_p2_fold(doc) + waive_own_author_o2(doc, slug) + waive_p4_links_phrase(doc)
         if waived:
             _refresh_tier0(ctx, doc)
         hf = hard_fails(doc)
@@ -736,7 +760,9 @@ def first_pass(ctx: Ctx, expected: dict, today: _dt.date) -> dict:
         if ctx.judged:
             emit_judges(ctx, pctx, item, cid, md, list(JUDGE_LENSES), slug, "oracle")
     note = (f"{len(posts)} oracle post(s) from the " + ("train split, leave-one-out (small-corpus mode)" if oracle_source != "heldout" else "heldout split")
-            + "; no hard fail after the oracle N/A list (own id / crosspost / variant excluded, own-author lexicon phrases, word-boundary fold flag)")
+            + "; no hard fail after the oracle N/A list (own id / crosspost / variant excluded, own-author "
+              "lexicon phrases, fold flag, 'link in comments' phrase, and emoji/hashtag limits neutralised to "
+              "the platform ceiling - those are Deep's policy, not defects in another author's post)")
     empty_oracle_blocks = not rows and not ctx.small_corpus       # no heldout post outside small-corpus mode
     if empty_oracle_blocks:
         note += "; the heldout split is empty on a corpus that is not in small-corpus mode - the oracle cannot run"

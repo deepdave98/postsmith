@@ -49,8 +49,9 @@ delivered run's prompt files are archived under `drafts/<run>/archive/`, outside
 The procedure is `docs/design/content-quality-bar.md` §1 ("Angle-discovery procedure"), the canonical bar; the
 angle ids and families are `style/taxonomies/angles.md`. What the front matter needs from it: 8–10 candidates
 inside the assigned `angle_family`, each with `scores` keyed `surprise`, `truth`, `specificity`, `personal_fit`,
-`timeliness`, `disagreeability` (1–5) and `killed_by` (null, or the kill rule that removed it: `truth`,
-`personal_fit`, `obvious_take`, `missing_fact`); the `pick`, the `runner_up`, one `emotion` (LOL, OHHH, WOW, WTF,
+`timeliness`, `disagreeability` (1–5) and `killed_by` (null, or the kill rule that removed it: `truth_below_4`,
+`no_specific`, `on_obvious_list`, `needs_missing_fact`; note `personal_fit` is scored but never kills, so an angle
+with a 1 there survives on specificity and surprise); the `pick`, the `runner_up`, one `emotion` (LOL, OHHH, WOW, WTF,
 AWW, YAY, NSFW, FINALLY) and one `hook_family` from `style/taxonomies/hooks.md`. Anything failing a quality-bar
 gate is regenerated from the angle step, never patched at the sentence level.
 
@@ -80,7 +81,8 @@ lineage: {exemplars_seen: [acosta_003], lessons_used: [L-023], rewrite_of: null}
 reply_1: null                            # X only: the link or line that goes in the first reply, never in the body
 ```
 - `claims[].source` is the whole claims audit: `judge-persona` classifies each one every round and verifies
-  `needs_check` at Tier 2; a claim you cannot source is made unmistakably a joke or cut.
+  `needs_check` at Tier 2; a claim you cannot source becomes invention no reader would bank on, kept deadpan and
+  never flagged as a joke, or it is cut. Invention pinned on a real named third party is a hard fail either way.
 - `media_intent.delete_test` states what the post loses without the visual; "nothing" means `decision: none`.
   A real product (Claude Code, Cursor, a dashboard) is never faked: `real_capture_direction` with what to open,
   type, crop and redact.

@@ -71,6 +71,12 @@ def load_config() -> dict:
 
 
 def rubric_dir() -> Path:
+    # POSTSMITH_RUBRIC pins a version by name. The test suite sets it to v1, which is immutable, so promoting a
+    # new rubric can never turn the suite red: fixtures carry v1's version stamp and v1's expectations, and
+    # judge_io rejects any judge file whose stamp is not the rubric in force.
+    pinned = os.environ.get("POSTSMITH_RUBRIC")
+    if pinned and (ROOT / "evals" / "rubric" / pinned).is_dir():
+        return (ROOT / "evals" / "rubric" / pinned).resolve()
     cur = ROOT / "evals" / "rubric" / "current"
     if cur.exists():
         return cur.resolve()

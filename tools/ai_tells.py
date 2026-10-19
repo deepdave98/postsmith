@@ -8,7 +8,7 @@ Checks (ids fixed by contracts.md section 5):
   P10_contrast_flip  it's not X, it's Y / Not X. Not Y. Just Z.   hard, base-rate downgradable
   P11_cluster        lexical cluster (>=3 t1, >=5 t1+t2+t3, >=2 claude)  hard
   P12_closer         moralizing closer on the last two lines      hard on regex; aphorism heuristic -> flag
-  P13_specifics      zero specifics in a post above the word floor  hard
+  P13_specifics      zero specifics in a post above the word floor  flag near the floor, hard well above it
   P17_lists          tricolons (1 soft, >=2 hard); emoji-bullet / Term: description / anaphora lists hard
   P18_hedges         >= 3 hedges                                   soft
   P19_clickbait      clickbait framing                             hard on X, soft on LinkedIn
@@ -65,6 +65,10 @@ TIER_RANK = {"claude": 0, "t1": 1, "t2": 2, "t3": 3}
 # "> 40 words"; X posts rarely exceed 45 words, so the floor is lower there.
 # Override with cfg["ai_tells"]["specifics_min_words"] (int or {platform: int}).
 SPECIFICS_MIN_WORDS = {"linkedin": 40, "x": 20}
+# Above floor x this factor, zero specifics is terminal rather than a flag. Measured against the corpus: a
+# real 44-word LinkedIn post carrying no digit and no mid-sentence capital sits just over the floor and is
+# fine, while the slop set runs 60-66 words on LinkedIn and 26-36 on X with nothing to point at.
+SPECIFICS_HARD_FACTOR = 1.25
 
 CLUSTER_T1 = 3
 CLUSTER_TOTAL = 5
@@ -582,10 +586,18 @@ def _check_specifics(doc: _Doc, platform: str, cfg: dict) -> dict:
                        words=0, min_words=floor, specifics=[])
     if n_words > floor and not found:
         a, b = doc.line1_range() or (0, 0)
+        # Length decides how damning zero specifics is. _find_specifics sees numerals, $/%, dates,
+        # mid-sentence proper nouns, product names, paths and error strings; it cannot see narrative
+        # concreteness, so a short post that reads as entirely concrete can still score zero. Just over the
+        # floor that miss is the detector's, and the check flags rather than rejects. Well over the floor it
+        # is the post's: nobody writes long with nothing to point at. The hard branch keeps this check on the
+        # base_rate_downgrade `never` list honestly, because it still rejects the posts it exists to reject.
+        hard_above = int(floor * SPECIFICS_HARD_FACTOR)
+        cls = "hard" if n_words > hard_above else "flag"
         ev = doc.evidence(a, b, f"{n_words} words with zero specifics (no number, $/%, date, proper noun after "
                                 f"position 0, product name, file path or error string); floor for {platform} is "
-                                f"{floor} words")
-        return _result("hard", False, [ev], words=n_words, min_words=floor, specifics=[])
+                                f"{floor} words, terminal above {hard_above}")
+        return _result(cls, False, [ev], words=n_words, min_words=floor, hard_above=hard_above, specifics=[])
     return _result("hard", True, [], words=n_words, min_words=floor, specifics=specifics)
 
 

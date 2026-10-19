@@ -37,9 +37,13 @@ current. Write the JSON below and reply with the path and one line saying whethe
   number without a URL is worthless here.
 - `cannot_claim_touched`: any `cannot_claim` or `do_not_target` entry the topic brushes against, quoted, so the
   orchestrator can ask Deep once instead of the writers guessing.
-- `needs_user_detail`: `true` when nothing first-hand (no fact, no story, no opinion with a receipt) fits the topic.
-  The orchestrator then asks Deep one question; a fabricated anecdote fails a hard gate and cannot be rewritten
-  into truth, which is why this flag exists and why it must not be softened to spare the question.
+- `needs_user_detail`: `true` only when the topic cannot be written without a bankable first-hand claim the author
+  does not have - a number, customer, incident or outcome of his own that the thesis rests on - and no
+  `live_specific` and no public fact can carry it instead. Public facts, observation, arithmetic and comic
+  invention are all legitimate substance, so a topic with no first-hand angle is not by itself a reason to
+  interrupt him. When the flag is true the orchestrator asks Deep one question; an invented figure, internal or
+  incident attributed to a real named third party fails a hard gate and cannot be rewritten into truth, which is
+  why this flag exists and why it must not be softened to spare the question.
 - `recent_context`: topics and moves used in the last three runs from `memory/topics.md`, so the matrix and the
   writers avoid them.
 
