@@ -1,0 +1,1 @@
+We switched off the agent that summarises tickets. Nobody noticed for nine days, then someone thought the database was down. The dashboard had gone grey.

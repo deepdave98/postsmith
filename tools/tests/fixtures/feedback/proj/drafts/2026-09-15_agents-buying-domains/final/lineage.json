@@ -1,0 +1,119 @@
+{
+  "run": "2026-09-15_agents-buying-domains",
+  "topic": "agents buying domains",
+  "flags": [],
+  "versions": {
+    "rubric": "v1",
+    "rubric_sha": "deadbeef",
+    "profile": 2,
+    "lexicon": 1
+  },
+  "brief": {
+    "facts": [],
+    "obvious_takes": [],
+    "user_detail": "the invoice was $14"
+  },
+  "matrix_rung": 0,
+  "variants": [
+    {
+      "cid": "r1-w1-li",
+      "writer": "post-writer-1",
+      "platform": "linkedin",
+      "assignment": {
+        "angle_family": "receipt",
+        "archetype": "announcement_with_twist",
+        "move": "corporate_register_for_trivial_event",
+        "device": "anti_climax",
+        "lens": null,
+        "seed": 4171,
+        "short_deadpan": false
+      },
+      "exemplars_seen": [
+        "kessler_001"
+      ],
+      "lessons_used": [
+        "L-001"
+      ],
+      "rounds": 1,
+      "final_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+      "final_path": "drafts/2026-09-15_agents-buying-domains/final/li_1.md",
+      "scores_path": "drafts/2026-09-15_agents-buying-domains/round1/scores/r1-w1-li.merged.json",
+      "media_path": null,
+      "verdict": "pass",
+      "tier2_tested": true,
+      "waived": []
+    },
+    {
+      "cid": "r1-w2-li",
+      "writer": "post-writer-2",
+      "platform": "linkedin",
+      "assignment": {
+        "angle_family": "reframe",
+        "archetype": "lesson",
+        "move": "quote_then_deflate",
+        "device": "callback",
+        "lens": "lara-acosta",
+        "seed": 4172,
+        "short_deadpan": false
+      },
+      "exemplars_seen": [],
+      "lessons_used": [],
+      "rounds": 1,
+      "final_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+      "final_path": "drafts/2026-09-15_agents-buying-domains/final/li_2.md",
+      "scores_path": "drafts/2026-09-15_agents-buying-domains/round1/scores/r1-w2-li.merged.json",
+      "media_path": null,
+      "verdict": "fail",
+      "tier2_tested": false,
+      "waived": []
+    },
+    {
+      "cid": "r1-w3-li",
+      "writer": "post-writer-3",
+      "platform": "linkedin",
+      "assignment": {
+        "angle_family": "rule",
+        "archetype": "announcement",
+        "move": "escalating_triple_break",
+        "device": "rule_of_three",
+        "lens": "justin-welsh",
+        "seed": 4173,
+        "short_deadpan": false
+      },
+      "exemplars_seen": [],
+      "lessons_used": [],
+      "rounds": 1,
+      "final_sha": null,
+      "final_path": null,
+      "scores_path": null,
+      "media_path": null,
+      "verdict": "fail",
+      "tier2_tested": false,
+      "waived": []
+    },
+    {
+      "cid": "r1-w1-x",
+      "writer": "post-writer-1",
+      "platform": "x",
+      "assignment": {
+        "angle_family": "receipt",
+        "archetype": "incident",
+        "move": "corporate_register_for_trivial_event",
+        "device": "anti_climax",
+        "lens": null,
+        "seed": 4171,
+        "short_deadpan": true
+      },
+      "exemplars_seen": [],
+      "lessons_used": [],
+      "rounds": 1,
+      "final_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+      "final_path": "drafts/2026-09-15_agents-buying-domains/final/x_1.md",
+      "scores_path": "drafts/2026-09-15_agents-buying-domains/round1/scores/r1-w1-x.merged.json",
+      "media_path": null,
+      "verdict": "pass",
+      "tier2_tested": true,
+      "waived": []
+    }
+  ]
+}

@@ -364,12 +364,12 @@ def test_x_url_in_body_fails_and_reports_reply_1():
     assert p4["pass"] is False and p4["class"] == "hard" and p4["count"] == 1
     assert p4["reply_1_present"] is True
     assert "reply_1" in p4["evidence"][0]["why"]
-    assert p4["evidence"][0]["span"] == "https://floqer.com/blog/agents-buying-domains"
+    assert p4["evidence"][0]["span"] == "https://example.com/blog/agents-buying-domains"
 
 
 def test_x_bare_domain_counts_as_link():
-    p4 = run("the writeup is on floqer.com if you want the receipts.", "x")["checks"]["P4_links"]
-    assert p4["pass"] is False and p4["links"] == ["floqer.com"]
+    p4 = run("the writeup is on example.com if you want the receipts.", "x")["checks"]["P4_links"]
+    assert p4["pass"] is False and p4["links"] == ["example.com"]
     assert p4["reply_1_present"] is False
 
 
@@ -379,7 +379,7 @@ def test_x_no_link_passes():
 
 
 def test_linkedin_single_naked_link_is_advisory():
-    text = "We wrote it up in detail here https://floqer.com/blog/agents and the short version is: it worked."
+    text = "We wrote it up in detail here https://example.com/blog/agents and the short version is: it worked."
     p4 = run(text)["checks"]["P4_links"]
     assert p4["class"] == "advisory" and p4["pass"] is True and p4["count"] == 1 and p4["note"]
 

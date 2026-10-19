@@ -63,9 +63,9 @@ def rubric_sha(root: Path) -> str | None:
             found = True
             h.update(name.encode("utf-8"))
             h.update(p.read_bytes())
-    lex = root / "style" / "lexicon.yaml"
+    lex = common.lexicon_path(root)
     if lex.exists():
-        h.update(b"lexicon.yaml")
+        h.update(lex.name.encode("utf-8"))
         h.update(lex.read_bytes())
     return h.hexdigest() if found else None
 
@@ -193,7 +193,7 @@ def collect(root: Path | None = None, today: _dt.date | None = None) -> dict:
                                                   "per_split_platform": {}}) or {}
     profile = _safe(lambda: common.read_json(root / "style" / "profile.json", default=None), None)
     profile_version = profile.get("profile_version") if isinstance(profile, dict) else None
-    lexicon = _safe(lambda: common.load_yaml(root / "style" / "lexicon.yaml") if (root / "style" / "lexicon.yaml").exists() else None, None)
+    lexicon = _safe(lambda: common.load_yaml(common.lexicon_path(root)) if common.lexicon_path(root).exists() else None, None)
     lexicon_version = lexicon.get("lexicon_version") if isinstance(lexicon, dict) else None
     lexicon_updated = _iso_date(lexicon.get("updated")) if isinstance(lexicon, dict) else None
     lexicon_stale_months = int(nags_cfg.get("lexicon_refresh_months", 6))

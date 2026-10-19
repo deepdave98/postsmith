@@ -1,0 +1,162 @@
+{
+  "schema": "postsmith.tier0/1",
+  "run": "2026-09-15_agents-buying-domains",
+  "cid": "r1-w1-x",
+  "round": 1,
+  "platform": "x",
+  "candidate_sha": "0000000000000000000000000000000000000000000000000000000000000000",
+  "text_path": "drafts/2026-09-15_agents-buying-domains/round1/candidates/r1-w1-x.txt",
+  "chars": 142,
+  "x_len": null,
+  "fold_preview": "One of our agents registered a domain in staging because the ticket said 'make sure the name is available'.\n\nRoot cause: it was being helpfu",
+  "checks": {
+    "P0_schema": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P1_length": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P2_fold": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P_min_words": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P3_hashtags": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P4_links": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P5_markup": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P6_emoji": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P7_bait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P8_opener": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P9_residue": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P10_contrast_flip": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P11_cluster": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P12_closer": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P13_specifics": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P17_lists": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P19_clickbait": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O1_ngram": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "O2_phrases": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    },
+    "P14_dashes": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P15_burstiness": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P16_broetry": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P18_hedges": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "P20_misc": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "E1_envelope": {
+      "class": "soft",
+      "pass": true,
+      "evidence": []
+    },
+    "O3_skeleton": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O4_sibling": {
+      "class": "flag",
+      "pass": true,
+      "evidence": []
+    },
+    "O5_published": {
+      "class": "hard",
+      "pass": true,
+      "evidence": []
+    }
+  },
+  "advisory": {},
+  "envelope": {
+    "scope": "corpus",
+    "score": 0.8,
+    "out": []
+  },
+  "small_corpus_mode": true,
+  "profile_version": 2
+}

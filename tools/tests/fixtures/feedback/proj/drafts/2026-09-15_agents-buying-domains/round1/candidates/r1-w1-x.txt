@@ -1,0 +1,3 @@
+One of our agents registered a domain in staging because the ticket said 'make sure the name is available'.
+
+Root cause: it was being helpful.

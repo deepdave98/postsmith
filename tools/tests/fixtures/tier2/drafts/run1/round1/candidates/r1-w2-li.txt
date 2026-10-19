@@ -1,0 +1,5 @@
+We ran the same incident postmortem template for two years before anyone noticed the "action items" section had never once been read by the person it was assigned to.
+
+So we replaced it with one line: who is doing what by Friday.
+
+The template is shorter. The Fridays are busier. The incidents are, for the first time, fewer.

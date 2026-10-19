@@ -42,7 +42,7 @@ _DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})")
 _ROUND_RE = re.compile(r"^round(\d+)$")
 
 TEMPLATE_HEAD = "# Topics used\n\n"
-SCOREBOARD_NOTE = ("Mean of Deep's 1-5 ratings per assigned move (evals/calibration.jsonl, generated rows). "
+SCOREBOARD_NOTE = ("Mean of the user's 1-5 ratings per assigned move (evals/calibration.jsonl, generated rows). "
                    "matrix.py excludes moves with mean <= 2.5 at n >= 3 and prefers mean >= 4.\n\n")
 PROVEN_NOTE = ("Engagement by angle family and by move: memory/performance.jsonl joined with each run's "
                f"final/lineage.json, latest snapshot per posted variant, n >= {PROVEN_MIN_N}. "

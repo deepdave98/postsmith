@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""rate_record.py: record Deep's 1-5 rating for a variant or a corpus post (contracts §13, §17, §18).
+"""rate_record.py: record the user's 1-5 rating for a variant or a corpus post (contracts §13, §17, §18).
 
     --kind generated --ref <run>:<key>   blind key A|B|C via drafts/<run>/final/blind.key.json; pass --blind
     --kind generated --ref <run>/<cid>   a variant by cid

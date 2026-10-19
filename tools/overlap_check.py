@@ -86,7 +86,7 @@ def load_cfg(root: Path) -> dict:
 
 
 def load_lexicon(root: Path) -> dict:
-    p = root / "style" / "lexicon.yaml"
+    p = common.lexicon_path(root)
     if p.exists():
         return common.load_yaml(p) or {}
     if root == common.ROOT:

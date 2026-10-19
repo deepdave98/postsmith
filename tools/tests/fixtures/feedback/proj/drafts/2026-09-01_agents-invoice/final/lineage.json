@@ -1,0 +1,21 @@
+{
+  "run": "2026-09-01_agents-invoice",
+  "topic": "agents invoice",
+  "variants": {
+    "r1-w1-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-01_agents-invoice/final/r1-w1-li.md",
+      "tier2_tested": true,
+      "verdict": "pass",
+      "assignment": {
+        "angle_family": "receipt",
+        "archetype": "incident",
+        "move": "corporate_register_for_trivial_event",
+        "device": "anti_climax",
+        "lens": null,
+        "seed": 1,
+        "short_deadpan": false
+      }
+    }
+  }
+}

@@ -98,7 +98,7 @@ LINK_IN_COMMENTS_RE = re.compile(
     r"\blinks?(?:'s|’s|\s+(?:is|are|will be|be))?\s+(?:is\s+)?(?:in|below\s+in|down\s+in)\s+(?:the\s+)?(?:first\s+)?comments?\b",
     re.IGNORECASE,
 )
-# Case-sensitive and lowercase only: platforms auto-link `floqer.com`, while `it.So` (a missing space after a
+# Case-sensitive and lowercase only: platforms auto-link `example.com`, while `it.So` (a missing space after a
 # sentence-ending period followed by a capitalised word that happens to be a TLD) is prose, not a link.
 BARE_DOMAIN_RE = re.compile(
     r"(?<![\w.@/\-])(?:[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?\.)+"

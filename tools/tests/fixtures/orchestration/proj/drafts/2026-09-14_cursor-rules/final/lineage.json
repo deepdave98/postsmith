@@ -1,0 +1,16 @@
+{
+  "run": "2026-09-14_cursor-rules",
+  "topic": "cursor rules",
+  "variants": {
+    "r2-w1-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-14_cursor-rules/final/li_1.md",
+      "tier2_tested": true
+    },
+    "r2-w3-x": {
+      "platform": "x",
+      "final_path": "drafts/2026-09-14_cursor-rules/final/x_1.md",
+      "tier2_tested": true
+    }
+  }
+}

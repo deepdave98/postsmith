@@ -3,7 +3,7 @@ name: learn
 description: >-
   Rebuilds the learned style layer from the corpus without ingesting anything: re-annotates and re-verifies
   cards, recomputes envelopes, rebuilds author profiles, self.md, common.md, moves.md, media_habits.md,
-  exemplars.md and the lexicon do_not_reuse block. Use when Deep says "learn", "rebuild the profiles",
+  exemplars.md and the lexicon do_not_reuse block. Use when the user says "learn", "rebuild the profiles",
   "re-annotate", "redo the cards", "rebuild moves", after a taxonomy or card-spec change, or when /status
   reports missing or unverified cards.
 argument-hint: "[--force] [--only cards|profiles|moves] [--author slug]"
@@ -24,7 +24,7 @@ Project state (versions, counts, health, nags):
 ## What this is for
 /ingest runs the learn phase automatically; /learn re-enters it on purpose. That is needed after a taxonomy edit
 (old device or archetype ids no longer resolve), after a change to the card spec or the quality bar, when cards were
-left unverified, or when a profile reads wrong and Deep wants it rebuilt from the cards. Nothing here touches post
+left unverified, or when a profile reads wrong and the user wants it rebuilt from the cards. Nothing here touches post
 text or the split; the corpus is input only. The output is the same as /ingest's learn phase: cards under
 `corpus/cards/` and `corpus/heldout/cards/`, envelopes in `style/profile.json`, and the files under `style/` that
 writers read. The card format and annotator bar are in `.claude/skills/learn/references/card_spec.md`.
@@ -61,7 +61,7 @@ reading a heldout file, and it means you never open a prompt file either.
 reason (its card fails `card_lint.py`, it is `verified: false` and `--author` names its author, a
 `corpus/cards/_reviews/<id>.user.md` correction from `/rate corpus` exists, or `--force`; the tool overwrites the
 old prompt and the annotator overwrites the card without ever seeing it). A `.user.md` correction is one line you
-can read (train cards only); paste it verbatim under that post's pair as Deep's correction. Take `prompt_file`
+can read (train cards only); paste it verbatim under that post's pair as the user's correction. Take `prompt_file`
 and `output_path` per post from the tool's JSON. One `post-annotator` per batch of at most 8 prompt files, all at
 once, at most 20 concurrent; the delegation is `prompt_file:` / `output_path:` pairs and nothing else. Annotators
 reply `post_id | archetype | thesis` per card plus any prompt file they could not complete; keep those lines for
@@ -80,7 +80,7 @@ inlines the review's objections; annotators cannot open reviews), a fresh `post-
 and listed in the report. The review file is the record; mirror its `verified` value onto the card with a one-line
 edit where the card is readable (train, self). The value comes from the review, never from your own reading.
 
-Confirmation with Deep: show `post_id | archetype | thesis` for every card whose thesis or archetype changed (all of
+Confirmation with the user: show `post_id | archetype | thesis` for every card whose thesis or archetype changed (all of
 them under `--force`), then one question for the batch: which ids are wrong, with a one-line correction, or "all
 good". A "no" goes back to a fresh annotator: rebuild its annotate prompt with `--post <id>`, put the correction
 verbatim under the pair, then lint and verification again. When the last card is settled, `uv run
@@ -118,6 +118,6 @@ agent replies, not memory.
 - Never edit post text, the manifest or the split; never read `corpus/heldout/**`, `corpus/ratings.jsonl` or
   `evals/calibration.jsonl` (scripts do); never open a file under `drafts/learn_*/prompts/` or
   `drafts/learn_*/archive/` (heldout text sits inline there for the annotators and verifiers alone).
-- Never rewrite a card to apply Deep's correction; hand the correction to an annotator that re-reads the post.
+- Never rewrite a card to apply the user's correction; hand the correction to an annotator that re-reads the post.
 - Verified means the review file says so; green means `health_run.py` says so; clean means
   `quote_leak_check.py` says so.

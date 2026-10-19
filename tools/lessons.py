@@ -43,7 +43,7 @@ TAGS = ("too_safe", "not_funny", "sounds_ai", "not_me", "too_long", "too_short",
 POSITIVE_TAGS = frozenset({"great_hook", "great_ending", "media_great"})
 MIN_COUNT = 3
 SIMILARITY = 0.6
-HEADER = ("# Lessons\n\nDistilled from Deep's ratings (/rate). Entries cite tags and candidate ids, never scores. "
+HEADER = ("# Lessons\n\nDistilled from the user's ratings (/rate). Entries cite tags and candidate ids, never scores. "
           "Writers read PREFER / AVOID / FACTS-I-CAN-USE (the last 40 lines); RETIRED is history.\n")
 
 _ENTRY_RE = re.compile(

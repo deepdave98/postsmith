@@ -1,0 +1,50 @@
+schema: postsmith.media/1
+post_id: fake_screenshot
+platform: linkedin
+decision: image
+decision_reason: 'M3: fake-document punchline; the caption sets up the purchase, the form lands the item line'
+delete_test: Without it the caption ends on a setup and the reader never sees the receipt.
+carousel_suggested: false
+genre: fake_screenshot
+humor_or_hook_device: bureaucratic deadpan
+visual_concept: A fake screenshot of a Claude Code terminal session where the agent buys a domain.
+subject: a terminal window showing Claude Code output with a purchase confirmation
+setting: scuffed white office fridge in a small startup kitchen, late-afternoon window light from the left
+composition:
+  framing: medium close-up
+  angle: straight-on
+  focal_point: the handwritten item line
+  negative_space: fridge edge visible on the right
+style:
+  medium: photorealistic phone photo
+  palette: natural, slightly warm
+  era_or_reference: taken thirty seconds ago
+  finish: faint grain
+on_image_text:
+  lines:
+  - 'Purchased: 1 domain'
+  placement: last line
+  typography_intent: monospace
+must_show:
+- one round magnet
+- a coffee ring on the corner
+keep_out_as_positive:
+- the fridge is clean of brand marks
+- the only legible words are the two lines plus short generic field labels
+aspect_ratio: '4:5'
+target_pixels: 1080x1350
+resolution_tier: 2K
+tool:
+  primary: gpt_image
+  reason: UI mock
+  fallback: nano_banana_pro
+references: []
+video: null
+real_capture_direction: null
+safety_checks:
+  no_real_person_likeness: true
+  no_logos_or_trademarks: true
+  no_copyrighted_characters: true
+alt_text: 'Laminated purchase order on a fridge; the item line reads: one domain, to be safe.'
+factual_claims_in_visual: []
+risk_notes: text-heavy; expect two or three regenerations

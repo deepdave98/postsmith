@@ -6,9 +6,9 @@ __pycache__/
 .DS_Store
 .gstack/
 
-# Reference corpus and everything derived from it. The posts, images and video belong to the people who
+# Reference corpus and everything derived from it (anchored to the root; the test fixtures under tools/tests/ are tracked). The posts, images and video belong to the people who
 # wrote them; they stay on the machine that ingested them. Bring your own corpus.
-corpus/
+/corpus/
 style/persona.md
 style/self.md
 style/authors/
@@ -23,8 +23,8 @@ style/lexicon.yaml
 style/modes/
 
 # Run output, ratings and anything that scores them.
-drafts/
-memory/
+/drafts/
+/memory/
 evals/calibration.jsonl
 evals/disagreements.jsonl
 evals/health/reports/

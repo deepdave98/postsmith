@@ -45,7 +45,7 @@ So the red has three causes and only the first is a grader defect:
 v1 was never validated by any health report, so promoting v2 on red lowers no standard that was ever met, and
 v2 is strictly better calibrated on the one dimension that was provably wrong. Revert is one symlink.
 Before trusting an auto-pass, fix the oracle's ground truth: `/rate corpus` so the oracle is built from posts
-the author endorses rather than from everything his reference creators published.
+the author endorses rather than from everything their reference creators published.
 
 Report: `evals/health/reports/2026-09-20_c09fd733eec3_p3.md`
 

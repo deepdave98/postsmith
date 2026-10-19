@@ -1,0 +1,11 @@
+{
+  "run": "2026-09-12_agents-memory-leak",
+  "topic": "agents and the memory leak",
+  "variants": {
+    "r1-w2-li": {
+      "platform": "linkedin",
+      "final_path": "drafts/2026-09-12_agents-memory-leak/final/li_1.md",
+      "tier2_tested": true
+    }
+  }
+}

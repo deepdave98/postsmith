@@ -1,0 +1,3 @@
+# cursor rules
+
+report stub

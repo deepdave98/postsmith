@@ -92,7 +92,7 @@ PLATFORM_ALIASES: dict[str, str] = {
     "x": "x", "twitter": "x", "tw": "x", "x twitter": "x", "twitter x": "x", "x.com": "x", "twitter.com": "x",
     "x (twitter)": "x", "twitter (x)": "x",
 }
-# What Deep filed the post as. A label on the reference, never inferred: unlabelled posts stay None.
+# What the user filed the post as. A label on the reference, never inferred: unlabelled posts stay None.
 MODES: tuple[str, ...] = ("funny", "insightful")
 X_INFER_MAX_CHARS = 280
 URL_SCHEME_RE = re.compile(r"^[a-z][a-z0-9+.\-]*://", re.I)

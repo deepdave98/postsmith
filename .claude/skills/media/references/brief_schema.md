@@ -85,18 +85,18 @@ real_capture_direction:
 ```
 
 Used for `decision: real_capture_direction` with `genre: real_capture_direction` (a real screenshot) or `genre:
-user_photo_direction` (a phone photo of Deep or of his desk; `what_to_open` becomes the shot direction). Every
-instruction must be executable by Deep in under five minutes without a question, because an ambiguous capture
+user_photo_direction` (a phone photo of the user or of their desk; `what_to_open` becomes the shot direction). Every
+instruction must be executable by the user in under five minutes without a question, because an ambiguous capture
 direction is a media miss the judge scores under `capture_direction`.
 
 ## 4. Field by field
 
 | Field | Guidance and reason |
 |---|---|
-| `decision` | `none` is a full answer, not a failure. `real_capture_direction` covers anything Deep must capture himself. |
+| `decision` | `none` is a full answer, not a failure. `real_capture_direction` covers anything the user must capture themselves. |
 | `decision_reason` | One or two sentences, each starting with the rule id it applies (M1-M7); `media_check.py` fails a reason with no rule id. State the fact the rule was applied to (which line of the caption, which media rate). |
 | `delete_test` | Name the specific thing the post loses without the media (a receipt, the punchline, the proof). "It adds visual interest" is a fail; see §5. |
-| `carousel_suggested`, `carousel_outline` | M7. Flag only; the outline lets Deep build it by hand. |
+| `carousel_suggested`, `carousel_outline` | M7. Flag only; the outline lets the user build it by hand. |
 | `genre` | An id from §7. Drives the tool pick and the judge's slop screen. |
 | `genre_note` | Optional, one line, read by the judge as part of the concept. |
 | `fictional_product` | Required for `parody_ui` and `product_mock`: the invented name, which must not be a real brand. `media_check.py` fails a parody with no fictional name or with a real one. |
@@ -115,7 +115,7 @@ direction is a media miss the judge scores under `capture_direction`.
 | `safety_checks` | All three true or the brief fails: tools refuse real faces and logos, and a lookalike is worse than a refusal. |
 | `alt_text` | Carries the point alone (§5). One or two plain sentences; LinkedIn 120 chars, X 1,000 (`platforms.<p>.alt_text_max`). Never the caption restated. |
 | `factual_claims_in_visual` | Any number, label or comparison a chart or infographic asserts, each traceable to the caption, the brief facts or persona. The judge fails an unlisted number. |
-| `risk_notes` | What may go wrong in rendering and what Deep should check (spelling, a hand, a logo that crept in). |
+| `risk_notes` | What may go wrong in rendering and what the user should check (spelling, a hand, a logo that crept in). |
 
 ## 5. The delete test
 Remove the media and read the post again. If the post still lands, the decision is `none`, whatever the corpus
@@ -133,7 +133,7 @@ if it cannot be written, there is no image.
   duration.
 - **M3 LinkedIn.** Image is the default lift (about 1.2x reach, 1.33x engagement, portrait over landscape) but
   only in genres a reader stops for: whiteboard or infographic explainer, fake-document or parody-UI punchline,
-  meme, comic panels, a real photo of Deep, a real screenshot. Generic illustration, 3D robots, gradients and
+  meme, comic panels, a real photo of the user, a real screenshot. Generic illustration, 3D robots, gradients and
   handshakes are the slop LinkedIn says it detects: `none`.
 - **M4 text-only wins** when the rhythm is the hook (story, one-liner, hot take), when the visual would restate
   the caption, when on-image text would pass about 12 words (it will render wrong and read as a slide), or when
@@ -142,15 +142,15 @@ if it cannot be written, there is no image.
   be justified; below 20%, `image` must be. Keeps the decision corpus-relative rather than a taste call.
 - **M6 real product output is never faked.** Claude Code, Cursor, dashboards, bank screens, chat transcripts:
   `real_capture_direction` with what to open, type, crop and redact. A parody UI names a fictional product and
-  carries no real logo. A faked real screenshot is a Community Note, a lost audience and a lie in Deep's name;
+  carries no real logo. A faked real screenshot is a Community Note, a lost audience and a lie in the user's name;
   `media_check.py` rejects it outright.
 - **M7 carousel.** Documents lead LinkedIn on median engagement (about 21.8%) and saves, but a PDF is out of
-  scope; flag `carousel_suggested: true` with a five-slide outline so Deep can decide.
+  scope; flag `carousel_suggested: true` with a five-slide outline so the user can decide.
 
 ## 7. Genres (`style/taxonomies/media_roles.md`)
 `meme` · `fake_document` · `parody_ui` (fictional product named in `fictional_product`, no real logo) · `whiteboard_explainer` ·
 `diagram_chart` · `photoreal_scene` · `product_mock` (a fictional product, obviously so) · `comic_panels` ·
-`user_photo_direction` (Deep captures it) · `real_capture_direction` (Deep captures it).
+`user_photo_direction` (the user captures it) · `real_capture_direction` (the user captures it).
 `fake_screenshot` is not a brief genre: of a real product it is rejected by `media_check.py` (M6); of a fictional
 one it is `parody_ui`.
 
@@ -182,6 +182,6 @@ one it is `parody_ui`.
   on screen`, `on-screen text`, `onscreen text`, `title card`, `subtitle` in a Veo or Runway prompt fails as an
   on-screen text request, so none of them may appear in a video prompt in any sense.
 - `alt_text` over the platform cap fails; a missing one warns (the judge needs it).
-- A known real person's name in the brief content or a prompt fails; a brand other than Deep's own warns in a
+- A known real person's name in the brief content or a prompt fails; a brand other than the user's own warns in a
   prompt and fails inside a parody; `real_capture_direction` fields are exempt.
 Output `{"ok", "fails": [...], "warnings": [...]}`; the director fixes only what is cited.

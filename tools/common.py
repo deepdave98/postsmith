@@ -98,8 +98,16 @@ def load_patterns() -> dict:
     return load_yaml(rubric_dir() / "patterns.yaml")
 
 
+def lexicon_path(root: Path | None = None) -> Path:
+    """style/lexicon.yaml when it exists (learned from the corpus, local), else the tracked style/lexicon.base.yaml
+    (the research tiers only), so a fresh clone runs the same checks before /ingest has learned anything."""
+    r = root or ROOT
+    p = r / "style" / "lexicon.yaml"
+    return p if p.exists() else r / "style" / "lexicon.base.yaml"
+
+
 def load_lexicon() -> dict:
-    p = ROOT / "style" / "lexicon.yaml"
+    p = lexicon_path()
     return load_yaml(p) if p.exists() else {"lexicon_version": 0, "tiers": {}, "do_not_reuse": {}, "user_tells": []}
 
 

@@ -1,6 +1,6 @@
 ---
 name: media
-description: Builds or rebuilds the media brief and paste-ready image or video prompts (GPT Image, Nano Banana, Veo 3.1, Runway Gen-4.5) for one finalist variant of a /post run; decides none, image, video or a real-capture direction by rules M1-M7, checks the result with media_check.py and a fresh-context media-judge, and updates the variant under final/. Use when Deep says "media for", "make an image for", "redo the media on", "give me a Veo prompt for", "try nano banana on", "no media on", or wants a screenshot direction for a draft.
+description: Builds or rebuilds the media brief and paste-ready image or video prompts (GPT Image, Nano Banana, Veo 3.1, Runway Gen-4.5) for one finalist variant of a /post run; decides none, image, video or a real-capture direction by rules M1-M7, checks the result with media_check.py and a fresh-context media-judge, and updates the variant under final/. Use when the user says "media for", "make an image for", "redo the media on", "give me a Veo prompt for", "try nano banana on", "no media on", or wants a screenshot direction for a draft.
 argument-hint: "<draft-id> <li|x> [--tool gpt_image|nano_banana|veo|runway] [--genre <id>] [--none]"
 disable-model-invocation: true
 allowed-tools: Read Write Agent Bash(uv run *)
@@ -18,7 +18,7 @@ Project state (versions, health, corpus counts, nags):
 
 ## What this is for
 One finalist variant gets a media brief at `drafts/<run>/media/<cid>.brief.yaml` and, when the decision is image or
-video, a primary and a fallback prompt Deep pastes into the tool himself, at
+video, a primary and a fallback prompt the user pastes into the tool themselves, at
 `drafts/<run>/media/<cid>.prompts/<tool>.md`. Nothing is rendered here and nothing is posted. `/post` runs the same
 two agents on its top finalists; `/media` exists to redo one variant after a `media_miss` rating, to force a tool or
 a genre, or to switch a variant to text-only.
@@ -28,12 +28,12 @@ On LinkedIn a single portrait image lifts reach about 1.2x and engagement about 
 the joke, the proof or an explainer; generic AI illustration is what readers flag as slop and what LinkedIn says it
 detects. On X, text beats every media format on median engagement, so an image has to earn its place as evidence or
 punchline. A faked screenshot of a real product is a Community Note waiting to happen and a breach of trust with
-Deep's own audience. So `none` is a frequent and legitimate answer, every decision must cite a rule, and the judge
+the user's own audience. So `none` is a frequent and legitimate answer, every decision must cite a rule, and the judge
 that checks the brief never sees the director's reasoning.
 
 ## Resolve the variant
 `uv run tools/draft_id.py <draft-id> <li|x> --json` resolves the fuzzy id to `{run, cid, platform, path}`, where
-`path` is the variant file under `drafts/<run>/final/`; on `ok: false` with `candidates`, ask Deep which one and
+`path` is the variant file under `drafts/<run>/final/`; on `ok: false` with `candidates`, ask the user which one and
 rerun. That variant file's front matter carries `round` and `scores_path`, so the candidate lives at
 `drafts/<run>/round<k>/candidates/<cid>.{md,txt}` and its `candidate_sha` is in
 `drafts/<run>/round<k>/scores/<cid>.tier0.json`. Collect what the director needs and nothing else:
@@ -45,7 +45,7 @@ rerun. That variant file's front matter carries `round` and `scores_path`, so th
   `split: train`, then `corpus/media/<post_id>/preview_*.jpg`, one per post. Train only, because heldout posts stay
   unseen by anything that shapes output. Lens-free variant: one preview each from up to five train authors, so the
   M5 corpus prior is corpus-wide;
-- media lines from `memory/lessons.md`, if any (Deep's `media_miss` and `media_great` tags, distilled).
+- media lines from `memory/lessons.md`, if any (the user's `media_miss` and `media_great` tags, distilled).
 
 ## The loop: `run_next.py --media` drives it
 Before the first call, copy the previous brief's `decision`, `decision_reason` and media result (from
@@ -60,7 +60,7 @@ stale so the report is rebuilt afterwards. Execute every action it emits, as giv
    media habits, the lens profile, the train preview images, the media lessons), any override (`--tool`,
    `--genre`, `--none`) and the reference files under `.claude/skills/media/references/`. It writes the brief and
    the prompts and replies with paths. Pass no judge output, no ratings and no verdict from an earlier brief: the
-   director is tuned by Deep's lessons, not by the judge, for the same reason writers never see the rubric.
+   director is tuned by the user's lessons, not by the judge, for the same reason writers never see the rubric.
 2. The `media_check.py` tool action (`uv run tools/media_check.py drafts/<run>/media/<cid>.brief.yaml --prompts
    drafts/<run>/media/<cid>.prompts --json`, its JSON at `drafts/<run>/media/<cid>.media-check.json`). On `fails`,
    hand the list back to the same director once (resume it by name, or give a fresh `media-director` the brief
@@ -93,7 +93,7 @@ is no longer fresh, and its verbatim evidence could not be matched back to the f
 - M2 X: image only when the image is the joke or the proof; video only if native with the hook in the first
   second. No minimum duration.
 - M3 LinkedIn: image is the default lift only in these genres: whiteboard or infographic explainer, fake-document
-  or parody-UI punchline, meme, comic panels, a real photo of Deep (`user_photo_direction`), a real screenshot
+  or parody-UI punchline, meme, comic panels, a real photo of the user (`user_photo_direction`), a real screenshot
   (`real_capture_direction`). Generic illustration, 3D robots, gradients: `none`.
 - M4 text-only wins when the rhythm is the hook, when the visual would restate the caption, when on-image text
   would pass about 12 words, or when the concept needs a real face or a real logo (no tool renders either).
@@ -102,7 +102,7 @@ is no longer fresh, and its verbatim evidence could not be matched back to the f
 - M6 real product output is never faked. Claude Code, Cursor, dashboards, bank screens: `real_capture_direction`
   with exact instructions. Parody UIs must be obviously fictional.
 - M7 a carousel or PDF outranks everything on LinkedIn but is out of scope: `carousel_suggested: true` with a
-  five-slide outline Deep can build by hand.
+  five-slide outline the user can build by hand.
 The rules with their reasons, and the brief field by field, are in `references/brief_schema.md`.
 
 ## Flags
@@ -126,7 +126,7 @@ In the terminal, in this order:
 1. `decision` and `decision_reason` from the brief, then `media_check`'s `ok`, `fails` and `warnings`.
 2. Each judge sub-result with its quoted evidence, exactly as `media/<cid>.media-judge.json` has it (or "media:
    na, decision none").
-3. The primary prompt in a fenced block headed "paste into <tool>", then the settings Deep sets in the app (from
+3. The primary prompt in a fenced block headed "paste into <tool>", then the settings the user sets in the app (from
    the brief: aspect ratio, pixels, resolution tier, duration, model pick named in `tool.reason`), the alt text to
    enter on upload, and the fallback prompt's path. For `real_capture_direction`: the capture steps as a numbered
    list instead of a prompt.

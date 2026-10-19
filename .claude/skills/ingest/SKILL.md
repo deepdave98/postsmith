@@ -3,7 +3,7 @@ name: ingest
 description: >-
   Ingests reference posts from a CSV, Google Sheet, Markdown or JSON file (plus local media) into the corpus and
   runs the learn phase (stylometry, annotation cards, fresh-context card verification, author profiles, moves,
-  deterministic health, a rating offer). Use when Deep says "ingest", "add these posts", "load the sheet",
+  deterministic health, a rating offer). Use when the user says "ingest", "add these posts", "load the sheet",
   "import the references", "add my own posts" or "ingest --self", or has dropped files into corpus/inbox/.
 argument-hint: "[path | sheet name/url | --self] [--author X] [--platform linkedin|x]"
 disable-model-invocation: true
@@ -31,11 +31,11 @@ must survive a checker that has seen only the post.
 Tools run from the project root as `uv run tools/<name>.py ... --json`. Read the JSON they print; if `ok` is false,
 stop and show the error rather than working around it. Formats, header synonyms and the Sheet requirements are in
 `.claude/skills/ingest/references/formats.md`; the card format and annotator bar are in
-`.claude/skills/learn/references/card_spec.md`. Point Deep at formats.md when a source cannot be mapped.
+`.claude/skills/learn/references/card_spec.md`. Point the user at formats.md when a source cannot be mapped.
 
 ## Stage 1: normalize (one row shape, so nothing downstream cares about CSV quirks)
 - No argument: every file directly under `corpus/inbox/` (never `done/`, never `media/`). A path: that file. `--self`:
-  Deep's own writing, routed to `corpus/self/` with author slug `self` (pass `--self` to normalize and commit both).
+  The user's own writing, routed to `corpus/self/` with author slug `self` (pass `--self` to normalize and commit both).
   `--author` and `--platform` pass through to the tool.
 - A Google Sheet name or a `docs.google.com` URL: ask once for the tab's "File > Share > Publish to web > CSV"
   URL and fetch it with `curl -L -o corpus/inbox/gsheet_<id>_<date>.csv` (`<id>` is the file id between
@@ -139,11 +139,11 @@ profile and lexicon. Report green or the failing section by name. New heldout po
 lineup control (judge scope) before they join the filler pool; that is `/eval health`, so print the reminder with
 the ids when any heldout post is new.
 
-## Stage 5: confirm with Deep (a misread card would propagate into moves and profiles)
+## Stage 5: confirm with the user (a misread card would propagate into moves and profiles)
 From the annotator replies, show one line per new post: `post_id | archetype | thesis`. Then one question for the
 batch, not one per post: which ids are wrong, with a one-line correction each, or "all good". A "no" sends the
 card back to a fresh `post-annotator`: `uv run tools/card_prompts.py build --post <id> --kind annotate --json`
-again, then the pair with Deep's correction verbatim under it; the rewritten card is linted and verified again.
+again, then the pair with the user's correction verbatim under it; the rewritten card is linted and verified again.
 Never rewrite a card yourself; the correction must be applied by an agent that re-reads the post.
 
 When the last card is settled, archive the learn prompt files: `uv run tools/card_prompts.py archive --json` moves
@@ -160,7 +160,7 @@ warnings (unmapped columns, refused URLs, prompt files an agent could not comple
 Counts come from tool JSON and agent replies, not from memory.
 
 ## Boundaries
-- Never scrape or fetch a LinkedIn or X page; the corpus is what Deep supplies.
+- Never scrape or fetch a LinkedIn or X page; the corpus is what the user supplies.
 - Never edit text under `corpus/`, never move files there by hand (the tools own the manifest and inbox), never
   create a post file yourself.
 - Never read `corpus/heldout/**`, `corpus/ratings.jsonl` or `evals/calibration.jsonl`; the scripts read them for

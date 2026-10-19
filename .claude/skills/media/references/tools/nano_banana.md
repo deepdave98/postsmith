@@ -21,7 +21,7 @@ guarantee, knowledge cutoff January 2025 without grounding.
 or when a fact must be grounded. **Nano Banana 2** for everything else: it is faster and the default in the app.
 Never Lite for a post image.
 
-## Settings Deep sets in the app
+## Settings the user sets in the app
 Gemini app: switch the model to Pro when the rule says so; state the ratio and resolution in the prompt itself
 ("4:5 portrait, 2K"), which is Google's own tip, because the app has no ratio control; download at 2K (paid
 plan). AI Studio when an explicit aspect ratio and resolution control matters. 2K minimum whenever the image
@@ -70,4 +70,4 @@ Keep the fridge clean of any brand marks; the only legible words are the ones ab
 ## Self-check before returning (mirrors `media_check.py`)
 Every `on_image_text.lines` entry appears verbatim in quotes · at most five text elements · `resolution_tier`
 2K or 4K when text is present · the prompt contains none of the negation words · aspect ratio matches the brief
-and the platform · no real person's name, no brand other than Deep's own · `tool.reason` names Pro or 2.
+and the platform · no real person's name, no brand other than the user's own · `tool.reason` names Pro or 2.

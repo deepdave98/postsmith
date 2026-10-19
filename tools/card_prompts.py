@@ -7,7 +7,7 @@
 
 Heldout posts live under a path every agent is denied, so the annotator and the verifier never open a post file:
 they receive one prompt file under drafts/learn_<date>/prompts/ that carries everything they may know. Options:
---date YYYY-MM-DD names the learn directory (default: today); --correction "text" inlines Deep's one-line
+--date YYYY-MM-DD names the learn directory (default: today); --correction "text" inlines the user's one-line
 correction into an annotate prompt (an existing verifier review with objections is inlined automatically).
 
 <id>.annotate.md: a one-line role reminder, the output path (corpus/cards/<id>.md or corpus/heldout/cards/<id>.md),
@@ -274,7 +274,7 @@ def annotate_prompt(root: Path, post_id: str, split: str, meta: dict, body: str,
                       "<verifier_objections>", escape("\n".join(_objection_rows(review))), "</verifier_objections>",
                       ""])
     if correction:
-        lines.extend([("## Correction from Deep (he has read the post as its audience; apply it as stated, and if "
+        lines.extend([("## Correction from the user (they have read the post as its audience; apply it as stated, and if "
                        "it conflicts with the text keep his thesis and note the tension in the card body)"),
                       "<deep_correction>", escape(correction.strip()), "</deep_correction>", ""])
     lines.extend([f"Finish: run `uv run tools/card_lint.py --post {post_id} --json` and fix what it reports.",
@@ -427,7 +427,7 @@ def main(argv: list[str] | None = None) -> int:
                    help="annotate: every post without a card; verify: every card without a review")
     b.add_argument("--kind", default="annotate", choices=KINDS, help="prompt kind (default annotate)")
     b.add_argument("--date", default=None, help="learn directory date YYYY-MM-DD (default today)")
-    b.add_argument("--correction", default=None, help="Deep's one-line correction to inline (annotate)")
+    b.add_argument("--correction", default=None, help="the user's one-line correction to inline (annotate)")
     b.add_argument("--root", default=None, help="project root (default: this project)")
     b.add_argument("--json", action="store_true", help="JSON output (always JSON)")
     ar = sub.add_parser("archive", help="move a learn directory's prompts to its archive/")
